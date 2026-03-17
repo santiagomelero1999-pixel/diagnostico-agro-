@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diagnóstico de Madurez Organizacional — Fernando Preumayr</title>
+    <title>Diagnóstico de Madurez Organizacional — Juan Daraio &amp; Fernando Preumayr</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
     <style>
@@ -941,6 +941,22 @@
 <!-- ================================================================
      HERO
 ================================================================ -->
+<section id="lock" style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100vh; background:var(--dark);">
+  <div style="text-align:center; max-width:360px; padding:40px;">
+    <div style="color:var(--accent); font-size:.75rem; letter-spacing:3px; text-transform:uppercase; margin-bottom:24px;">Diagnóstico Organizacional</div>
+    <h2 style="color:#fff; font-size:1.4rem; font-weight:600; margin-bottom:32px;">Ingresá la clave de acceso</h2>
+    <input id="lock-input" type="password" placeholder="Clave"
+      style="width:100%; padding:14px 18px; border:1px solid rgba(255,255,255,.2); background:rgba(255,255,255,.07); color:#fff; border-radius:var(--radius); font-size:1rem; outline:none; margin-bottom:12px; box-sizing:border-box;"
+      onkeydown="if(event.key==='Enter') checkLock()">
+    <div id="lock-error" style="color:#e57373; font-size:.8rem; margin-bottom:12px; min-height:18px;"></div>
+    <button onclick="checkLock()"
+      style="width:100%; background:var(--accent); color:#fff; border:none; padding:14px; border-radius:var(--radius); font-size:.95rem; font-weight:600; cursor:pointer; letter-spacing:.5px;">
+      Ingresar
+    </button>
+    <div style="margin-top:32px; color:rgba(255,255,255,.25); font-size:.65rem; letter-spacing:1px;">Juan Daraio &amp; Fernando Preumayr</div>
+  </div>
+</section>
+
 <section id="home">
     <!-- Slides — imágenes del agro argentino -->
     <div class="slide active"  style="background-image:url('https://images.unsplash.com/photo-1625246333195-78d9c38ad449?q=90&w=1920')"></div>
@@ -960,7 +976,8 @@
             <button class="btn-hero" style="background:transparent; border:1.5px solid rgba(255,255,255,.35); box-shadow:none; padding:17px 36px; font-weight:600;" onclick="document.getElementById('purpose').scrollIntoView({behavior:'smooth'})">¿Cómo? ↓</button>
         </div>
         <div style="margin-top:28px; opacity:0; animation: fadeUp .8s 1s ease forwards;">
-            <span class="hero-credits">Fernando Preumayr &amp; Santiago Melero</span>
+            <span class="hero-credits">Juan Daraio &amp; Fernando Preumayr</span>
+            <span class="hero-credits" style="font-size:.6rem; opacity:.5; display:block; margin-top:4px;">Colaboración web: Santiago Melero</span>
         </div>
     </div>
 
@@ -1336,9 +1353,10 @@
      FOOTER
 ================================================================ -->
 <footer class="footer">
-    <div>© 2025 · Fernando Preumayr &amp; Santiago Melero — Diagnóstico de Madurez Organizacional Agroindustrial</div>
+    <div>© 2025 · Juan Daraio &amp; Fernando Preumayr — Diagnóstico de Madurez Organizacional Agroindustrial</div>
     <div class="footer-sep"></div>
     <div>Universidad Austral · Maestría en Organizaciones Centradas en las Personas</div>
+    <div style="margin-top:6px; font-size:.65rem; opacity:.5;">Colaboración web: Santiago Melero</div>
     <div style="margin-top:10px;"><a onclick="navTo('admin')" title="Administración">●</a></div>
 </footer>
 
@@ -1542,8 +1560,25 @@ function goHome() {
     if (history.replaceState) history.replaceState(null, '', '#home');
 }
 
+function checkLock() {
+    const val = document.getElementById('lock-input').value;
+    if (val === 'fernando1234') {
+        sessionStorage.setItem('unlocked', '1');
+        navTo('home');
+    } else {
+        document.getElementById('lock-error').textContent = 'Clave incorrecta. Intentá de nuevo.';
+        document.getElementById('lock-input').value = '';
+        document.getElementById('lock-input').focus();
+    }
+}
+
 window.addEventListener('DOMContentLoaded', () => {
-    if (window.location.hash === '#admin') navTo('admin');
+    if (window.location.hash === '#admin') { navTo('admin'); return; }
+    if (sessionStorage.getItem('unlocked') === '1') {
+        navTo('home');
+    } else {
+        navTo('lock');
+    }
 });
 
 /* ----------------------------------------------------------------
