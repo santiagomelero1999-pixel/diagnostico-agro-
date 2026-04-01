@@ -1560,6 +1560,10 @@ function checkLock() {
     if (val === 'fernando1234') {
         sessionStorage.setItem('unlocked', '1');
         navTo('reg');
+    } else if (val === 'admin1234') {
+        sessionStorage.setItem('adminUnlocked', '1');
+        navTo('admin');
+        openAdminDash();
     } else {
         document.getElementById('lock-error').textContent = 'Clave incorrecta. Intentá de nuevo.';
         document.getElementById('lock-input').value = '';
@@ -1569,6 +1573,9 @@ function checkLock() {
 
 window.addEventListener('DOMContentLoaded', () => {
     if (window.location.hash === '#admin') { navTo('admin'); return; }
+    if (sessionStorage.getItem('adminUnlocked') === '1') {
+        navTo('admin'); openAdminDash(); return;
+    }
     if (sessionStorage.getItem('unlocked') === '1') {
         navTo('reg');
     } else {
@@ -1814,12 +1821,15 @@ function saveReport(total, etapaKey) {
 /* ----------------------------------------------------------------
    ADMIN
 ---------------------------------------------------------------- */
+function openAdminDash() {
+    document.getElementById('admin-login-card').style.display = 'none';
+    document.getElementById('admin-dash').style.display       = 'block';
+    renderTable();
+}
 function adminLogin() {
     if (document.getElementById('admin-pwd').value === '1234') {
-        document.getElementById('admin-login-card').style.display = 'none';
-        document.getElementById('admin-dash').style.display       = 'block';
-        document.getElementById('admin-err').style.display        = 'none';
-        renderTable();
+        document.getElementById('admin-err').style.display = 'none';
+        openAdminDash();
     } else {
         document.getElementById('admin-err').style.display = 'block';
         document.getElementById('admin-pwd').value = '';
@@ -1829,6 +1839,8 @@ function adminLogout() {
     document.getElementById('admin-dash').style.display       = 'none';
     document.getElementById('admin-login-card').style.display = 'block';
     document.getElementById('admin-pwd').value = '';
+    sessionStorage.removeItem('adminUnlocked');
+    navTo('lock');
 }
 
 function renderTable() {
