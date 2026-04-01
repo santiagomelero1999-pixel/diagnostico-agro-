@@ -927,7 +927,7 @@
 <!-- ================================================================
      NAVBAR
 ================================================================ -->
-<nav class="navbar" id="nav">
+<nav class="navbar" id="nav" style="display:none">
     <a class="nav-logo" onclick="goHome()">
         <div class="nav-logo-mark">DA</div>
         <div class="nav-logo-text">
@@ -957,7 +957,7 @@
   </div>
 </section>
 
-<section id="home">
+<section id="home" style="display:none">
     <!-- Slides — imágenes del agro argentino -->
     <div class="slide active"  style="background-image:url('https://images.unsplash.com/photo-1625246333195-78d9c38ad449?q=90&w=1920')"></div>
     <div class="slide"        style="background-image:url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=90&w=1920')"></div>
@@ -992,7 +992,7 @@
 <!-- ================================================================
      PURPOSE BAND (cream, always visible on home)
 ================================================================ -->
-<div class="purpose-band" id="purpose">
+<div class="purpose-band" id="purpose" style="display:none">
     <div class="pb-inner">
 
         <div class="pb-top">
@@ -1054,7 +1054,7 @@
 <!-- ================================================================
      THEORY STRIP (scroll section, always visible on home)
 ================================================================ -->
-<div class="theory-strip" id="theory">
+<div class="theory-strip" id="theory" style="display:none">
     <div class="ts-inner">
 
         <div class="ts-head">
@@ -1280,7 +1280,7 @@
                 <div class="gap-grid" id="gap-grid"></div>
 
                 <!-- Próximos pasos -->
-                <div class="next-steps" id="next-steps-box">
+                <div class="next-steps" id="next-steps-box" style="display:none">
                     <h4>Próximos Pasos Sugeridos</h4>
                     <ul id="next-steps-list"></ul>
                 </div>
@@ -1540,11 +1540,6 @@ function navTo(id) {
     if (!el) return;
     el.style.display = 'flex';
     el.classList.add('active');
-    // Purpose band + theory strip: only visible on home
-    const ts = document.getElementById('theory');
-    if (ts) ts.classList.toggle('hidden', id !== 'home');
-    const pb = document.getElementById('purpose');
-    if (pb) pb.classList.toggle('hidden', id !== 'home');
     window.scrollTo(0, 0);
     if (history.replaceState) history.replaceState(null, '', '#' + id);
 }
@@ -1564,7 +1559,7 @@ function checkLock() {
     const val = document.getElementById('lock-input').value;
     if (val === 'fernando1234') {
         sessionStorage.setItem('unlocked', '1');
-        navTo('home');
+        navTo('reg');
     } else {
         document.getElementById('lock-error').textContent = 'Clave incorrecta. Intentá de nuevo.';
         document.getElementById('lock-input').value = '';
@@ -1575,7 +1570,7 @@ function checkLock() {
 window.addEventListener('DOMContentLoaded', () => {
     if (window.location.hash === '#admin') { navTo('admin'); return; }
     if (sessionStorage.getItem('unlocked') === '1') {
-        navTo('home');
+        navTo('reg');
     } else {
         navTo('lock');
     }
