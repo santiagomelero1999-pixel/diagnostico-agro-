@@ -1223,12 +1223,16 @@
             <label>Actividad Principal</label>
             <select class="fi" id="sector">
                 <option value="">Seleccionar actividad…</option>
-                <option>Producción Primaria (agricultura/ganadería)</option>
-                <option>AgTech / Servicios Digitales</option>
-                <option>Contratista Rural</option>
-                <option>Acopio y Logística</option>
-                <option>Empresa Familiar Agropecuaria</option>
-                <option>Consultoría / Asesoramiento</option>
+                <option>Agricultura extensiva (granos / cultivos)</option>
+                <option>Ganadería (bovinos, ovinos, caprinos)</option>
+                <option>Producción mixta (agrícola-ganadera)</option>
+                <option>Tambo / Lechería</option>
+                <option>Horticultura, fruticultura o producciones intensivas</option>
+                <option>Acopio, logística y comercialización</option>
+                <option>Proveedor de insumos y tecnología agropecuaria</option>
+                <option>Contratista rural (servicios de maquinaria)</option>
+                <option>Consultoría y asesoramiento agropecuario</option>
+                <option>Administración / gestión de empresa agropecuaria</option>
                 <option>Otro</option>
             </select>
         </div>
@@ -1331,38 +1335,23 @@
         <div class="profile-section-title">Sobre la organización</div>
 
         <div class="field">
-            <label>Cantidad de personas en la organización (incluyéndote)</label>
-            <div class="opt-btns" id="opt-tamano">
-                <button class="opt-btn" onclick="selectOpt('tamano','Solo yo',this)">Solo yo</button>
-                <button class="opt-btn" onclick="selectOpt('tamano','2–5',this)">2 – 5</button>
-                <button class="opt-btn" onclick="selectOpt('tamano','6–15',this)">6 – 15</button>
-                <button class="opt-btn" onclick="selectOpt('tamano','16–50',this)">16 – 50</button>
-                <button class="opt-btn" onclick="selectOpt('tamano','Más de 50',this)">Más de 50</button>
+            <label>Antigüedad de la empresa</label>
+            <div class="opt-btns" id="opt-antiguedad">
+                <button class="opt-btn" onclick="selectOpt('antiguedad','Menos de 5 años',this)">Menos de 5 años</button>
+                <button class="opt-btn" onclick="selectOpt('antiguedad','5–15 años',this)">5 – 15 años</button>
+                <button class="opt-btn" onclick="selectOpt('antiguedad','16–30 años',this)">16 – 30 años</button>
+                <button class="opt-btn" onclick="selectOpt('antiguedad','Más de 30 años',this)">Más de 30 años</button>
             </div>
         </div>
 
         <div class="field">
-            <label>Forma jurídica de la empresa <span style="font-weight:400;color:var(--gray)">(opcional)</span></label>
-            <select class="fi" id="p-juridica">
-                <option value="">Seleccionar…</option>
-                <option>Monotributista / Unipersonal</option>
-                <option>SRL</option>
-                <option>SA</option>
-                <option>Cooperativa</option>
-                <option>Otro</option>
-                <option>No aplica</option>
-            </select>
-        </div>
-
-        <div class="field">
-            <label>¿Participás en alguna organización del sector? <span style="font-weight:400;color:var(--gray)">(podés marcar más de una)</span></label>
-            <div class="check-group">
-                <label class="chk-item"><input type="checkbox" class="chk-vinculo" value="Grupos CREA" onchange="handleVinculo(this)"> Grupos CREA</label>
-                <label class="chk-item"><input type="checkbox" class="chk-vinculo" value="AAPRESID" onchange="handleVinculo(this)"> AAPRESID</label>
-                <label class="chk-item"><input type="checkbox" class="chk-vinculo" value="Sociedad Rural" onchange="handleVinculo(this)"> Sociedad Rural</label>
-                <label class="chk-item"><input type="checkbox" class="chk-vinculo" value="Federación Agraria" onchange="handleVinculo(this)"> Federación Agraria</label>
-                <label class="chk-item"><input type="checkbox" class="chk-vinculo" value="Otra organización" onchange="handleVinculo(this)"> Otra organización</label>
-                <label class="chk-item"><input type="checkbox" class="chk-vinculo" value="Ninguna" id="chk-ninguno" onchange="handleVinculo(this)"> Ninguna</label>
+            <label>¿Participás en alguna organización o agrupación del sector?</label>
+            <p style="font-size:.78rem;color:var(--gray);margin:-6px 0 10px;line-height:1.5;">
+                Ej: CREA, AAPRESID, Sociedad Rural, Federación Agraria, cooperativas, cámaras, etc.
+            </p>
+            <div class="opt-btns" id="opt-vinculo">
+                <button class="opt-btn" onclick="selectOpt('vinculo','Sí',this)">Sí</button>
+                <button class="opt-btn" onclick="selectOpt('vinculo','No',this)">No</button>
             </div>
         </div>
 
@@ -1628,7 +1617,7 @@
                         <canvas id="chart-region" height="200"></canvas>
                     </div>
                     <div class="res-chart-card">
-                        <div class="res-chart-title">Por tamaño de organización</div>
+                        <div class="res-chart-title">Por antigüedad de la empresa</div>
                         <canvas id="chart-tamano" height="200"></canvas>
                     </div>
                 </div>
@@ -1640,10 +1629,10 @@
                     <select id="cross-var" onchange="renderCrossChart(this.value)"
                             style="padding:8px 14px;font-family:inherit;font-size:.82rem;border:1px solid var(--border);color:var(--mid);background:#fff;cursor:pointer;">
                         <option value="region">Región geográfica</option>
-                        <option value="tamano">Tamaño de organización</option>
+                        <option value="antiguedad">Antigüedad de la empresa</option>
                         <option value="formacion">Formación académica</option>
                         <option value="edad">Rango etario</option>
-                        <option value="vinculo">Vínculo institucional</option>
+                        <option value="vinculo">Org. del sector (Sí/No)</option>
                         <option value="sector">Sector / Actividad</option>
                     </select>
                 </div>
@@ -1925,7 +1914,7 @@ const REGIONES = {
 /* ----------------------------------------------------------------
    PERFIL DEL ENCUESTADO
 ---------------------------------------------------------------- */
-const pSel = { edad: null, genero: null, tamano: null, sucesion: null };
+const pSel = { edad: null, genero: null, antiguedad: null, vinculo: null, sucesion: null };
 
 function selectOpt(field, val, btn) {
     pSel[field] = val;
@@ -1938,43 +1927,32 @@ function togglePais() {
     document.getElementById('p-pais-wrap').style.display = val === 'Fuera de Argentina' ? '' : 'none';
 }
 
-function handleVinculo(cb) {
-    if (cb.value === 'Ninguna' && cb.checked) {
-        document.querySelectorAll('.chk-vinculo').forEach(c => { if (c !== cb) c.checked = false; });
-    } else if (cb.value !== 'Ninguna' && cb.checked) {
-        const ninguno = document.getElementById('chk-ninguno');
-        if (ninguno) ninguno.checked = false;
-    }
-}
-
 function submitProfile() {
     const provincia = document.getElementById('p-provincia').value;
     const formacion = document.getElementById('p-formacion').value;
-    const juridica  = document.getElementById('p-juridica').value;
 
-    if (!provincia)    { alert('Por favor indicá la provincia de operación.'); return; }
-    if (!pSel.edad)    { alert('Por favor indicá tu rango de edad.'); return; }
-    if (!pSel.genero)  { alert('Por favor indicá tu género.'); return; }
-    if (!formacion)    { alert('Por favor indicá tu formación académica.'); return; }
-    if (!pSel.tamano)  { alert('Por favor indicá el tamaño de la organización.'); return; }
-    if (!pSel.sucesion){ alert('Por favor indicá la proyección sucesoria.'); return; }
+    if (!provincia)         { alert('Por favor indicá la provincia de operación.'); return; }
+    if (!pSel.edad)         { alert('Por favor indicá tu rango de edad.'); return; }
+    if (!pSel.genero)       { alert('Por favor indicá tu género.'); return; }
+    if (!formacion)         { alert('Por favor indicá tu formación académica.'); return; }
+    if (!pSel.antiguedad)   { alert('Por favor indicá la antigüedad de la empresa.'); return; }
+    if (!pSel.vinculo)      { alert('Por favor indicá si participás en alguna organización del sector.'); return; }
+    if (!pSel.sucesion)     { alert('Por favor indicá la proyección sucesoria.'); return; }
 
-    const vinculoArr = Array.from(document.querySelectorAll('.chk-vinculo:checked')).map(c => c.value);
     const pais = provincia === 'Fuera de Argentina'
         ? (document.getElementById('p-pais').value.trim() || 'No especificado')
         : 'Argentina';
 
     uData.perfil = {
         provincia,
-        region: provincia === 'Fuera de Argentina' ? 'Internacional' : (REGIONES[provincia] || 'Otra'),
+        region:     provincia === 'Fuera de Argentina' ? 'Internacional' : (REGIONES[provincia] || 'Otra'),
         pais,
-        edad:      pSel.edad,
-        genero:    pSel.genero,
+        edad:       pSel.edad,
+        genero:     pSel.genero,
         formacion,
-        tamano:    pSel.tamano,
-        vinculo:   vinculoArr.length ? vinculoArr.join(' / ') : '—',
-        sucesion:  pSel.sucesion,
-        juridica:  juridica || '—',
+        antiguedad: pSel.antiguedad,
+        vinculo:    pSel.vinculo,
+        sucesion:   pSel.sucesion,
     };
 
     document.getElementById('welcome-name').textContent = '¡Hola, ' + uData.name + '!';
@@ -1990,7 +1968,7 @@ function startSurvey() {
     const sector  = document.getElementById('sector').value;
     if (!name || !sector) { alert('Por favor completá el nombre de la empresa y la actividad.'); return; }
     uData = { name, contact, sector };
-    pSel.edad = null; pSel.genero = null; pSel.tamano = null; pSel.sucesion = null;
+    pSel.edad = null; pSel.genero = null; pSel.antiguedad = null; pSel.vinculo = null; pSel.sucesion = null;
     navTo('profile');
 }
 
@@ -2294,10 +2272,9 @@ function openView(i) {
                 <div><span style="color:var(--gray);font-size:.68rem;font-weight:700;text-transform:uppercase;">Edad</span><br><strong>${h(pf.edad||'—')}</strong></div>
                 <div><span style="color:var(--gray);font-size:.68rem;font-weight:700;text-transform:uppercase;">Género</span><br><strong>${h(pf.genero||'—')}</strong></div>
                 <div><span style="color:var(--gray);font-size:.68rem;font-weight:700;text-transform:uppercase;">Formación</span><br><strong>${h(pf.formacion||'—')}</strong></div>
-                <div><span style="color:var(--gray);font-size:.68rem;font-weight:700;text-transform:uppercase;">Tamaño org.</span><br><strong>${h(pf.tamano||'—')}</strong></div>
-                <div><span style="color:var(--gray);font-size:.68rem;font-weight:700;text-transform:uppercase;">Forma jurídica</span><br><strong>${h(pf.juridica||'—')}</strong></div>
+                <div><span style="color:var(--gray);font-size:.68rem;font-weight:700;text-transform:uppercase;">Antigüedad empresa</span><br><strong>${h(pf.antiguedad||'—')}</strong></div>
+                <div><span style="color:var(--gray);font-size:.68rem;font-weight:700;text-transform:uppercase;">Org. del sector</span><br><strong>${h(pf.vinculo||'—')}</strong></div>
                 <div><span style="color:var(--gray);font-size:.68rem;font-weight:700;text-transform:uppercase;">Sucesión familiar</span><br><strong>${h(pf.sucesion||'—')}</strong></div>
-                <div style="grid-column:1/-1;"><span style="color:var(--gray);font-size:.68rem;font-weight:700;text-transform:uppercase;">Vínculo institucional</span><br><strong>${h(pf.vinculo||'—')}</strong></div>
             </div>
         </div>` : '';
     document.getElementById('mv-body').innerHTML = `
@@ -2344,7 +2321,7 @@ function exportCSV() {
     const rep = getReports();
     if (!rep.length) { alert('No hay informes para exportar.'); return; }
     const dims = ['Enfoque','Procesos','Competencias','Proyección'];
-    let hdr = 'Fecha,Empresa,Contacto,Sector,Etapa,Puntaje,Provincia,Region,Pais,Edad,Genero,Formacion,Tamano,Forma_Juridica,Sucesion_Familiar,Vinculo_Institucional';
+    let hdr = 'Fecha,Empresa,Contacto,Sector,Etapa,Puntaje,Provincia,Region,Pais,Edad,Genero,Formacion,Antiguedad,Vinculo_Organizacion,Sucesion_Familiar';
     dims.forEach(d => hdr += `,${d} Actual,${d} Deseado`);
     const csv_s = s => `"${String(s||'—').replace(/"/g,'""')}"`;
     const rows = rep.map(r => {
@@ -2354,7 +2331,7 @@ function exportCSV() {
             r.etapa, r.score,
             csv_s(pf.provincia), csv_s(pf.region), csv_s(pf.pais),
             csv_s(pf.edad), csv_s(pf.genero), csv_s(pf.formacion),
-            csv_s(pf.tamano), csv_s(pf.juridica), csv_s(pf.sucesion), csv_s(pf.vinculo)];
+            csv_s(pf.antiguedad), csv_s(pf.vinculo), csv_s(pf.sucesion)];
         dims.forEach((_, di) => {
             row.push(r.h_vals.slice(di*4,di*4+4).reduce((a,b)=>a+b,0));
             row.push(r.p_vals.slice(di*4,di*4+4).reduce((a,b)=>a+b,0));
@@ -2513,8 +2490,8 @@ function renderResearchDash() {
             }
         });
     }
-    profileBar('region',  'chart-region',  ['Pampa Húmeda','NOA','NEA','Cuyo','Patagonia','Internacional','Sin dato']);
-    profileBar('tamano',  'chart-tamano',  ['Solo yo','2–5','6–15','16–50','Más de 50','Sin dato']);
+    profileBar('region',     'chart-region',  ['Pampa Húmeda','NOA','NEA','Cuyo','Patagonia','Internacional','Sin dato']);
+    profileBar('antiguedad', 'chart-tamano',  ['Menos de 5 años','5–15 años','16–30 años','Más de 30 años','Sin dato']);
 
     // ── Cross-analysis (default: region) ─────────────────────────
     renderCrossChart(document.getElementById('cross-var').value || 'region');
