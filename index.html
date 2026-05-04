@@ -1306,6 +1306,19 @@
             <input class="fi" type="text" id="p-pais" placeholder="Ej: Uruguay, Chile, Brasil…">
         </div>
 
+        <!-- Rol -->
+        <div class="profile-section-title">Tu rol en la empresa</div>
+
+        <div class="field">
+            <label>¿Cuál es tu rol?</label>
+            <div class="opt-btns" id="opt-rol">
+                <button class="opt-btn" onclick="selectOpt('rol','Dueño / Socio',this);toggleProxy()">Dueño / Socio</button>
+                <button class="opt-btn" onclick="selectOpt('rol','Director / Gerente General',this);toggleProxy()">Director / Gerente General</button>
+                <button class="opt-btn" onclick="selectOpt('rol','Gerente de área',this);toggleProxy()">Gerente de área</button>
+                <button class="opt-btn" onclick="selectOpt('rol','Empleado / Colaborador',this);toggleProxy()">Empleado / Colaborador</button>
+            </div>
+        </div>
+
         <!-- Datos personales -->
         <div class="profile-section-title">Datos personales</div>
 
@@ -1343,6 +1356,16 @@
         <div class="profile-section-title">Sobre la organización</div>
 
         <div class="field">
+            <label>Generación familiar al frente de la empresa</label>
+            <div class="opt-btns" id="opt-generacion">
+                <button class="opt-btn" onclick="selectOpt('generacion','1ra generación (fundador)',this)">1ra generación</button>
+                <button class="opt-btn" onclick="selectOpt('generacion','2da generación',this)">2da generación</button>
+                <button class="opt-btn" onclick="selectOpt('generacion','3ra generación o más',this)">3ra o más</button>
+                <button class="opt-btn" onclick="selectOpt('generacion','No es empresa familiar',this)">No es familiar</button>
+            </div>
+        </div>
+
+        <div class="field">
             <label>Antigüedad de la empresa</label>
             <div class="opt-btns" id="opt-antiguedad">
                 <button class="opt-btn" onclick="selectOpt('antiguedad','Menos de 5 años',this)">Menos de 5 años</button>
@@ -1377,6 +1400,30 @@
                 <button class="opt-btn" onclick="selectOpt('sucesion','Sí',this)">Sí</button>
                 <button class="opt-btn" onclick="selectOpt('sucesion','No',this)">No</button>
                 <button class="opt-btn" onclick="selectOpt('sucesion','No aplica',this)">No aplica</button>
+            </div>
+        </div>
+
+        <!-- Proxy dueño (solo si no es Dueño/Socio) -->
+        <div id="proxy-dueno" style="display:none;">
+            <div class="profile-section-title" style="color:#C8970A; border-color:#C8970A33;">Sobre el dueño / fundador</div>
+            <p class="profile-note" style="margin-bottom:16px;">
+                Como no sos el dueño, estas preguntas nos ayudan a completar el perfil de la empresa desde tu perspectiva.
+            </p>
+            <div class="field">
+                <label>Rango de edad del dueño o fundador principal</label>
+                <div class="opt-btns" id="opt-dueno-edad">
+                    <button class="opt-btn" onclick="selectOpt('duenoEdad','Menos de 30',this)">Menos de 30</button>
+                    <button class="opt-btn" onclick="selectOpt('duenoEdad','30–45',this)">30 – 45</button>
+                    <button class="opt-btn" onclick="selectOpt('duenoEdad','46–60',this)">46 – 60</button>
+                    <button class="opt-btn" onclick="selectOpt('duenoEdad','Más de 60',this)">Más de 60</button>
+                </div>
+            </div>
+            <div class="field">
+                <label>¿El dueño participa activamente en la operación diaria?</label>
+                <div class="opt-btns" id="opt-dueno-activo">
+                    <button class="opt-btn" onclick="selectOpt('duenoActivo','Sí',this)">Sí</button>
+                    <button class="opt-btn" onclick="selectOpt('duenoActivo','No',this)">No</button>
+                </div>
             </div>
         </div>
 
@@ -1645,11 +1692,14 @@
                     <select id="cross-var" onchange="renderCrossChart(this.value)"
                             style="padding:8px 14px;font-family:inherit;font-size:.82rem;border:1px solid var(--border);color:var(--mid);background:#fff;cursor:pointer;">
                         <option value="region">Región geográfica</option>
+                        <option value="rol">Rol en la empresa</option>
+                        <option value="generacion">Generación familiar</option>
                         <option value="antiguedad">Antigüedad de la empresa</option>
                         <option value="formacion">Formación académica</option>
                         <option value="edad">Rango etario</option>
                         <option value="multiUd">Múltiples unidades de negocio</option>
                         <option value="vinculo">Org. del sector (Sí/No)</option>
+                        <option value="duenoActivo">Dueño operativo (no-dueños)</option>
                         <option value="sector">Sector / Actividad</option>
                     </select>
                 </div>
@@ -1931,12 +1981,18 @@ const REGIONES = {
 /* ----------------------------------------------------------------
    PERFIL DEL ENCUESTADO
 ---------------------------------------------------------------- */
-const pSel = { edad: null, genero: null, antiguedad: null, multiUd: null, vinculo: null, sucesion: null };
+const pSel = { rol: null, edad: null, genero: null, generacion: null, antiguedad: null, multiUd: null, vinculo: null, sucesion: null, duenoEdad: null, duenoActivo: null };
 
 function selectOpt(field, val, btn) {
     pSel[field] = val;
     btn.closest('.opt-btns').querySelectorAll('.opt-btn').forEach(b => b.classList.remove('sel'));
     btn.classList.add('sel');
+}
+
+function toggleProxy() {
+    const esDueno = pSel.rol === 'Dueño / Socio';
+    document.getElementById('proxy-dueno').style.display = esDueno ? 'none' : (pSel.rol ? '' : 'none');
+    if (esDueno) { pSel.duenoEdad = null; pSel.duenoActivo = null; }
 }
 
 function toggleOtro() {
@@ -1954,30 +2010,38 @@ function submitProfile() {
     const provincia = document.getElementById('p-provincia').value;
     const formacion = document.getElementById('p-formacion').value;
 
+    if (!pSel.rol)          { alert('Por favor indicá tu rol en la empresa.'); return; }
     if (!provincia)         { alert('Por favor indicá la provincia de operación.'); return; }
     if (!pSel.edad)         { alert('Por favor indicá tu rango de edad.'); return; }
     if (!pSel.genero)       { alert('Por favor indicá tu género.'); return; }
     if (!formacion)         { alert('Por favor indicá tu formación académica.'); return; }
+    if (!pSel.generacion)   { alert('Por favor indicá la generación familiar al frente de la empresa.'); return; }
     if (!pSel.antiguedad)   { alert('Por favor indicá la antigüedad de la empresa.'); return; }
     if (!pSel.multiUd)      { alert('Por favor indicá si operás en más de una unidad de negocio.'); return; }
     if (!pSel.vinculo)      { alert('Por favor indicá si participás en alguna organización del sector.'); return; }
     if (!pSel.sucesion)     { alert('Por favor indicá la proyección sucesoria.'); return; }
+    const esDueno = pSel.rol === 'Dueño / Socio';
+    if (!esDueno && !pSel.duenoEdad)    { alert('Por favor indicá el rango de edad del dueño.'); return; }
+    if (!esDueno && !pSel.duenoActivo)  { alert('Por favor indicá si el dueño participa activamente.'); return; }
 
     const pais = provincia === 'Fuera de Argentina'
         ? (document.getElementById('p-pais').value.trim() || 'No especificado')
         : 'Argentina';
-
     uData.perfil = {
+        rol:        pSel.rol,
         provincia,
         region:     provincia === 'Fuera de Argentina' ? 'Internacional' : (REGIONES[provincia] || 'Otra'),
         pais,
         edad:       pSel.edad,
         genero:     pSel.genero,
         formacion,
+        generacion: pSel.generacion,
         antiguedad: pSel.antiguedad,
         multiUd:    pSel.multiUd,
         vinculo:    pSel.vinculo,
         sucesion:   pSel.sucesion,
+        duenoEdad:   esDueno ? '—' : pSel.duenoEdad,
+        duenoActivo: esDueno ? '—' : pSel.duenoActivo,
     };
 
     document.getElementById('welcome-name').textContent = '¡Hola, ' + uData.name + '!';
@@ -1999,7 +2063,7 @@ function startSurvey() {
         sectorFinal = 'Otro: ' + txt;
     }
     uData = { name, contact, sector: sectorFinal };
-    pSel.edad = null; pSel.genero = null; pSel.antiguedad = null; pSel.multiUd = null; pSel.vinculo = null; pSel.sucesion = null;
+    Object.keys(pSel).forEach(k => pSel[k] = null);
     navTo('profile');
 }
 
@@ -2298,15 +2362,20 @@ function openView(i) {
         <div style="margin-top:20px; padding-top:16px; border-top:1px solid var(--border);">
             <div style="font-size:.65rem; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--gray); margin-bottom:12px;">Perfil del Encuestado</div>
             <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; font-size:.82rem;">
+                <div style="grid-column:1/-1;"><span style="color:var(--gray);font-size:.68rem;font-weight:700;text-transform:uppercase;">Rol</span><br><strong>${h(pf.rol||'—')}</strong></div>
                 <div><span style="color:var(--gray);font-size:.68rem;font-weight:700;text-transform:uppercase;">Provincia</span><br><strong>${h(pf.provincia||'—')}</strong> <span style="color:var(--gray);font-size:.75rem;">(${h(pf.region||'')})</span></div>
                 <div><span style="color:var(--gray);font-size:.68rem;font-weight:700;text-transform:uppercase;">País</span><br><strong>${h(pf.pais||'—')}</strong></div>
                 <div><span style="color:var(--gray);font-size:.68rem;font-weight:700;text-transform:uppercase;">Edad</span><br><strong>${h(pf.edad||'—')}</strong></div>
                 <div><span style="color:var(--gray);font-size:.68rem;font-weight:700;text-transform:uppercase;">Género</span><br><strong>${h(pf.genero||'—')}</strong></div>
                 <div><span style="color:var(--gray);font-size:.68rem;font-weight:700;text-transform:uppercase;">Formación</span><br><strong>${h(pf.formacion||'—')}</strong></div>
+                <div><span style="color:var(--gray);font-size:.68rem;font-weight:700;text-transform:uppercase;">Generación familiar</span><br><strong>${h(pf.generacion||'—')}</strong></div>
                 <div><span style="color:var(--gray);font-size:.68rem;font-weight:700;text-transform:uppercase;">Antigüedad empresa</span><br><strong>${h(pf.antiguedad||'—')}</strong></div>
                 <div><span style="color:var(--gray);font-size:.68rem;font-weight:700;text-transform:uppercase;">Múltiples unidades</span><br><strong>${h(pf.multiUd||'—')}</strong></div>
                 <div><span style="color:var(--gray);font-size:.68rem;font-weight:700;text-transform:uppercase;">Org. del sector</span><br><strong>${h(pf.vinculo||'—')}</strong></div>
                 <div><span style="color:var(--gray);font-size:.68rem;font-weight:700;text-transform:uppercase;">Sucesión familiar</span><br><strong>${h(pf.sucesion||'—')}</strong></div>
+                ${pf.rol && pf.rol !== 'Dueño / Socio' ? `
+                <div><span style="color:var(--gray);font-size:.68rem;font-weight:700;text-transform:uppercase;">Edad del dueño</span><br><strong>${h(pf.duenoEdad||'—')}</strong></div>
+                <div><span style="color:var(--gray);font-size:.68rem;font-weight:700;text-transform:uppercase;">Dueño operativo</span><br><strong>${h(pf.duenoActivo||'—')}</strong></div>` : ''}
             </div>
         </div>` : '';
     document.getElementById('mv-body').innerHTML = `
@@ -2353,7 +2422,7 @@ function exportCSV() {
     const rep = getReports();
     if (!rep.length) { alert('No hay informes para exportar.'); return; }
     const dims = ['Enfoque','Procesos','Competencias','Proyección'];
-    let hdr = 'Fecha,Empresa,Contacto,Sector,Etapa,Puntaje,Provincia,Region,Pais,Edad,Genero,Formacion,Antiguedad,Multiples_Unidades,Vinculo_Organizacion,Sucesion_Familiar';
+    let hdr = 'Fecha,Empresa,Contacto,Sector,Etapa,Puntaje,Rol,Provincia,Region,Pais,Edad,Genero,Formacion,Generacion_Familiar,Antiguedad,Multiples_Unidades,Vinculo_Organizacion,Sucesion_Familiar,Edad_Dueno,Dueno_Operativo';
     dims.forEach(d => hdr += `,${d} Actual,${d} Deseado`);
     const csv_s = s => `"${String(s||'—').replace(/"/g,'""')}"`;
     const rows = rep.map(r => {
@@ -2361,9 +2430,11 @@ function exportCSV() {
         let row = [new Date(r.ts).toLocaleDateString('es-AR'),
             csv_s(r.name), csv_s(r.contact), csv_s(r.sector),
             r.etapa, r.score,
-            csv_s(pf.provincia), csv_s(pf.region), csv_s(pf.pais),
+            csv_s(pf.rol), csv_s(pf.provincia), csv_s(pf.region), csv_s(pf.pais),
             csv_s(pf.edad), csv_s(pf.genero), csv_s(pf.formacion),
-            csv_s(pf.antiguedad), csv_s(pf.multiUd), csv_s(pf.vinculo), csv_s(pf.sucesion)];
+            csv_s(pf.generacion), csv_s(pf.antiguedad), csv_s(pf.multiUd),
+            csv_s(pf.vinculo), csv_s(pf.sucesion),
+            csv_s(pf.duenoEdad), csv_s(pf.duenoActivo)];
         dims.forEach((_, di) => {
             row.push(r.h_vals.slice(di*4,di*4+4).reduce((a,b)=>a+b,0));
             row.push(r.p_vals.slice(di*4,di*4+4).reduce((a,b)=>a+b,0));
