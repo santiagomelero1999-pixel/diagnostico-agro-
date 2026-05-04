@@ -1260,17 +1260,77 @@
 <section class="page" id="profile">
     <div class="card">
         <button class="back-link" onclick="navTo('reg')">← Volver</button>
-        <div class="eyebrow">Paso 2 de 3 — Perfil del Encuestado</div>
-        <h2 class="card-title">Tu perfil</h2>
+        <div class="eyebrow">Paso 2 de 3 — Perfil</div>
+        <h2 class="card-title">Perfil de la empresa y su dueño</h2>
         <p class="profile-note">
             Esta información es estrictamente confidencial y se utiliza únicamente para el análisis académico de la investigación. No se comparte con terceros.
         </p>
 
-        <!-- Origen -->
-        <div class="profile-section-title">Origen y contexto</div>
+        <!-- ¿Quién responde? -->
+        <div class="profile-section-title">¿Quién completa este formulario?</div>
 
         <div class="field">
-            <label>Provincia donde opera principalmente la empresa</label>
+            <label>Tu rol en la empresa</label>
+            <div class="opt-btns" id="opt-rol">
+                <button class="opt-btn" onclick="selectOpt('rol','Dueño / Socio',this);toggleProxy()">Dueño / Socio</button>
+                <button class="opt-btn" onclick="selectOpt('rol','Director / Gerente General',this);toggleProxy()">Director / Gerente General</button>
+                <button class="opt-btn" onclick="selectOpt('rol','Gerente de área',this);toggleProxy()">Gerente de área</button>
+                <button class="opt-btn" onclick="selectOpt('rol','Empleado / Colaborador',this);toggleProxy()">Empleado / Colaborador</button>
+            </div>
+        </div>
+
+        <!-- Sobre el dueño / fundador -->
+        <div class="profile-section-title">Sobre el dueño / fundador</div>
+        <p class="profile-note" style="margin-bottom:16px;">
+            Si no sos el dueño, respondé estas preguntas en base a lo que conocés de él.
+        </p>
+
+        <div class="field">
+            <label>Edad del dueño / fundador</label>
+            <div class="opt-btns" id="opt-edad">
+                <button class="opt-btn" onclick="selectOpt('edad','Menos de 30',this)">Menos de 30</button>
+                <button class="opt-btn" onclick="selectOpt('edad','30–45',this)">30 – 45</button>
+                <button class="opt-btn" onclick="selectOpt('edad','46–60',this)">46 – 60</button>
+                <button class="opt-btn" onclick="selectOpt('edad','Más de 60',this)">Más de 60</button>
+            </div>
+        </div>
+
+        <div class="field">
+            <label>Género del dueño / fundador</label>
+            <div class="opt-btns" id="opt-genero">
+                <button class="opt-btn" onclick="selectOpt('genero','Masculino',this)">Masculino</button>
+                <button class="opt-btn" onclick="selectOpt('genero','Femenino',this)">Femenino</button>
+                <button class="opt-btn" onclick="selectOpt('genero','No indica',this)">Prefiero no indicar</button>
+            </div>
+        </div>
+
+        <div class="field">
+            <label>Máxima formación académica del dueño / fundador</label>
+            <select class="fi" id="p-formacion">
+                <option value="">Seleccionar…</option>
+                <option>Secundario incompleto</option>
+                <option>Secundario completo</option>
+                <option>Terciario o Universitario</option>
+                <option>Posgrado o Maestría</option>
+            </select>
+        </div>
+
+        <!-- Proxy: solo si no es dueño -->
+        <div id="proxy-dueno" style="display:none;">
+            <div class="field">
+                <label>¿El dueño participa activamente en la operación diaria?</label>
+                <div class="opt-btns" id="opt-dueno-activo">
+                    <button class="opt-btn" onclick="selectOpt('duenoActivo','Sí',this)">Sí</button>
+                    <button class="opt-btn" onclick="selectOpt('duenoActivo','No',this)">No</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sobre la empresa -->
+        <div class="profile-section-title">Sobre la empresa</div>
+
+        <div class="field">
+            <label>Provincia donde opera principalmente</label>
             <select class="fi" id="p-provincia" onchange="togglePais()">
                 <option value="">Seleccionar provincia…</option>
                 <option>Buenos Aires</option>
@@ -1306,55 +1366,6 @@
             <input class="fi" type="text" id="p-pais" placeholder="Ej: Uruguay, Chile, Brasil…">
         </div>
 
-        <!-- Rol -->
-        <div class="profile-section-title">Tu rol en la empresa</div>
-
-        <div class="field">
-            <label>¿Cuál es tu rol?</label>
-            <div class="opt-btns" id="opt-rol">
-                <button class="opt-btn" onclick="selectOpt('rol','Dueño / Socio',this);toggleProxy()">Dueño / Socio</button>
-                <button class="opt-btn" onclick="selectOpt('rol','Director / Gerente General',this);toggleProxy()">Director / Gerente General</button>
-                <button class="opt-btn" onclick="selectOpt('rol','Gerente de área',this);toggleProxy()">Gerente de área</button>
-                <button class="opt-btn" onclick="selectOpt('rol','Empleado / Colaborador',this);toggleProxy()">Empleado / Colaborador</button>
-            </div>
-        </div>
-
-        <!-- Datos personales -->
-        <div class="profile-section-title">Datos personales</div>
-
-        <div class="field">
-            <label>Edad</label>
-            <div class="opt-btns" id="opt-edad">
-                <button class="opt-btn" onclick="selectOpt('edad','Menos de 30',this)">Menos de 30</button>
-                <button class="opt-btn" onclick="selectOpt('edad','30–45',this)">30 – 45</button>
-                <button class="opt-btn" onclick="selectOpt('edad','46–60',this)">46 – 60</button>
-                <button class="opt-btn" onclick="selectOpt('edad','Más de 60',this)">Más de 60</button>
-            </div>
-        </div>
-
-        <div class="field">
-            <label>Género</label>
-            <div class="opt-btns" id="opt-genero">
-                <button class="opt-btn" onclick="selectOpt('genero','Masculino',this)">Masculino</button>
-                <button class="opt-btn" onclick="selectOpt('genero','Femenino',this)">Femenino</button>
-                <button class="opt-btn" onclick="selectOpt('genero','No indica',this)">Prefiero no indicar</button>
-            </div>
-        </div>
-
-        <div class="field">
-            <label>Máxima formación académica del dueño / fundador</label>
-            <select class="fi" id="p-formacion">
-                <option value="">Seleccionar…</option>
-                <option>Secundario incompleto</option>
-                <option>Secundario completo</option>
-                <option>Terciario o Universitario</option>
-                <option>Posgrado o Maestría</option>
-            </select>
-        </div>
-
-        <!-- Organización -->
-        <div class="profile-section-title">Sobre la organización</div>
-
         <div class="field">
             <label>Generación familiar al frente de la empresa</label>
             <div class="opt-btns" id="opt-generacion">
@@ -1376,7 +1387,7 @@
         </div>
 
         <div class="field">
-            <label>¿La empresa opera en más de una unidad de negocio o actividad?</label>
+            <label>¿Opera en más de una unidad de negocio o actividad?</label>
             <div class="opt-btns" id="opt-multiud">
                 <button class="opt-btn" onclick="selectOpt('multiUd','Sí',this)">Sí</button>
                 <button class="opt-btn" onclick="selectOpt('multiUd','No',this)">No</button>
@@ -1384,7 +1395,7 @@
         </div>
 
         <div class="field">
-            <label>¿Participás en alguna organización o agrupación del sector?</label>
+            <label>¿La empresa participa en alguna organización o agrupación del sector?</label>
             <p style="font-size:.78rem;color:var(--gray);margin:-6px 0 10px;line-height:1.5;">
                 Ej: CREA, AAPRESID, Sociedad Rural, Federación Agraria, cooperativas, cámaras, etc.
             </p>
@@ -1395,35 +1406,11 @@
         </div>
 
         <div class="field">
-            <label>¿Planea que la empresa continúe en manos de familiares en el mediano o largo plazo?</label>
+            <label>¿Planea que la empresa continúe en manos de familiares a largo plazo?</label>
             <div class="opt-btns" id="opt-sucesion">
                 <button class="opt-btn" onclick="selectOpt('sucesion','Sí',this)">Sí</button>
                 <button class="opt-btn" onclick="selectOpt('sucesion','No',this)">No</button>
                 <button class="opt-btn" onclick="selectOpt('sucesion','No aplica',this)">No aplica</button>
-            </div>
-        </div>
-
-        <!-- Proxy dueño (solo si no es Dueño/Socio) -->
-        <div id="proxy-dueno" style="display:none;">
-            <div class="profile-section-title" style="color:#C8970A; border-color:#C8970A33;">Sobre el dueño / fundador</div>
-            <p class="profile-note" style="margin-bottom:16px;">
-                Como no sos el dueño, estas preguntas nos ayudan a completar el perfil de la empresa desde tu perspectiva.
-            </p>
-            <div class="field">
-                <label>Rango de edad del dueño o fundador principal</label>
-                <div class="opt-btns" id="opt-dueno-edad">
-                    <button class="opt-btn" onclick="selectOpt('duenoEdad','Menos de 30',this)">Menos de 30</button>
-                    <button class="opt-btn" onclick="selectOpt('duenoEdad','30–45',this)">30 – 45</button>
-                    <button class="opt-btn" onclick="selectOpt('duenoEdad','46–60',this)">46 – 60</button>
-                    <button class="opt-btn" onclick="selectOpt('duenoEdad','Más de 60',this)">Más de 60</button>
-                </div>
-            </div>
-            <div class="field">
-                <label>¿El dueño participa activamente en la operación diaria?</label>
-                <div class="opt-btns" id="opt-dueno-activo">
-                    <button class="opt-btn" onclick="selectOpt('duenoActivo','Sí',this)">Sí</button>
-                    <button class="opt-btn" onclick="selectOpt('duenoActivo','No',this)">No</button>
-                </div>
             </div>
         </div>
 
@@ -1981,7 +1968,7 @@ const REGIONES = {
 /* ----------------------------------------------------------------
    PERFIL DEL ENCUESTADO
 ---------------------------------------------------------------- */
-const pSel = { rol: null, edad: null, genero: null, generacion: null, antiguedad: null, multiUd: null, vinculo: null, sucesion: null, duenoEdad: null, duenoActivo: null };
+const pSel = { rol: null, edad: null, genero: null, generacion: null, antiguedad: null, multiUd: null, vinculo: null, sucesion: null, duenoActivo: null };
 
 function selectOpt(field, val, btn) {
     pSel[field] = val;
@@ -1992,7 +1979,7 @@ function selectOpt(field, val, btn) {
 function toggleProxy() {
     const esDueno = pSel.rol === 'Dueño / Socio';
     document.getElementById('proxy-dueno').style.display = esDueno ? 'none' : (pSel.rol ? '' : 'none');
-    if (esDueno) { pSel.duenoEdad = null; pSel.duenoActivo = null; }
+    if (esDueno) { pSel.duenoActivo = null; }
 }
 
 function toggleOtro() {
@@ -2021,8 +2008,7 @@ function submitProfile() {
     if (!pSel.vinculo)      { alert('Por favor indicá si participás en alguna organización del sector.'); return; }
     if (!pSel.sucesion)     { alert('Por favor indicá la proyección sucesoria.'); return; }
     const esDueno = pSel.rol === 'Dueño / Socio';
-    if (!esDueno && !pSel.duenoEdad)    { alert('Por favor indicá el rango de edad del dueño.'); return; }
-    if (!esDueno && !pSel.duenoActivo)  { alert('Por favor indicá si el dueño participa activamente.'); return; }
+    if (!esDueno && !pSel.duenoActivo)  { alert('Por favor indicá si el dueño participa activamente en la operación.'); return; }
 
     const pais = provincia === 'Fuera de Argentina'
         ? (document.getElementById('p-pais').value.trim() || 'No especificado')
@@ -2040,7 +2026,6 @@ function submitProfile() {
         multiUd:    pSel.multiUd,
         vinculo:    pSel.vinculo,
         sucesion:   pSel.sucesion,
-        duenoEdad:   esDueno ? '—' : pSel.duenoEdad,
         duenoActivo: esDueno ? '—' : pSel.duenoActivo,
     };
 
@@ -2374,7 +2359,6 @@ function openView(i) {
                 <div><span style="color:var(--gray);font-size:.68rem;font-weight:700;text-transform:uppercase;">Org. del sector</span><br><strong>${h(pf.vinculo||'—')}</strong></div>
                 <div><span style="color:var(--gray);font-size:.68rem;font-weight:700;text-transform:uppercase;">Sucesión familiar</span><br><strong>${h(pf.sucesion||'—')}</strong></div>
                 ${pf.rol && pf.rol !== 'Dueño / Socio' ? `
-                <div><span style="color:var(--gray);font-size:.68rem;font-weight:700;text-transform:uppercase;">Edad del dueño</span><br><strong>${h(pf.duenoEdad||'—')}</strong></div>
                 <div><span style="color:var(--gray);font-size:.68rem;font-weight:700;text-transform:uppercase;">Dueño operativo</span><br><strong>${h(pf.duenoActivo||'—')}</strong></div>` : ''}
             </div>
         </div>` : '';
@@ -2422,7 +2406,7 @@ function exportCSV() {
     const rep = getReports();
     if (!rep.length) { alert('No hay informes para exportar.'); return; }
     const dims = ['Enfoque','Procesos','Competencias','Proyección'];
-    let hdr = 'Fecha,Empresa,Contacto,Sector,Etapa,Puntaje,Rol,Provincia,Region,Pais,Edad,Genero,Formacion,Generacion_Familiar,Antiguedad,Multiples_Unidades,Vinculo_Organizacion,Sucesion_Familiar,Edad_Dueno,Dueno_Operativo';
+    let hdr = 'Fecha,Empresa,Contacto,Sector,Etapa,Puntaje,Rol,Provincia,Region,Pais,Edad_Dueno,Genero_Dueno,Formacion_Dueno,Generacion_Familiar,Antiguedad,Multiples_Unidades,Vinculo_Organizacion,Sucesion_Familiar,Dueno_Operativo';
     dims.forEach(d => hdr += `,${d} Actual,${d} Deseado`);
     const csv_s = s => `"${String(s||'—').replace(/"/g,'""')}"`;
     const rows = rep.map(r => {
@@ -2433,8 +2417,7 @@ function exportCSV() {
             csv_s(pf.rol), csv_s(pf.provincia), csv_s(pf.region), csv_s(pf.pais),
             csv_s(pf.edad), csv_s(pf.genero), csv_s(pf.formacion),
             csv_s(pf.generacion), csv_s(pf.antiguedad), csv_s(pf.multiUd),
-            csv_s(pf.vinculo), csv_s(pf.sucesion),
-            csv_s(pf.duenoEdad), csv_s(pf.duenoActivo)];
+            csv_s(pf.vinculo), csv_s(pf.sucesion), csv_s(pf.duenoActivo)];
         dims.forEach((_, di) => {
             row.push(r.h_vals.slice(di*4,di*4+4).reduce((a,b)=>a+b,0));
             row.push(r.p_vals.slice(di*4,di*4+4).reduce((a,b)=>a+b,0));
