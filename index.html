@@ -1221,7 +1221,7 @@
         </div>
         <div class="field">
             <label>Actividad Principal</label>
-            <select class="fi" id="sector">
+            <select class="fi" id="sector" onchange="toggleOtro()">
                 <option value="">Seleccionar actividad…</option>
                 <option>Agricultura extensiva (granos / cultivos)</option>
                 <option>Ganadería (bovinos, ovinos, caprinos)</option>
@@ -1235,6 +1235,14 @@
                 <option>Administración / gestión de empresa agropecuaria</option>
                 <option>Otro</option>
             </select>
+            <div id="sector-otro-wrap" style="display:none; margin-top:10px;">
+                <input class="fi" type="text" id="sector-otro"
+                       placeholder="Describí tu actividad (ej: Feedlot, Apicultura…)"
+                       maxlength="80">
+                <p style="font-size:.72rem; color:var(--gray); margin-top:6px; line-height:1.4;">
+                    Tu sugerencia puede ser incorporada a la herramienta en futuras versiones.
+                </p>
+            </div>
         </div>
         <div style="display:flex; gap:14px; flex-wrap:wrap; margin-top:8px;">
             <button class="btn-primary full accent-bg" onclick="startSurvey()">Continuar →</button>
@@ -1341,6 +1349,14 @@
                 <button class="opt-btn" onclick="selectOpt('antiguedad','5–15 años',this)">5 – 15 años</button>
                 <button class="opt-btn" onclick="selectOpt('antiguedad','16–30 años',this)">16 – 30 años</button>
                 <button class="opt-btn" onclick="selectOpt('antiguedad','Más de 30 años',this)">Más de 30 años</button>
+            </div>
+        </div>
+
+        <div class="field">
+            <label>¿La empresa opera en más de una unidad de negocio o actividad?</label>
+            <div class="opt-btns" id="opt-multiud">
+                <button class="opt-btn" onclick="selectOpt('multiUd','Sí',this)">Sí</button>
+                <button class="opt-btn" onclick="selectOpt('multiUd','No',this)">No</button>
             </div>
         </div>
 
@@ -1632,6 +1648,7 @@
                         <option value="antiguedad">Antigüedad de la empresa</option>
                         <option value="formacion">Formación académica</option>
                         <option value="edad">Rango etario</option>
+                        <option value="multiUd">Múltiples unidades de negocio</option>
                         <option value="vinculo">Org. del sector (Sí/No)</option>
                         <option value="sector">Sector / Actividad</option>
                     </select>
@@ -1914,12 +1931,18 @@ const REGIONES = {
 /* ----------------------------------------------------------------
    PERFIL DEL ENCUESTADO
 ---------------------------------------------------------------- */
-const pSel = { edad: null, genero: null, antiguedad: null, vinculo: null, sucesion: null };
+const pSel = { edad: null, genero: null, antiguedad: null, multiUd: null, vinculo: null, sucesion: null };
 
 function selectOpt(field, val, btn) {
     pSel[field] = val;
     btn.closest('.opt-btns').querySelectorAll('.opt-btn').forEach(b => b.classList.remove('sel'));
     btn.classList.add('sel');
+}
+
+function toggleOtro() {
+    const val = document.getElementById('sector').value;
+    document.getElementById('sector-otro-wrap').style.display = val === 'Otro' ? '' : 'none';
+    if (val !== 'Otro') document.getElementById('sector-otro').value = '';
 }
 
 function togglePais() {
@@ -1936,6 +1959,7 @@ function submitProfile() {
     if (!pSel.genero)       { alert('Por favor indicá tu género.'); return; }
     if (!formacion)         { alert('Por favor indicá tu formación académica.'); return; }
     if (!pSel.antiguedad)   { alert('Por favor indicá la antigüedad de la empresa.'); return; }
+    if (!pSel.multiUd)      { alert('Por favor indicá si operás en más de una unidad de negocio.'); return; }
     if (!pSel.vinculo)      { alert('Por favor indicá si participás en alguna organización del sector.'); return; }
     if (!pSel.sucesion)     { alert('Por favor indicá la proyección sucesoria.'); return; }
 
@@ -1951,6 +1975,7 @@ function submitProfile() {
         genero:     pSel.genero,
         formacion,
         antiguedad: pSel.antiguedad,
+        multiUd:    pSel.multiUd,
         vinculo:    pSel.vinculo,
         sucesion:   pSel.sucesion,
     };
@@ -1967,8 +1992,14 @@ function startSurvey() {
     const contact = document.getElementById('contact').value.trim();
     const sector  = document.getElementById('sector').value;
     if (!name || !sector) { alert('Por favor completá el nombre de la empresa y la actividad.'); return; }
-    uData = { name, contact, sector };
-    pSel.edad = null; pSel.genero = null; pSel.antiguedad = null; pSel.vinculo = null; pSel.sucesion = null;
+    let sectorFinal = sector;
+    if (sector === 'Otro') {
+        const txt = document.getElementById('sector-otro').value.trim();
+        if (!txt) { alert('Por favor describí tu actividad.'); return; }
+        sectorFinal = 'Otro: ' + txt;
+    }
+    uData = { name, contact, sector: sectorFinal };
+    pSel.edad = null; pSel.genero = null; pSel.antiguedad = null; pSel.multiUd = null; pSel.vinculo = null; pSel.sucesion = null;
     navTo('profile');
 }
 
@@ -2273,6 +2304,7 @@ function openView(i) {
                 <div><span style="color:var(--gray);font-size:.68rem;font-weight:700;text-transform:uppercase;">Género</span><br><strong>${h(pf.genero||'—')}</strong></div>
                 <div><span style="color:var(--gray);font-size:.68rem;font-weight:700;text-transform:uppercase;">Formación</span><br><strong>${h(pf.formacion||'—')}</strong></div>
                 <div><span style="color:var(--gray);font-size:.68rem;font-weight:700;text-transform:uppercase;">Antigüedad empresa</span><br><strong>${h(pf.antiguedad||'—')}</strong></div>
+                <div><span style="color:var(--gray);font-size:.68rem;font-weight:700;text-transform:uppercase;">Múltiples unidades</span><br><strong>${h(pf.multiUd||'—')}</strong></div>
                 <div><span style="color:var(--gray);font-size:.68rem;font-weight:700;text-transform:uppercase;">Org. del sector</span><br><strong>${h(pf.vinculo||'—')}</strong></div>
                 <div><span style="color:var(--gray);font-size:.68rem;font-weight:700;text-transform:uppercase;">Sucesión familiar</span><br><strong>${h(pf.sucesion||'—')}</strong></div>
             </div>
@@ -2321,7 +2353,7 @@ function exportCSV() {
     const rep = getReports();
     if (!rep.length) { alert('No hay informes para exportar.'); return; }
     const dims = ['Enfoque','Procesos','Competencias','Proyección'];
-    let hdr = 'Fecha,Empresa,Contacto,Sector,Etapa,Puntaje,Provincia,Region,Pais,Edad,Genero,Formacion,Antiguedad,Vinculo_Organizacion,Sucesion_Familiar';
+    let hdr = 'Fecha,Empresa,Contacto,Sector,Etapa,Puntaje,Provincia,Region,Pais,Edad,Genero,Formacion,Antiguedad,Multiples_Unidades,Vinculo_Organizacion,Sucesion_Familiar';
     dims.forEach(d => hdr += `,${d} Actual,${d} Deseado`);
     const csv_s = s => `"${String(s||'—').replace(/"/g,'""')}"`;
     const rows = rep.map(r => {
@@ -2331,7 +2363,7 @@ function exportCSV() {
             r.etapa, r.score,
             csv_s(pf.provincia), csv_s(pf.region), csv_s(pf.pais),
             csv_s(pf.edad), csv_s(pf.genero), csv_s(pf.formacion),
-            csv_s(pf.antiguedad), csv_s(pf.vinculo), csv_s(pf.sucesion)];
+            csv_s(pf.antiguedad), csv_s(pf.multiUd), csv_s(pf.vinculo), csv_s(pf.sucesion)];
         dims.forEach((_, di) => {
             row.push(r.h_vals.slice(di*4,di*4+4).reduce((a,b)=>a+b,0));
             row.push(r.p_vals.slice(di*4,di*4+4).reduce((a,b)=>a+b,0));
