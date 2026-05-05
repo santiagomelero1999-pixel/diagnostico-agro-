@@ -1261,7 +1261,7 @@
     <div class="card">
         <button class="back-link" onclick="navTo('reg')">← Volver</button>
         <div class="eyebrow">Paso 2 de 3 — Perfil</div>
-        <h2 class="card-title">Perfil de la empresa y su dueño</h2>
+        <h2 class="card-title">Perfil de la empresa y su fundador</h2>
         <p class="profile-note">
             Esta información es estrictamente confidencial y se utiliza únicamente para el análisis académico de la investigación. No se comparte con terceros.
         </p>
@@ -1272,21 +1272,21 @@
         <div class="field">
             <label>Tu rol en la empresa</label>
             <div class="opt-btns" id="opt-rol">
-                <button class="opt-btn" onclick="selectOpt('rol','Dueño / Socio',this);toggleProxy()">Dueño / Socio</button>
+                <button class="opt-btn" onclick="selectOpt('rol','Fundador / Socio',this);toggleProxy()">Fundador / Socio</button>
                 <button class="opt-btn" onclick="selectOpt('rol','Director / Gerente General',this);toggleProxy()">Director / Gerente General</button>
                 <button class="opt-btn" onclick="selectOpt('rol','Gerente de área',this);toggleProxy()">Gerente de área</button>
                 <button class="opt-btn" onclick="selectOpt('rol','Empleado / Colaborador',this);toggleProxy()">Empleado / Colaborador</button>
             </div>
         </div>
 
-        <!-- Sobre el dueño / fundador -->
-        <div class="profile-section-title">Sobre el dueño / fundador</div>
+        <!-- Sobre el fundador -->
+        <div class="profile-section-title">Sobre el fundador</div>
         <p class="profile-note" style="margin-bottom:16px;">
-            Si no sos el dueño, respondé estas preguntas en base a lo que conocés de él.
+            Si no sos el fundador, respondé estas preguntas en base a lo que conocés de él.
         </p>
 
         <div class="field">
-            <label>Edad del dueño / fundador</label>
+            <label>Edad del fundador</label>
             <div class="opt-btns" id="opt-edad">
                 <button class="opt-btn" onclick="selectOpt('edad','Menos de 30',this)">Menos de 30</button>
                 <button class="opt-btn" onclick="selectOpt('edad','30–45',this)">30 – 45</button>
@@ -1296,7 +1296,7 @@
         </div>
 
         <div class="field">
-            <label>Género del dueño / fundador</label>
+            <label>Género del fundador</label>
             <div class="opt-btns" id="opt-genero">
                 <button class="opt-btn" onclick="selectOpt('genero','Masculino',this)">Masculino</button>
                 <button class="opt-btn" onclick="selectOpt('genero','Femenino',this)">Femenino</button>
@@ -1305,7 +1305,7 @@
         </div>
 
         <div class="field">
-            <label>Máxima formación académica del dueño / fundador</label>
+            <label>Máxima formación académica del fundador</label>
             <select class="fi" id="p-formacion">
                 <option value="">Seleccionar…</option>
                 <option>Secundario incompleto</option>
@@ -1318,7 +1318,7 @@
         <!-- Proxy: solo si no es dueño -->
         <div id="proxy-dueno" style="display:none;">
             <div class="field">
-                <label>¿El dueño participa activamente en la operación diaria?</label>
+                <label>¿El fundador participa activamente en la operación diaria?</label>
                 <div class="opt-btns" id="opt-dueno-activo">
                     <button class="opt-btn" onclick="selectOpt('duenoActivo','Sí',this)">Sí</button>
                     <button class="opt-btn" onclick="selectOpt('duenoActivo','No',this)">No</button>
@@ -1433,7 +1433,7 @@
         <p style="font-size:.95rem; line-height:1.75; margin-bottom:28px; color:rgba(255,255,255,.8);">
             Vas a responder <strong>16 preguntas</strong> en ~8 minutos.<br>
             Para cada afirmación indicá cómo estás <em>hoy</em> y cuál es
-            tu <em>proyecto deseado</em>, usando una escala del <strong>0 (nunca) al 5 (siempre)</strong>.
+            usando una escala del <strong>0 (nunca) al 5 (siempre)</strong>.
         </p>
         <div class="welcome-dim-grid">
             <div class="w-dim"><div class="w-dim-n">4</div><div class="w-dim-l">Preguntas</div></div>
@@ -1465,17 +1465,10 @@
 
         <div id="q-text">Cargando…</div>
 
-        <div class="scales-row">
-            <div class="scale-block">
-                <div class="scale-label-top">Situación Actual — Hoy</div>
-                <div class="r-row" id="group-h"></div>
-                <div class="scale-anchors"><span>Nunca</span><span>A veces</span><span>Siempre</span></div>
-            </div>
-            <div class="scale-block">
-                <div class="scale-label-top">Proyecto Deseado</div>
-                <div class="r-row" id="group-p"></div>
-                <div class="scale-anchors"><span>Nunca</span><span>A veces</span><span>Siempre</span></div>
-            </div>
+        <div class="scale-block" style="max-width:480px; margin:0 auto;">
+            <div class="scale-label-top">Situación Actual — Hoy</div>
+            <div class="r-row" id="group-h"></div>
+            <div class="scale-anchors"><span>Nunca</span><span>A veces</span><span>Siempre</span></div>
         </div>
 
         <div class="survey-controls">
@@ -1502,7 +1495,7 @@
             <!-- Gráfico -->
             <div class="radar-wrap">
                 <canvas id="radar"></canvas>
-                <div class="radar-cap" id="radar-cap">Situación Actual vs. Proyecto Deseado</div>
+                <div class="radar-cap" id="radar-cap">Situación Actual</div>
             </div>
 
             <!-- Análisis -->
@@ -1651,10 +1644,10 @@
                 </div>
 
                 <!-- Dimension Averages -->
-                <div class="res-section-title">Promedio por Dimensión — Actual vs. Deseado</div>
+                <div class="res-section-title">Promedio por Dimensión</div>
                 <div style="max-width:480px;margin:0 auto 20px;">
                     <div class="res-chart-card">
-                        <div class="res-chart-title" style="text-align:center;">Radar de dimensiones · promedio global</div>
+                        <div class="res-chart-title" style="text-align:center;">Promedio por dimensión · estado actual</div>
                         <canvas id="chart-dims" height="280"></canvas>
                     </div>
                 </div>
@@ -1686,7 +1679,7 @@
                         <option value="edad">Rango etario</option>
                         <option value="multiUd">Múltiples unidades de negocio</option>
                         <option value="vinculo">Org. del sector (Sí/No)</option>
-                        <option value="duenoActivo">Dueño operativo (no-dueños)</option>
+                        <option value="duenoActivo">Fundador operativo (no-fundadores)</option>
                         <option value="sector">Sector / Actividad</option>
                     </select>
                 </div>
@@ -1977,7 +1970,7 @@ function selectOpt(field, val, btn) {
 }
 
 function toggleProxy() {
-    const esDueno = pSel.rol === 'Dueño / Socio';
+    const esDueno = pSel.rol === 'Fundador / Socio';
     document.getElementById('proxy-dueno').style.display = esDueno ? 'none' : (pSel.rol ? '' : 'none');
     if (esDueno) { pSel.duenoActivo = null; }
 }
@@ -2007,7 +2000,7 @@ function submitProfile() {
     if (!pSel.multiUd)      { alert('Por favor indicá si operás en más de una unidad de negocio.'); return; }
     if (!pSel.vinculo)      { alert('Por favor indicá si participás en alguna organización del sector.'); return; }
     if (!pSel.sucesion)     { alert('Por favor indicá la proyección sucesoria.'); return; }
-    const esDueno = pSel.rol === 'Dueño / Socio';
+    const esDueno = pSel.rol === 'Fundador / Socio';
     if (!esDueno && !pSel.duenoActivo)  { alert('Por favor indicá si el dueño participa activamente en la operación.'); return; }
 
     const pais = provincia === 'Fuera de Argentina'
@@ -2088,7 +2081,6 @@ function renderQ() {
     }, 220);
 
     buildBtns('group-h', 'h');
-    buildBtns('group-p', 'p');
 
     document.getElementById('back-btn').style.visibility = qIdx === 0 ? 'hidden' : 'visible';
     document.getElementById('next-btn').textContent = qIdx === 15 ? 'Ver Resultados ✓' : 'Siguiente →';
@@ -2116,8 +2108,8 @@ function buildBtns(containerId, type) {
 }
 
 function move(d) {
-    if (d === 1 && (h_vals[qIdx] === null || p_vals[qIdx] === null)) {
-        alert('Por favor, seleccioná un valor en ambas escalas antes de continuar.'); return;
+    if (d === 1 && h_vals[qIdx] === null) {
+        alert('Por favor, seleccioná un valor antes de continuar.'); return;
     }
     if (d === 1 && qIdx === 15) { finish(); return; }
     qIdx += d; renderQ();
@@ -2152,22 +2144,12 @@ function finish() {
     gapEl.innerHTML = '';
     dims.forEach((dim, di) => {
         const hS = sum(h_vals, di*4, di*4+4);
-        const pS = sum(p_vals, di*4, di*4+4);
         const hP = (hS / 20 * 100).toFixed(0);
-        const pP = (pS / 20 * 100).toFixed(0);
-        const gap = pS - hS;
         gapEl.innerHTML += `
         <div class="gap-dim">
             <div class="gap-dim-name">${dim}</div>
-            <div class="gap-bar">
-                <div class="gap-bar-h" style="width:${hP}%"></div>
-                <div class="gap-bar-p" style="width:${pP}%"></div>
-            </div>
-            <div class="gap-labels">
-                <span>Hoy: ${hS}/20</span>
-                <span style="color:var(--accent)">Brecha: +${gap}</span>
-                <span>Deseado: ${pS}/20</span>
-            </div>
+            <div class="gap-bar"><div class="gap-bar-h" style="width:${hP}%"></div></div>
+            <div class="gap-labels"><span>Hoy: ${hS}/20</span><span>${hP}%</span></div>
         </div>`;
     });
 
@@ -2187,10 +2169,6 @@ function finish() {
           data: [sum(h_vals,0,4),sum(h_vals,4,8),sum(h_vals,8,12),sum(h_vals,12,16)],
           borderColor: '#004D2C', backgroundColor: 'rgba(0,77,44,.12)',
           borderWidth: 2.5, pointBackgroundColor: '#004D2C', pointRadius: 4 },
-        { label: 'Proyecto Deseado',
-          data: [sum(p_vals,0,4),sum(p_vals,4,8),sum(p_vals,8,12),sum(p_vals,12,16)],
-          borderColor: '#7CB342', backgroundColor: 'rgba(124,179,66,.12)',
-          borderWidth: 2.5, pointBackgroundColor: '#7CB342', pointRadius: 4 }
     ];
 
     if (sectorAvg) {
@@ -2205,7 +2183,7 @@ function finish() {
             pointBackgroundColor: '#C8970A', pointRadius: 3
         });
         document.getElementById('radar-cap').textContent =
-            'Tu empresa · Proyecto Deseado · Promedio sectorial';
+            'Tu empresa · Promedio sectorial';
         // sectorAvg.data = [avg_dim0, avg_dim1, avg_dim2, avg_dim3] each out of 20
         const sectorTotal = Math.round(sectorAvg.data.reduce((a,b)=>a+b,0));
         const diffText = total > sectorTotal
@@ -2218,7 +2196,7 @@ function finish() {
              Tu empresa está <strong>${diffText}</strong>`;
     } else {
         document.getElementById('radar-cap').textContent =
-            'Situación Actual vs. Proyecto Deseado';
+            'Situación Actual';
         document.getElementById('score-context').innerHTML =
             'Suma de respuestas<br>"Situación Actual" sobre<br>las 4 dimensiones evaluadas.';
     }
@@ -2270,7 +2248,7 @@ function saveReport(total, etapaKey) {
     const r = getReports();
     r.push({ ts: new Date().toISOString(), name: uData.name||'', contact: uData.contact||'',
              sector: uData.sector||'', score: total, etapa: etapaKey,
-             h_vals: [...h_vals], p_vals: [...p_vals],
+             h_vals: [...h_vals], p_vals: [],
              perfil: uData.perfil || {} });
     setReports(r);
 }
@@ -2338,7 +2316,7 @@ function openView(i) {
         const pS = r.p_vals.slice(di*4,di*4+4).reduce((a,b)=>a+b,0);
         dHtml += `<div style="background:#F7F9F5;padding:12px 14px;">
             <div style="font-size:.68rem;font-weight:700;text-transform:uppercase;color:var(--primary);margin-bottom:4px;">${dim}</div>
-            <div style="font-size:.85rem;color:var(--mid);">Actual: <strong>${hS}/20</strong> &nbsp;·&nbsp; Deseado: <strong>${pS}/20</strong></div>
+            <div style="font-size:.85rem;color:var(--mid);"><strong>${hS}/20</strong></div>
         </div>`;
     });
     dHtml += '</div>';
@@ -2407,7 +2385,7 @@ function exportCSV() {
     if (!rep.length) { alert('No hay informes para exportar.'); return; }
     const dims = ['Enfoque','Procesos','Competencias','Proyección'];
     let hdr = 'Fecha,Empresa,Contacto,Sector,Etapa,Puntaje,Rol,Provincia,Region,Pais,Edad_Dueno,Genero_Dueno,Formacion_Dueno,Generacion_Familiar,Antiguedad,Multiples_Unidades,Vinculo_Organizacion,Sucesion_Familiar,Dueno_Operativo';
-    dims.forEach(d => hdr += `,${d} Actual,${d} Deseado`);
+    dims.forEach(d => hdr += `,${d}`);
     const csv_s = s => `"${String(s||'—').replace(/"/g,'""')}"`;
     const rows = rep.map(r => {
         const pf = r.perfil || {};
@@ -2420,7 +2398,6 @@ function exportCSV() {
             csv_s(pf.vinculo), csv_s(pf.sucesion), csv_s(pf.duenoActivo)];
         dims.forEach((_, di) => {
             row.push(r.h_vals.slice(di*4,di*4+4).reduce((a,b)=>a+b,0));
-            row.push(r.p_vals.slice(di*4,di*4+4).reduce((a,b)=>a+b,0));
         });
         return row.join(',');
     });
@@ -2523,22 +2500,17 @@ function renderResearchDash() {
         }
     });
 
-    // ── Radar: avg dims actual vs deseado ──────────────────────────
+    // ── Radar: avg dims ────────────────────────────────────────────
     const dimAvgH = DIMS.map((_, di) =>
         (reps.reduce((s,r) => s + r.h_vals.slice(di*4,di*4+4).reduce((a,b)=>a+b,0), 0) / n).toFixed(1));
-    const dimAvgP = DIMS.map((_, di) =>
-        (reps.reduce((s,r) => s + r.p_vals.slice(di*4,di*4+4).reduce((a,b)=>a+b,0), 0) / n).toFixed(1));
     mkChart('dims', 'chart-dims', {
         type: 'radar',
         data: {
             labels: DIMS,
             datasets: [
-                { label: 'Promedio Actual', data: dimAvgH,
+                { label: 'Promedio por dimensión', data: dimAvgH,
                   backgroundColor: 'rgba(0,77,44,.15)', borderColor: '#004D2C',
-                  pointBackgroundColor: '#004D2C', borderWidth: 2 },
-                { label: 'Promedio Deseado', data: dimAvgP,
-                  backgroundColor: 'rgba(124,179,66,.12)', borderColor: '#7CB342',
-                  pointBackgroundColor: '#7CB342', borderWidth: 2, borderDash: [5,3] }
+                  pointBackgroundColor: '#004D2C', borderWidth: 2 }
             ]
         },
         options: {
