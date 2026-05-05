@@ -455,9 +455,9 @@
         }
         .r-row { display: flex; gap: 4px; }
         .r-btn {
-            flex: 1; height: 52px; border: 1.5px solid var(--border);
-            background: var(--cream); cursor: pointer;
-            font-family: inherit; font-weight: 700; font-size: 1.05rem;
+            flex: 1; height: 56px; border: 1.5px solid var(--border);
+            background: var(--cream); cursor: pointer; border-radius: var(--radius);
+            font-family: inherit; font-weight: 700; font-size: 1.1rem;
             color: var(--mid); transition: all .18s;
         }
         .r-btn:hover { border-color: var(--accent); background: #F4FBE8; color: var(--primary); }
@@ -467,11 +467,43 @@
             box-shadow: 0 4px 12px rgba(0,77,44,.3);
         }
         .r-btn:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
-        .scale-anchors {
-            display: flex; justify-content: space-between;
-            font-size: .62rem; color: var(--gray); font-weight: 600;
-            padding: 0 2px; margin-top: 5px; letter-spacing: .5px;
+        .scale-labels-full {
+            display: flex; gap: 4px; margin-top: 5px;
         }
+        .scale-labels-full span {
+            flex: 1; text-align: center; font-size: .62rem;
+            color: var(--gray); line-height: 1.25; font-weight: 600;
+        }
+        .help-row { margin: 4px 0 20px; }
+        .help-btn {
+            display: inline-flex; align-items: center; gap: 7px; width: 100%;
+            background: rgba(124,179,66,.09); border: 1px solid rgba(124,179,66,.35);
+            border-radius: 8px; padding: 9px 18px;
+            font-family: inherit; font-size: .82rem; font-weight: 600;
+            color: var(--primary-l); cursor: pointer; transition: all .2s;
+        }
+        .help-btn::before { content: '💡'; font-size: .9rem; }
+        .help-btn:hover { background: rgba(124,179,66,.18); border-color: var(--accent); }
+        .help-btn[aria-expanded="true"] {
+            background: var(--primary); border-color: var(--primary); color: white;
+            border-radius: 8px 8px 0 0;
+        }
+        .help-btn[aria-expanded="true"]::before { content: '✕'; font-size: .75rem; }
+        .help-panel {
+            margin-top: 0; background: #F0F9E8;
+            border: 1px solid rgba(124,179,66,.3); border-top: none;
+            border-radius: 0 0 8px 8px;
+            padding: 14px 18px; font-size: .88rem; color: var(--mid); line-height: 1.7;
+            text-align: left;
+        }
+        .welcome-tip {
+            display: flex; gap: 14px; align-items: flex-start; text-align: left;
+            background: #F0F9E8; border: 1px solid rgba(124,179,66,.35);
+            border-radius: 8px; padding: 16px 18px; margin-bottom: 24px;
+            font-size: .88rem; color: var(--mid); line-height: 1.65;
+        }
+        .welcome-tip p { margin: 0; }
+        .welcome-tip-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 1px; }
 
         .survey-divider {
             border: none; border-top: 1px dashed var(--border);
@@ -773,6 +805,17 @@
             text-transform: uppercase; color: var(--gray);
             margin: 24px 0 12px; padding-bottom: 6px;
             border-bottom: 1px solid var(--border);
+        }
+
+        /* ==========================================================
+           MOBILE
+        ========================================================== */
+        @media (max-width: 480px) {
+            .r-btn { height: 48px; font-size: 1rem; }
+            .r-row { gap: 3px; }
+            .scale-labels-full { gap: 3px; }
+            .scale-labels-full span { font-size: .56rem; }
+            .opt-btn { flex: 1 1 calc(50% - 4px); text-align: center; }
         }
 
         /* ==========================================================
@@ -1255,19 +1298,16 @@
 </section>
 
 <!-- ================================================================
-     PERFIL DEL ENCUESTADO
+     PERFIL A — ¿Quién completa?
 ================================================================ -->
 <section class="page" id="profile">
-    <div class="card">
+    <div class="card" style="max-width:620px;">
         <button class="back-link" onclick="navTo('reg')">← Volver</button>
         <div class="eyebrow">Paso 2 de 3 — Perfil</div>
-        <h2 class="card-title">Perfil de la empresa y su fundador</h2>
+        <h2 class="card-title">¿Quién completa este diagnóstico?</h2>
         <p class="profile-note">
-            Esta información es estrictamente confidencial y se utiliza únicamente para el análisis académico de la investigación. No se comparte con terceros.
+            Esta información es estrictamente confidencial y se utiliza únicamente para el análisis académico de la investigación.
         </p>
-
-        <!-- ¿Quién responde? -->
-        <div class="profile-section-title">¿Quién completa este formulario?</div>
 
         <div class="field">
             <label>Tu rol en la empresa</label>
@@ -1279,11 +1319,35 @@
             </div>
         </div>
 
-        <!-- Sobre el fundador -->
-        <div class="profile-section-title">Sobre el fundador</div>
+        <!-- Proxy: solo si no es fundador -->
+        <div id="proxy-dueno" style="display:none;">
+            <div class="field">
+                <label>¿El fundador participa activamente en la operación diaria?</label>
+                <div class="opt-btns" id="opt-dueno-activo">
+                    <button class="opt-btn" onclick="selectOpt('duenoActivo','Sí',this)">Sí</button>
+                    <button class="opt-btn" onclick="selectOpt('duenoActivo','No',this)">No</button>
+                </div>
+            </div>
+        </div>
+
+        <button class="btn-primary full accent-bg" style="margin-top:8px;" onclick="submitProfileA()">Continuar →</button>
+    </div>
+</section>
+
+<!-- ================================================================
+     PERFIL B — Fundador + Empresa
+================================================================ -->
+<section class="page" id="profile-b">
+    <div class="card">
+        <button class="back-link" onclick="navTo('profile')">← Volver</button>
+        <div class="eyebrow">Paso 3 de 3 — Perfil</div>
+        <h2 class="card-title">Sobre el fundador y la empresa</h2>
         <p class="profile-note" style="margin-bottom:16px;">
-            Si no sos el fundador, respondé estas preguntas en base a lo que conocés de él.
+            Si no sos el fundador, respondé en base a lo que conocés de él.
         </p>
+
+        <!-- Sobre el fundador -->
+        <div class="profile-section-title">Fundador</div>
 
         <div class="field">
             <label>Edad del fundador</label>
@@ -1315,19 +1379,8 @@
             </select>
         </div>
 
-        <!-- Proxy: solo si no es dueño -->
-        <div id="proxy-dueno" style="display:none;">
-            <div class="field">
-                <label>¿El fundador participa activamente en la operación diaria?</label>
-                <div class="opt-btns" id="opt-dueno-activo">
-                    <button class="opt-btn" onclick="selectOpt('duenoActivo','Sí',this)">Sí</button>
-                    <button class="opt-btn" onclick="selectOpt('duenoActivo','No',this)">No</button>
-                </div>
-            </div>
-        </div>
-
         <!-- Sobre la empresa -->
-        <div class="profile-section-title">Sobre la empresa</div>
+        <div class="profile-section-title">Empresa</div>
 
         <div class="field">
             <label>Provincia donde opera principalmente</label>
@@ -1387,6 +1440,25 @@
         </div>
 
         <div class="field">
+            <label>Número de empleados (incluido el fundador)</label>
+            <div class="opt-btns" id="opt-empleados">
+                <button class="opt-btn" onclick="selectOpt('empleados','Solo el fundador',this)">Solo el fundador</button>
+                <button class="opt-btn" onclick="selectOpt('empleados','2 – 5',this)">2 – 5</button>
+                <button class="opt-btn" onclick="selectOpt('empleados','6 – 15',this)">6 – 15</button>
+                <button class="opt-btn" onclick="selectOpt('empleados','16 – 50',this)">16 – 50</button>
+                <button class="opt-btn" onclick="selectOpt('empleados','Más de 50',this)">Más de 50</button>
+            </div>
+        </div>
+
+        <div class="field">
+            <label>¿La empresa cuenta con al menos un gerente o directivo que no sea el fundador?</label>
+            <div class="opt-btns" id="opt-equipodir">
+                <button class="opt-btn" onclick="selectOpt('equipoDir','Sí',this)">Sí</button>
+                <button class="opt-btn" onclick="selectOpt('equipoDir','No',this)">No</button>
+            </div>
+        </div>
+
+        <div class="field">
             <label>¿Opera en más de una unidad de negocio o actividad?</label>
             <div class="opt-btns" id="opt-multiud">
                 <button class="opt-btn" onclick="selectOpt('multiUd','Sí',this)">Sí</button>
@@ -1416,7 +1488,7 @@
 
         <button class="btn-primary full accent-bg" style="margin-top:8px;" onclick="submitProfile()">Continuar →</button>
         <p style="font-size:.72rem; color:var(--gray); margin-top:12px; line-height:1.5;">
-            Todos los datos son anonimizados para el análisis. El nombre de la empresa no se asocia públicamente al perfil.
+            Todos los datos son anonimizados. El nombre de la empresa no se asocia públicamente al perfil.
         </p>
     </div>
 </section>
@@ -1425,23 +1497,27 @@
      BIENVENIDA
 ================================================================ -->
 <section class="page" id="welcome">
-    <div class="card" style="text-align:center; max-width:620px;">
+    <div class="card" style="text-align:center; max-width:520px;">
         <button class="back-link" onclick="navTo('reg')">← Volver</button>
         <div class="welcome-avatar">🌿</div>
-        <div class="eyebrow">Todo listo</div>
         <h2 class="card-title" id="welcome-name">¡Comenzamos!</h2>
-        <p style="font-size:.95rem; line-height:1.75; margin-bottom:28px; color:rgba(255,255,255,.8);">
-            Vas a responder <strong>16 preguntas</strong> en ~8 minutos.<br>
-            Para cada afirmación indicá cómo estás <em>hoy</em> y cuál es
-            usando una escala del <strong>0 (nunca) al 5 (siempre)</strong>.
+        <p style="font-size:.95rem; line-height:1.75; margin-bottom:24px; color:rgba(255,255,255,.8);">
+            Vas a responder <strong>16 afirmaciones</strong> sobre cómo opera tu empresa hoy.<br>
+            No hay respuestas correctas ni incorrectas — solo tu percepción honesta.
         </p>
-        <div class="welcome-dim-grid">
-            <div class="w-dim"><div class="w-dim-n">4</div><div class="w-dim-l">Preguntas</div></div>
-            <div class="w-dim"><div class="w-dim-n" style="font-family:'Playfair Display',serif; font-style:italic;">Enfoque</div><div class="w-dim-l">Dimensión 1</div></div>
-            <div class="w-dim"><div class="w-dim-n" style="font-family:'Playfair Display',serif; font-style:italic;">Procesos</div><div class="w-dim-l">Dimensión 2</div></div>
-            <div class="w-dim"><div class="w-dim-n" style="font-family:'Playfair Display',serif; font-style:italic;">Competencias</div><div class="w-dim-l">Dimensión 3</div></div>
+        <div class="welcome-tip">
+            <div class="welcome-tip-icon">💡</div>
+            <p>En cada pregunta vas a encontrar un botón de <strong>Ver ejemplo</strong>.
+               Si alguna afirmación no te queda del todo clara, hacé clic ahí para ver
+               una situación concreta que te ayude a responder.</p>
         </div>
-        <button class="btn-primary full accent-bg" onclick="goSurvey()">Iniciar Cuestionario →</button>
+        <button class="btn-primary full accent-bg" id="btn-iniciar" onclick="goSurvey()" disabled style="opacity:.45; cursor:not-allowed;">
+            Iniciar Diagnóstico →
+        </button>
+        <label style="margin-top:14px; display:flex; align-items:center; justify-content:center; gap:8px; cursor:pointer;">
+            <input type="checkbox" id="ack-check" onchange="toggleAck()" style="width:16px; height:16px; accent-color:var(--accent);">
+            <span style="font-size:.82rem; color:rgba(255,255,255,.7);">Entendido, quiero comenzar</span>
+        </label>
     </div>
 </section>
 
@@ -1465,16 +1541,58 @@
 
         <div id="q-text">Cargando…</div>
 
-        <div class="scale-block" style="max-width:480px; margin:0 auto;">
+        <div class="help-row">
+            <button class="help-btn" id="help-btn" onclick="toggleHelp()" aria-expanded="false">ℹ️ Ver ejemplo</button>
+            <div class="help-panel" id="help-panel" hidden></div>
+        </div>
+
+        <div class="scale-block">
             <div class="scale-label-top">Situación Actual — Hoy</div>
             <div class="r-row" id="group-h"></div>
-            <div class="scale-anchors"><span>Nunca</span><span>A veces</span><span>Siempre</span></div>
+            <div class="scale-labels-full">
+                <span>Nunca</span>
+                <span>Casi<br>nunca</span>
+                <span>Rara<br>vez</span>
+                <span>A<br>veces</span>
+                <span>Casi<br>siempre</span>
+                <span>Siempre</span>
+            </div>
         </div>
 
         <div class="survey-controls">
             <button class="btn-ghost" id="back-btn" onclick="move(-1)">← Atrás</button>
             <span class="q-counter" id="q-counter">1 / 16</span>
             <button class="btn-primary" id="next-btn" onclick="move(1)">Siguiente →</button>
+        </div>
+    </div>
+</section>
+
+<!-- ================================================================
+     SATISFACCIÓN (pregunta de cierre)
+================================================================ -->
+<section class="page" id="satisfaction">
+    <div class="card" style="text-align:center; max-width:580px;">
+        <div class="eyebrow">Última pregunta</div>
+        <h2 class="card-title" style="margin-bottom:8px;">Una pregunta de cierre</h2>
+        <p style="font-size:.95rem; line-height:1.75; color:var(--mid); margin-bottom:28px;">
+            En general, ¿qué tan satisfecho/a estás con el nivel de organización<br>
+            y gestión de tu empresa hoy?
+        </p>
+        <div class="scale-block">
+            <div class="r-row" id="sat-row"></div>
+            <div class="scale-labels-full">
+                <span>Muy<br>insatisfecho</span>
+                <span>Insa-<br>tisfecho</span>
+                <span>Neutral</span>
+                <span>Satis-<br>fecho</span>
+                <span>Muy<br>satisfecho</span>
+            </div>
+        </div>
+        <div style="margin-top:28px; display:flex; gap:12px; justify-content:center; align-items:center;">
+            <button class="btn-ghost" onclick="navTo('survey'); renderQ()">← Volver</button>
+            <button class="btn-primary accent-bg" id="sat-finish-btn" onclick="finish()" disabled style="opacity:.45;">
+                Ver mis resultados →
+            </button>
         </div>
     </div>
 </section>
@@ -1615,7 +1733,7 @@
             </div>
             <div id="res-content">
                 <!-- KPI Cards -->
-                <div class="res-kpi-grid">
+                <div class="res-kpi-grid" style="grid-template-columns:repeat(auto-fit,minmax(140px,1fr));">
                     <div class="res-kpi-card">
                         <div class="res-kpi-val" id="kpi-total">—</div>
                         <div class="res-kpi-lbl">Total de respuestas</div>
@@ -1628,32 +1746,55 @@
                         <div class="res-kpi-val" id="kpi-stage" style="font-size:1rem;padding-top:6px;line-height:1.3;">—</div>
                         <div class="res-kpi-lbl">Etapa más frecuente</div>
                     </div>
+                    <div class="res-kpi-card">
+                        <div class="res-kpi-val" id="kpi-weak-dim" style="font-size:1rem;padding-top:6px;line-height:1.3;">—</div>
+                        <div class="res-kpi-lbl">Dimensión más rezagada</div>
+                    </div>
+                    <div class="res-kpi-card">
+                        <div class="res-kpi-val" id="kpi-satisfaccion">—</div>
+                        <div class="res-kpi-lbl">Satisfacción promedio /5</div>
+                    </div>
                 </div>
 
-                <!-- Stage Distribution -->
-                <div class="res-section-title">Distribución por Etapa Organizacional</div>
-                <div class="res-grid-2">
+                <!-- Stage Distribution + Benchmark Molinari -->
+                <div class="res-section-title" style="margin-top:28px;">Distribución por Etapa Organizacional</div>
+                <div class="res-grid-2" style="grid-template-columns:1fr 1fr 1fr;">
                     <div class="res-chart-card">
-                        <div class="res-chart-title">Cantidad de empresas por etapa</div>
+                        <div class="res-chart-title">Distribución por etapa</div>
                         <canvas id="chart-etapas" height="220"></canvas>
                     </div>
                     <div class="res-chart-card">
                         <div class="res-chart-title">Puntaje promedio por etapa</div>
                         <canvas id="chart-score-etapa" height="220"></canvas>
                     </div>
+                    <div class="res-chart-card">
+                        <div class="res-chart-title">Benchmark vs. Molinari (2014)</div>
+                        <div id="benchmark-molinari" style="margin-top:8px;"></div>
+                        <p style="font-size:.68rem;color:var(--gray);margin-top:10px;line-height:1.4;">
+                            Molinari (2014): 715 PyMEs argentinas.<br>
+                            Etapas mapeadas: Fundacional→CONFIANZA, Transición→ANÁLISIS+DELEGACIÓN, Profesional→PERSPECTIVA.
+                        </p>
+                    </div>
                 </div>
 
-                <!-- Dimension Averages -->
-                <div class="res-section-title">Promedio por Dimensión</div>
-                <div style="max-width:480px;margin:0 auto 20px;">
+                <!-- Dimension Averages + Satisfacción -->
+                <div class="res-section-title">Dimensiones y Satisfacción</div>
+                <div class="res-grid-2">
                     <div class="res-chart-card">
-                        <div class="res-chart-title" style="text-align:center;">Promedio por dimensión · estado actual</div>
+                        <div class="res-chart-title" style="text-align:center;">Promedio por dimensión</div>
                         <canvas id="chart-dims" height="280"></canvas>
+                    </div>
+                    <div class="res-chart-card">
+                        <div class="res-chart-title">Satisfacción percibida por etapa</div>
+                        <canvas id="chart-satisfaccion" height="280"></canvas>
+                        <p style="font-size:.68rem;color:var(--gray);margin-top:8px;line-height:1.4;">
+                            Hipótesis: empresas en etapa CONFIANZA pueden mostrar satisfacción alta a pesar de baja madurez estructural.
+                        </p>
                     </div>
                 </div>
 
                 <!-- Profile Distributions -->
-                <div class="res-section-title">Distribución de Respondentes por Perfil</div>
+                <div class="res-section-title">Perfil de la muestra</div>
                 <div class="res-grid-2">
                     <div class="res-chart-card">
                         <div class="res-chart-title">Por región geográfica</div>
@@ -1662,6 +1803,14 @@
                     <div class="res-chart-card">
                         <div class="res-chart-title">Por antigüedad de la empresa</div>
                         <canvas id="chart-tamano" height="200"></canvas>
+                    </div>
+                    <div class="res-chart-card">
+                        <div class="res-chart-title">Por tamaño (empleados)</div>
+                        <canvas id="chart-empleados" height="200"></canvas>
+                    </div>
+                    <div class="res-chart-card">
+                        <div class="res-chart-title">Equipo directivo formado</div>
+                        <canvas id="chart-equipodir" height="200"></canvas>
                     </div>
                 </div>
 
@@ -1681,6 +1830,8 @@
                         <option value="vinculo">Org. del sector (Sí/No)</option>
                         <option value="duenoActivo">Fundador operativo (no-fundadores)</option>
                         <option value="sector">Sector / Actividad</option>
+                        <option value="empleados">Tamaño (empleados)</option>
+                        <option value="equipoDir">Equipo directivo</option>
                     </select>
                 </div>
                 <div class="res-chart-card" style="margin-bottom:20px;">
@@ -1717,7 +1868,7 @@
     <div class="footer-sep"></div>
     <div>Universidad Austral · Maestría en Organizaciones Centradas en las Personas</div>
     <div style="margin-top:6px; font-size:.65rem; opacity:.5;">Colaboración web: Santiago Melero</div>
-    <div style="margin-top:10px;"><a onclick="navTo('admin')" title="Administración">●</a></div>
+    <div style="margin-top:10px;"><a onclick="navTo('admin')" style="font-size:.7rem; color:var(--gray); letter-spacing:1px; cursor:pointer; text-decoration:none; opacity:.6;">Panel de Investigación</a></div>
 </footer>
 
 <!-- ================================================================
@@ -1767,38 +1918,118 @@
    PREGUNTAS
 ---------------------------------------------------------------- */
 const qs = [
-    { d:'Enfoque',      desc:'Toma de decisiones basada en datos y análisis objetivo',
-      q:'En nuestra empresa estamos enfocados fuertemente en los ingresos y gastos concretos semanalmente / quincenalmente.' },
-    { d:'Enfoque',      desc:'Toma de decisiones basada en datos y análisis objetivo',
-      q:'En nuestra empresa se dedica tiempo a estudiar los resultados y a buscar explicaciones sobre lo sucedido.' },
-    { d:'Enfoque',      desc:'Toma de decisiones basada en datos y análisis objetivo',
-      q:'En nuestra empresa se toman decisiones basados en datos y análisis objetivos, generando información de modo sistemático.' },
-    { d:'Enfoque',      desc:'Toma de decisiones basada en datos y análisis objetivo',
-      q:'En nuestra empresa compartimos sistemáticamente los aprendizajes que surgen de las decisiones e implementaciones.' },
-    { d:'Procesos',     desc:'Estandarización, integración y calidad de los procesos de trabajo',
-      q:'En nuestra empresa estamos enfocados fuertemente en las acciones cotidianas y en las emergencias que surgen.' },
-    { d:'Procesos',     desc:'Estandarización, integración y calidad de los procesos de trabajo',
-      q:'En nuestra empresa trabajamos conforme a estándares establecidos cuidando la calidad de lo que hacemos.' },
-    { d:'Procesos',     desc:'Estandarización, integración y calidad de los procesos de trabajo',
-      q:'En nuestra empresa los procesos que hemos diseñado son los que gobiernan las distintas actividades.' },
-    { d:'Procesos',     desc:'Estandarización, integración y calidad de los procesos de trabajo',
-      q:'En nuestra empresa trabajamos de modo integrado de forma sistemática, tanto las áreas como los procesos de trabajo.' },
+    { d:'Enfoque', desc:'Toma de decisiones basada en información y análisis',
+      q:'En nuestra empresa se realiza un seguimiento periódico y sistemático de los ingresos y egresos.',
+      help:{
+        prod:'Ej: se revisan regularmente los ingresos por ventas de granos, hacienda o leche y los gastos de insumos y labores — no solo al cierre del ejercicio.',
+        serv:'Ej: se controlan periódicamente los cobros de servicios o comisiones y los gastos operativos — no solo cuando hay un problema de caja.',
+        neutro:'Ej: se revisan con regularidad los ingresos y gastos de la empresa — no solo al cierre del año o ante una urgencia financiera.'
+      }},
+    { d:'Enfoque', desc:'Toma de decisiones basada en información y análisis',
+      q:'En nuestra empresa se analizan los resultados obtenidos y se identifican las causas que los explican.',
+      help:{
+        prod:'Ej: si el rendimiento de un cultivo o la productividad del rodeo bajó, se investiga por qué antes de seguir adelante.',
+        serv:'Ej: si la facturación o la cantidad de clientes activos variaron, el equipo se detiene a entender qué lo provocó.',
+        neutro:'Ej: si los resultados de un período fueron distintos a lo esperado, el equipo analiza las causas antes de tomar decisiones.'
+      }},
+    { d:'Enfoque', desc:'Toma de decisiones basada en información y análisis',
+      q:'En nuestra empresa las decisiones relevantes se fundamentan en información objetiva y previamente analizada.',
+      help:{
+        prod:'Ej: antes de definir qué sembrar, comprar un equipo o cambiar de proveedor de insumos, se revisan datos concretos que respalden la decisión.',
+        serv:'Ej: antes de incorporar un cliente, cambiar una tarifa o invertir en infraestructura, se analiza información que justifique la decisión.',
+        neutro:'Ej: antes de una inversión, contratación o cambio operativo relevante, se reúne y analiza información concreta — no solo se actúa por intuición.'
+      }},
+    { d:'Enfoque', desc:'Toma de decisiones basada en información y análisis',
+      q:'En nuestra empresa los aprendizajes derivados de cada decisión o proyecto se documentan y se comparten con el equipo.',
+      help:{
+        prod:'Ej: si una variedad rindió mejor de lo esperado o una práctica falló, esa experiencia se registra o comenta en equipo para la próxima campaña.',
+        serv:'Ej: si un proyecto salió bien o un cliente presentó un problema no anticipado, esa experiencia se comparte con el equipo para mejorar la próxima vez.',
+        neutro:'Ej: cuando algo sale mejor o peor de lo esperado, esa experiencia se registra o discute en equipo para no repetir errores.'
+      }},
+    { d:'Procesos', desc:'Estandarización, integración y calidad operativa',
+      q:'En nuestra empresa la mayor parte del esfuerzo operativo se destina a resolver las tareas y urgencias del día a día.',
+      help:{
+        prod:'Ej: el equipo trabaja atendiendo lo que aparece en cada jornada — el tiempo que llega, la máquina que se rompe, el animal que se enferma — sin guías establecidas que orienten la operación.',
+        serv:'Ej: el equipo destina la mayor parte del tiempo a resolver pedidos, consultas o problemas del momento, sin contar aún con protocolos que organicen el trabajo.',
+        neutro:'Ej: el equipo opera resolviendo lo que aparece cada día — urgencias, imprevistos, pedidos de último momento — sin procedimientos establecidos que lo orienten.'
+      }},
+    { d:'Procesos', desc:'Estandarización, integración y calidad operativa',
+      q:'En nuestra empresa se trabaja según estándares definidos y se controla la calidad de los resultados.',
+      help:{
+        prod:'Ej: hay criterios establecidos para las labores clave (densidad de siembra, manejo sanitario, carga animal) y se verifica que se cumplan.',
+        serv:'Ej: hay criterios claros sobre cómo se presta cada servicio o se atiende cada cliente, y se controla que el trabajo cumpla ese estándar.',
+        neutro:'Ej: existen criterios o parámetros concretos que definen cómo debe realizarse el trabajo, y se verifica su cumplimiento regularmente.'
+      }},
+    { d:'Procesos', desc:'Estandarización, integración y calidad operativa',
+      q:'En nuestra empresa las actividades se realizan siguiendo procesos formalizados, independientemente de quién las ejecute.',
+      help:{
+        prod:'Ej: los procedimientos de siembra, cosecha, sanidad o administración están documentados y se respetan aunque la persona de referencia no esté.',
+        serv:'Ej: los procedimientos de atención, cotización o entrega están escritos y se aplican sin importar quién esté disponible ese día.',
+        neutro:'Ej: los procedimientos están documentados y se respetan aunque la persona de referencia no esté presente ese día.'
+      }},
+    { d:'Procesos', desc:'Estandarización, integración y calidad operativa',
+      q:'En nuestra empresa las distintas áreas o funciones coordinan su trabajo de manera sistemática e integrada.',
+      help:{
+        prod:'Ej: producción, administración y comercialización comparten información y coordinan sus actividades sin que todo tenga que pasar por el fundador.',
+        serv:'Ej: operaciones, administración y ventas (u otras funciones equivalentes) se coordinan y comparten información sin que todo pase por una sola persona.',
+        neutro:'Ej: las distintas áreas de la empresa comparten información y se coordinan entre sí — sin que todo deba pasar por una sola persona.'
+      }},
     { d:'Competencias', desc:'Claridad de roles, estructura de equipos y delegación efectiva',
-      q:'En nuestra empresa las personas que la integran son quienes dan contenido al puesto que ocupan.' },
+      q:'En nuestra empresa cada puesto se ejerce según el criterio y la iniciativa de quien lo ocupa, más que según una definición formal del rol.',
+      help:{
+        prod:'Ej: las responsabilidades del encargado de campo, el administrativo o el capataz no están escritas en ningún lado — cada uno hace lo que sabe o lo que el fundador le pide.',
+        serv:'Ej: lo que hace cada persona depende de quién está disponible o de lo que el fundador considera que sabe hacer, sin una descripción formal de roles.',
+        neutro:'Ej: las responsabilidades de cada persona no están escritas ni formalizadas; se van definiendo según quién está o según el criterio del fundador.'
+      }},
     { d:'Competencias', desc:'Claridad de roles, estructura de equipos y delegación efectiva',
-      q:'En nuestra empresa los puestos están determinados y las personas desarrollan la labor prevista, enriqueciéndose.' },
+      q:'En nuestra empresa los roles y responsabilidades de cada puesto están definidos, y las personas los desarrollan con autonomía creciente.',
+      help:{
+        prod:'Ej: el encargado de campo, el administrativo o el responsable comercial tiene claro qué se espera de él, y puede proponer mejoras dentro de su área.',
+        serv:'Ej: cada integrante del equipo tiene claro su rol y sus responsabilidades, y puede tomar decisiones dentro de su área sin tener que consultar todo.',
+        neutro:'Ej: cada persona tiene claro qué se espera de su puesto y puede proponer mejoras dentro de su área de responsabilidad.'
+      }},
     { d:'Competencias', desc:'Claridad de roles, estructura de equipos y delegación efectiva',
-      q:'En nuestra empresa se delega con naturalidad y razonabilidad, de modo claro y que permite rendir cuentas.' },
+      q:'En nuestra empresa la delegación de responsabilidades se ejerce con claridad y va acompañada de mecanismos de seguimiento y rendición de cuentas.',
+      help:{
+        prod:'Ej: cuando se asigna una tarea al encargado o al personal de campo, queda claro qué se espera, para cuándo, y cómo se evaluará.',
+        serv:'Ej: cuando se le encarga algo a alguien del equipo — una entrega, un cliente, un proyecto — queda definido qué, cuándo y cómo se va a controlar.',
+        neutro:'Ej: cuando se asigna una responsabilidad a alguien, queda claro qué se espera, para cuándo, y cómo se verificará el resultado.'
+      }},
     { d:'Competencias', desc:'Claridad de roles, estructura de equipos y delegación efectiva',
-      q:'En nuestra organización, los equipos de trabajo son más importantes que aquellos que lideran las distintas áreas.' },
-    { d:'Proyección',   desc:'Planificación estratégica y orientación al norte organizacional',
-      q:'En nuestra empresa es muy importante "el modo en que lo hemos venido haciendo y que nos ha llevado hasta aquí".' },
-    { d:'Proyección',   desc:'Planificación estratégica y orientación al norte organizacional',
-      q:'En nuestra empresa determinamos objetivos por actividad clave o por sector, que son el norte de trabajo de cada período.' },
-    { d:'Proyección',   desc:'Planificación estratégica y orientación al norte organizacional',
-      q:'En nuestra empresa planificamos con tiempo, basados en la información generada y las capacidades que poseemos.' },
-    { d:'Proyección',   desc:'Planificación estratégica y orientación al norte organizacional',
-      q:'En nuestra empresa se ha definido el norte estratégico que nos orienta y da sentido a todo lo que hacemos.' },
+      q:'En nuestra empresa el desempeño colectivo de los equipos prima sobre el protagonismo individual de sus líderes.',
+      help:{
+        prod:'Ej: si el encargado de campo o el capataz no está, la operación continúa porque el equipo sabe qué hacer — no todo depende de esa persona.',
+        serv:'Ej: si el responsable de un área no está disponible, el equipo puede seguir operando porque los procesos y roles están claros.',
+        neutro:'Ej: los resultados de un área dependen del equipo en su conjunto — si alguien falta, la operación no se detiene.'
+      }},
+    { d:'Proyección', desc:'Planificación estratégica y orientación al norte organizacional',
+      q:'En nuestra empresa la forma de operar se apoya principalmente en la experiencia acumulada y en los modos de trabajo ya establecidos.',
+      help:{
+        prod:'Ej: las decisiones de manejo, compra o venta se toman como siempre se hicieron en la empresa o en la familia, más que a partir de datos actualizados o un plan formal.',
+        serv:'Ej: las decisiones sobre cómo atender clientes, fijar precios u organizar el trabajo siguen la lógica de "siempre lo hicimos así", más que un plan o metodología definida.',
+        neutro:'Ej: las decisiones se toman en base a la experiencia del fundador y a lo que siempre funcionó, más que a partir de un análisis formal o datos actualizados.'
+      }},
+    { d:'Proyección', desc:'Planificación estratégica y orientación al norte organizacional',
+      q:'En nuestra empresa se definen objetivos concretos por área o actividad que orientan el trabajo de cada período.',
+      help:{
+        prod:'Ej: al inicio de cada campaña o ciclo productivo se definen metas concretas para cada actividad — rendimiento, cabezas, litros — que orientan el trabajo del período.',
+        serv:'Ej: al inicio de cada período se establecen metas concretas por área o servicio — clientes, facturación, eficiencia — que orientan el trabajo del equipo.',
+        neutro:'Ej: al inicio de cada período se definen metas concretas para las principales actividades, y esas metas orientan el trabajo del equipo.'
+      }},
+    { d:'Proyección', desc:'Planificación estratégica y orientación al norte organizacional',
+      q:'En nuestra empresa la planificación se realiza con anticipación, sustentada en información disponible y en una evaluación realista de las capacidades propias.',
+      help:{
+        prod:'Ej: las decisiones de siembra, inversión en maquinaria o incorporación de personal se planifican con tiempo y con datos, no solo cuando surge la necesidad.',
+        serv:'Ej: las decisiones de expansión, incorporación de personal o inversión en equipamiento se planifican con anticipación y con una evaluación realista de lo que la empresa puede hacer.',
+        neutro:'Ej: las decisiones importantes se planifican con tiempo y con datos — no solo en respuesta a lo que surge en el momento.'
+      }},
+    { d:'Proyección', desc:'Planificación estratégica y orientación al norte organizacional',
+      q:'En nuestra empresa existe un norte estratégico explícito que orienta las decisiones de largo plazo y le da sentido a la actividad cotidiana.',
+      help:{
+        prod:'Ej: hay una visión clara sobre hacia dónde va la empresa — crecer, diversificar, profesionalizarse, transferirla a la próxima generación — y eso guía las decisiones cotidianas.',
+        serv:'Ej: hay una visión articulada sobre hacia dónde va la empresa — los mercados que quiere atender, cómo quiere crecer, qué tipo de organización ser — y eso guía las decisiones.',
+        neutro:'Ej: hay una visión o propósito organizacional que el equipo conoce y usa como referencia al tomar decisiones — no solo se trabaja para el día a día.'
+      }},
 ];
 
 /* ----------------------------------------------------------------
@@ -1854,10 +2085,11 @@ const ETAPAS = {
 /* ----------------------------------------------------------------
    ESTADO
 ---------------------------------------------------------------- */
-let qIdx   = 0;
-let h_vals = Array(16).fill(null);
-let p_vals = Array(16).fill(null);
-let uData  = {};
+let qIdx        = 0;
+let h_vals      = Array(16).fill(null);
+let p_vals      = Array(16).fill(null);
+let uData       = {};
+let satisfaccion = null;
 
 /* ----------------------------------------------------------------
    NAVBAR
@@ -1961,7 +2193,7 @@ const REGIONES = {
 /* ----------------------------------------------------------------
    PERFIL DEL ENCUESTADO
 ---------------------------------------------------------------- */
-const pSel = { rol: null, edad: null, genero: null, generacion: null, antiguedad: null, multiUd: null, vinculo: null, sucesion: null, duenoActivo: null };
+const pSel = { rol: null, edad: null, genero: null, generacion: null, antiguedad: null, multiUd: null, vinculo: null, sucesion: null, duenoActivo: null, empleados: null, equipoDir: null };
 
 function selectOpt(field, val, btn) {
     pSel[field] = val;
@@ -1986,23 +2218,30 @@ function togglePais() {
     document.getElementById('p-pais-wrap').style.display = val === 'Fuera de Argentina' ? '' : 'none';
 }
 
+function submitProfileA() {
+    if (!pSel.rol) { alert('Por favor indicá tu rol en la empresa.'); return; }
+    const esDueno = pSel.rol === 'Fundador / Socio';
+    if (!esDueno && !pSel.duenoActivo) { alert('Por favor indicá si el fundador participa activamente.'); return; }
+    navTo('profile-b');
+}
+
 function submitProfile() {
     const provincia = document.getElementById('p-provincia').value;
     const formacion = document.getElementById('p-formacion').value;
 
-    if (!pSel.rol)          { alert('Por favor indicá tu rol en la empresa.'); return; }
+    if (!pSel.edad)         { alert('Por favor indicá la edad del fundador.'); return; }
+    if (!pSel.genero)       { alert('Por favor indicá el género del fundador.'); return; }
+    if (!formacion)         { alert('Por favor indicá la formación académica del fundador.'); return; }
     if (!provincia)         { alert('Por favor indicá la provincia de operación.'); return; }
-    if (!pSel.edad)         { alert('Por favor indicá tu rango de edad.'); return; }
-    if (!pSel.genero)       { alert('Por favor indicá tu género.'); return; }
-    if (!formacion)         { alert('Por favor indicá tu formación académica.'); return; }
     if (!pSel.generacion)   { alert('Por favor indicá la generación familiar al frente de la empresa.'); return; }
     if (!pSel.antiguedad)   { alert('Por favor indicá la antigüedad de la empresa.'); return; }
+    if (!pSel.empleados)    { alert('Por favor indicá el número de empleados.'); return; }
+    if (!pSel.equipoDir)    { alert('Por favor indicá si hay equipo directivo.'); return; }
     if (!pSel.multiUd)      { alert('Por favor indicá si operás en más de una unidad de negocio.'); return; }
     if (!pSel.vinculo)      { alert('Por favor indicá si participás en alguna organización del sector.'); return; }
     if (!pSel.sucesion)     { alert('Por favor indicá la proyección sucesoria.'); return; }
-    const esDueno = pSel.rol === 'Fundador / Socio';
-    if (!esDueno && !pSel.duenoActivo)  { alert('Por favor indicá si el dueño participa activamente en la operación.'); return; }
 
+    const esDueno = pSel.rol === 'Fundador / Socio';
     const pais = provincia === 'Fuera de Argentina'
         ? (document.getElementById('p-pais').value.trim() || 'No especificado')
         : 'Argentina';
@@ -2016,6 +2255,8 @@ function submitProfile() {
         formacion,
         generacion: pSel.generacion,
         antiguedad: pSel.antiguedad,
+        empleados:  pSel.empleados,
+        equipoDir:  pSel.equipoDir,
         multiUd:    pSel.multiUd,
         vinculo:    pSel.vinculo,
         sucesion:   pSel.sucesion,
@@ -2048,6 +2289,31 @@ function startSurvey() {
 /* ----------------------------------------------------------------
    ENCUESTA
 ---------------------------------------------------------------- */
+function getCluster() {
+    const s = (uData?.sector || '').toLowerCase();
+    const prod = ['agricultura','ganadería','ganaderia','mixta','tambo','lechería','lecheria','horticultura','fruticultura','intensiv'];
+    if (prod.some(k => s.includes(k))) return 'prod';
+    const serv = ['acopio','logística','logistica','insumos','contratista','consultoría','consultoria','administración','administracion','gestión','gestion'];
+    if (serv.some(k => s.includes(k))) return 'serv';
+    return 'neutro';
+}
+
+function toggleHelp() {
+    const panel = document.getElementById('help-panel');
+    const btn   = document.getElementById('help-btn');
+    const open  = !panel.hidden;
+    panel.hidden = open;
+    btn.setAttribute('aria-expanded', String(!open));
+}
+
+function toggleAck() {
+    const btn     = document.getElementById('btn-iniciar');
+    const checked = document.getElementById('ack-check').checked;
+    btn.disabled       = !checked;
+    btn.style.opacity  = checked ? '1' : '.45';
+    btn.style.cursor   = checked ? 'pointer' : 'not-allowed';
+}
+
 function goSurvey() {
     const saved = sessionStorage.getItem('agro_progress');
     if (saved) {
@@ -2085,6 +2351,12 @@ function renderQ() {
     document.getElementById('back-btn').style.visibility = qIdx === 0 ? 'hidden' : 'visible';
     document.getElementById('next-btn').textContent = qIdx === 15 ? 'Ver Resultados ✓' : 'Siguiente →';
 
+    const helpPanel = document.getElementById('help-panel');
+    const helpBtn   = document.getElementById('help-btn');
+    helpPanel.textContent = qs[qIdx].help[getCluster()];
+    helpPanel.hidden = true;
+    helpBtn.setAttribute('aria-expanded', 'false');
+
     sessionStorage.setItem('agro_progress', JSON.stringify({ qIdx, h_vals, p_vals }));
 }
 
@@ -2111,8 +2383,36 @@ function move(d) {
     if (d === 1 && h_vals[qIdx] === null) {
         alert('Por favor, seleccioná un valor antes de continuar.'); return;
     }
-    if (d === 1 && qIdx === 15) { finish(); return; }
+    if (d === 1 && qIdx === 15) { showSatisfaction(); return; }
     qIdx += d; renderQ();
+}
+
+function showSatisfaction() {
+    satisfaccion = null;
+    renderSatisfactionBtns();
+    document.getElementById('sat-finish-btn').disabled = true;
+    document.getElementById('sat-finish-btn').style.opacity = '.45';
+    navTo('satisfaction');
+}
+
+function renderSatisfactionBtns() {
+    const labels = ['Muy\ninsatisfecho','Insatisfecho','Neutral','Satisfecho','Muy\nsatisfecho'];
+    const row = document.getElementById('sat-row');
+    row.innerHTML = '';
+    for (let i = 1; i <= 5; i++) {
+        const b = document.createElement('button');
+        b.className = 'r-btn' + (satisfaccion === i ? ' sel' : '');
+        b.textContent = i;
+        b.setAttribute('aria-label', `${i} — ${labels[i-1].replace('\n',' ')}`);
+        b.onclick = () => {
+            satisfaccion = i;
+            renderSatisfactionBtns();
+            const fb = document.getElementById('sat-finish-btn');
+            fb.disabled = false;
+            fb.style.opacity = '1';
+        };
+        row.appendChild(b);
+    }
 }
 
 /* ----------------------------------------------------------------
@@ -2249,6 +2549,7 @@ function saveReport(total, etapaKey) {
     r.push({ ts: new Date().toISOString(), name: uData.name||'', contact: uData.contact||'',
              sector: uData.sector||'', score: total, etapa: etapaKey,
              h_vals: [...h_vals], p_vals: [],
+             satisfaccion: satisfaccion,
              perfil: uData.perfil || {} });
     setReports(r);
 }
@@ -2384,17 +2685,17 @@ function exportCSV() {
     const rep = getReports();
     if (!rep.length) { alert('No hay informes para exportar.'); return; }
     const dims = ['Enfoque','Procesos','Competencias','Proyección'];
-    let hdr = 'Fecha,Empresa,Contacto,Sector,Etapa,Puntaje,Rol,Provincia,Region,Pais,Edad_Dueno,Genero_Dueno,Formacion_Dueno,Generacion_Familiar,Antiguedad,Multiples_Unidades,Vinculo_Organizacion,Sucesion_Familiar,Dueno_Operativo';
+    let hdr = 'Fecha,Empresa,Contacto,Sector,Etapa,Puntaje,Satisfaccion,Rol,Provincia,Region,Pais,Edad_Dueno,Genero_Dueno,Formacion_Dueno,Generacion_Familiar,Antiguedad,Empleados,Equipo_Directivo,Multiples_Unidades,Vinculo_Organizacion,Sucesion_Familiar,Dueno_Operativo';
     dims.forEach(d => hdr += `,${d}`);
     const csv_s = s => `"${String(s||'—').replace(/"/g,'""')}"`;
     const rows = rep.map(r => {
         const pf = r.perfil || {};
         let row = [new Date(r.ts).toLocaleDateString('es-AR'),
             csv_s(r.name), csv_s(r.contact), csv_s(r.sector),
-            r.etapa, r.score,
+            r.etapa, r.score, r.satisfaccion ?? '—',
             csv_s(pf.rol), csv_s(pf.provincia), csv_s(pf.region), csv_s(pf.pais),
             csv_s(pf.edad), csv_s(pf.genero), csv_s(pf.formacion),
-            csv_s(pf.generacion), csv_s(pf.antiguedad), csv_s(pf.multiUd),
+            csv_s(pf.generacion), csv_s(pf.antiguedad), csv_s(pf.empleados), csv_s(pf.equipoDir), csv_s(pf.multiUd),
             csv_s(pf.vinculo), csv_s(pf.sucesion), csv_s(pf.duenoActivo)];
         dims.forEach((_, di) => {
             row.push(r.h_vals.slice(di*4,di*4+4).reduce((a,b)=>a+b,0));
@@ -2450,9 +2751,20 @@ function renderResearchDash() {
     reps.forEach(r => { if (stageCounts[r.etapa] !== undefined) stageCounts[r.etapa]++; });
     const topStage = STAGES.reduce((a,b) => stageCounts[a] >= stageCounts[b] ? a : b);
 
-    document.getElementById('kpi-total').textContent = n;
-    document.getElementById('kpi-avg').textContent   = avgScore;
-    document.getElementById('kpi-stage').textContent = topStage;
+    // Dimensión más rezagada
+    const dimAvgsKpi = DIMS.map((_, di) =>
+        reps.reduce((s,r) => s + r.h_vals.slice(di*4,di*4+4).reduce((a,b)=>a+b,0), 0) / n);
+    const weakDimIdx = dimAvgsKpi.indexOf(Math.min(...dimAvgsKpi));
+
+    // Satisfacción promedio
+    const satReps = reps.filter(r => r.satisfaccion != null);
+    const avgSat  = satReps.length ? (satReps.reduce((s,r) => s + r.satisfaccion, 0) / satReps.length).toFixed(1) : '—';
+
+    document.getElementById('kpi-total').textContent    = n;
+    document.getElementById('kpi-avg').textContent      = avgScore;
+    document.getElementById('kpi-stage').textContent    = topStage;
+    document.getElementById('kpi-weak-dim').textContent = DIMS[weakDimIdx];
+    document.getElementById('kpi-satisfaccion').textContent = avgSat;
 
     // ── Chart helper ──────────────────────────────────────────────
     function mkChart(key, canvasId, cfg) {
@@ -2548,8 +2860,66 @@ function renderResearchDash() {
             }
         });
     }
-    profileBar('region',     'chart-region',  ['Pampa Húmeda','NOA','NEA','Cuyo','Patagonia','Internacional','Sin dato']);
-    profileBar('antiguedad', 'chart-tamano',  ['Menos de 5 años','5–15 años','16–30 años','Más de 30 años','Sin dato']);
+    profileBar('region',     'chart-region',    ['Pampa Húmeda','NOA','NEA','Cuyo','Patagonia','Internacional','Sin dato']);
+    profileBar('antiguedad', 'chart-tamano',    ['Menos de 5 años','5–15 años','16–30 años','Más de 30 años','Sin dato']);
+    profileBar('empleados',  'chart-empleados', ['Solo el fundador','2 – 5','6 – 15','16 – 50','Más de 50','Sin dato']);
+    profileBar('equipoDir',  'chart-equipodir', ['Sí','No','Sin dato']);
+
+    // ── Benchmark Molinari ────────────────────────────────────────
+    const molinariRef = { CONFIANZA: 13, 'ANÁLISIS+DELEGACIÓN': 64, PERSPECTIVA: 23 };
+    const ourFund  = ((stageCounts['CONFIANZA'] || 0) / n * 100).toFixed(0);
+    const ourTrans = (((stageCounts['ANÁLISIS'] || 0) + (stageCounts['DELEGACIÓN'] || 0)) / n * 100).toFixed(0);
+    const ourProf  = ((stageCounts['PERSPECTIVA'] || 0) / n * 100).toFixed(0);
+    document.getElementById('benchmark-molinari').innerHTML = `
+        <table style="width:100%;font-size:.78rem;border-collapse:collapse;">
+            <thead>
+                <tr style="text-align:left;border-bottom:1px solid var(--border);">
+                    <th style="padding:6px 4px;color:var(--gray);font-weight:700;">Etapa</th>
+                    <th style="padding:6px 4px;color:var(--primary);font-weight:700;">Esta muestra</th>
+                    <th style="padding:6px 4px;color:var(--gray);font-weight:700;">Molinari</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="border-bottom:1px solid var(--border);">
+                    <td style="padding:6px 4px;">Fundacional</td>
+                    <td style="padding:6px 4px;font-weight:700;color:var(--primary);">${ourFund}%</td>
+                    <td style="padding:6px 4px;color:var(--gray);">13%</td>
+                </tr>
+                <tr style="border-bottom:1px solid var(--border);">
+                    <td style="padding:6px 4px;">Transición</td>
+                    <td style="padding:6px 4px;font-weight:700;color:var(--primary);">${ourTrans}%</td>
+                    <td style="padding:6px 4px;color:var(--gray);">64%</td>
+                </tr>
+                <tr>
+                    <td style="padding:6px 4px;">Profesional</td>
+                    <td style="padding:6px 4px;font-weight:700;color:var(--primary);">${ourProf}%</td>
+                    <td style="padding:6px 4px;color:var(--gray);">23%</td>
+                </tr>
+            </tbody>
+        </table>`;
+
+    // ── Satisfacción por etapa ────────────────────────────────────
+    const satByStage = STAGES.map(s => {
+        const sr = reps.filter(r => r.etapa === s && r.satisfaccion != null);
+        return sr.length ? (sr.reduce((a,r) => a + r.satisfaccion, 0) / sr.length).toFixed(1) : null;
+    });
+    mkChart('satisfaccion', 'chart-satisfaccion', {
+        type: 'bar',
+        data: {
+            labels: STAGES,
+            datasets: [{ label: 'Satisfacción promedio (1–5)',
+                         data: satByStage,
+                         backgroundColor: PALETTE, borderRadius: 4 }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: { min: 0, max: 5, ticks: { stepSize: 1, font: baseFont }, grid: { color: '#F0F0F0' } },
+                x: { ticks: { font: { size: 10 } } }
+            },
+            plugins: { legend: { display: false } }
+        }
+    });
 
     // ── Cross-analysis (default: region) ─────────────────────────
     renderCrossChart(document.getElementById('cross-var').value || 'region');
