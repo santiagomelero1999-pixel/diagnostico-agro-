@@ -1,62 +1,33 @@
-# Gráficos: dónde van y de dónde salen
+# Gráfico de Greiner: dónde va
 
-Los tres gráficos de Greiner ya están extraídos como PNG en la carpeta del proyecto:
+Solo se incorpora el **Exhibit II — Las cinco fases de crecimiento**.
 
-- `greiner-exhibit-1-2.png` → contiene el **Exhibit I** (Modelo de desarrollo organizacional)
-- `greiner-exhibit-3.png` → contiene el **Exhibit II** (Las cinco fases de crecimiento) y el **Exhibit III** (Prácticas de management por fase)
+El archivo es `greiner-exhibit-3.png` (pese al nombre, es la página que contiene el Exhibit II arriba y el Exhibit III abajo). **Recortá la mitad superior** — el gráfico de las cinco fases — y descartá la tabla de abajo.
 
-**Cómo insertarlos:** en el Doc, `Insertar → Imagen → Subir desde la computadora`. No puedo insertarlos por API porque Google exige una URL pública y no la hay; subirlos a Drive solo para generar esa URL dejaría copias sueltas en tu unidad.
+## Dónde
 
----
+En el Doc ya está el marcador. Buscá con Ctrl+F:
 
-## Ubicación exacta
+> `[INSERTAR AQUÍ LA IMAGEN: greiner-exhibit-ii.png]`
 
-### Gráfico 1 — Exhibit II: Las cinco fases de crecimiento
-**Es el más importante de los tres. Va sí o sí.**
+Está en el capítulo **2.4**, justo después de la frase «…crecer no es hacer más de lo mismo, sino cambiar de forma. El esquema de Greiner, que se reproduce a continuación, permite ver esa secuencia completa.»
 
-**Dónde:** Capítulo 2.4, inmediatamente **después** del párrafo que empieza:
+Borrá esa línea del marcador y pegá la imagen en su lugar (`Insertar → Imagen → Subir desde la computadora`). El epígrafe ya está escrito debajo, como **Figura 1**, con la cita APA completa.
 
-> «Esta lectura del crecimiento por etapas no es exclusiva de Preumayr (2025) ni de Molinari (2012/2023): forma parte de…»
+## Numeración
 
-Ese párrafo es el que introduce a Greiner, Churchill y Lewis y Adizes. El gráfico cae justo ahí, antes de que arranque 2.4.1.
+Ya está resuelta. Todas las figuras se renumeraron: la de Greiner es la **Figura 1** y las que antes iban de 1 a 35 ahora van de **2 a 36**, incluidas las referencias en el cuerpo del texto. No toques la numeración.
 
-**Epígrafe sugerido:**
-> **Figura 3.** *Las cinco fases de crecimiento organizacional. Nota. Cada período de evolución desemboca en una crisis que debe resolverse para pasar a la fase siguiente. Adaptado de «Evolution and Revolution as Organizations Grow», por L. E. Greiner, 1972,* Harvard Business Review, 50(4), *pp. 37-46.*
+## Fuente
 
----
+Greiner, L. E. (1972). Evolution and Revolution as Organizations Grow. *Harvard Business Review, 50*(4), 37-46.
 
-### Gráfico 2 — Exhibit III: Prácticas de management por fase
-**Dónde:** Capítulo **2.7.5 (Justificación y alcance del modelo)**, después del párrafo que empieza:
+Reedición de HBR (mayo-junio 1998): https://hbr.org/1998/05/evolution-and-revolution-as-organizations-grow
 
-> «El modelo no plantea etapas secuenciales y progresivas en sentido estricto…»
+El PDF que me pasaste es la reimpresión en Mainiero, L. y Tromley, C. (1994), *Developing Managerial Skills in Organizational Behavior*, 2.ª ed., Prentice Hall, pp. 322-329. El Exhibit II está en la página 11 de ese PDF.
 
-Ahí sirve como respaldo: muestra que la literatura clásica también describe prácticas distintas según la etapa, que es exactamente el argumento del apartado.
+**Permisos:** el PDF lleva «Reprinted by permission of Harvard Business Review». Para el trabajo final, con cita completa, estás cubierto por cita académica. Si va al repositorio institucional, conviene redibujarlo en lugar de reproducir el escaneo.
 
-**Epígrafe sugerido:**
-> **Figura 4.** *Prácticas organizacionales durante la evolución en las cinco fases de crecimiento. Nota. Foco de gestión, estructura, estilo de dirección, sistema de control y esquema de recompensas en cada fase. Adaptado de «Evolution and Revolution as Organizations Grow», por L. E. Greiner, 1972,* Harvard Business Review, 50(4), *pp. 37-46.*
+## Único paso manual que queda
 
----
-
-### Gráfico 3 — Exhibit I: Modelo de desarrollo organizacional
-**Opcional.** Es el más abstracto de los tres y se superpone conceptualmente con el Exhibit II. Si el jurado observó que el epílogo y los agradecimientos son extensos, sumar una tercera figura de Greiner puede ser de más.
-
-**Si lo ponés:** en **2.4.1 (La empresa como organismo vivo)**, al cierre del apartado.
-
----
-
-## Fuentes para citar
-
-| Gráfico | Fuente original | Dónde está publicado |
-|---|---|---|
-| Exhibits I, II y III | Greiner, L. E. (1972). Evolution and Revolution as Organizations Grow. *Harvard Business Review, 50*(4), 37-46. | Reedición de HBR (mayo-junio 1998): https://hbr.org/1998/05/evolution-and-revolution-as-organizations-grow — El PDF que me pasaste es la reimpresión en Mainiero, L. y Tromley, C. (1994), *Developing Managerial Skills in Organizational Behavior*, 2.ª ed., Prentice Hall, pp. 322-329. Los exhibits están en las páginas 10 y 11 de ese PDF. |
-| Etapas de Churchill y Lewis (si querés sumar la figura) | Churchill, N. C. y Lewis, V. L. (1983). The Five Stages of Small Business Growth. *Harvard Business Review, 61*(3), 30-50. | https://hbr.org/1983/05/the-five-stages-of-small-business-growth |
-
-**Nota sobre permisos:** el PDF de Greiner lleva la leyenda «Reprinted by permission of Harvard Business Review». Para un trabajo académico con cita completa estás cubierto por cita académica. Si el trabajo va al repositorio institucional, conviene redibujar los gráficos en lugar de reproducir el escaneo, o pedir autorización a HBR.
-
----
-
-## Pendientes que no puedo resolver yo
-
-1. **Tabla 14** sigue vacía. Necesito los cuatro coeficientes de Spearman (Procesos, Competencias, Enfoque, Proyección contra dotación). En el texto solo figura Procesos ρ = 0,251. Pasámelos y la completo.
-2. **Índice**: no se actualiza por API. Abrilo en el Doc, clic derecho sobre el índice → `Actualizar índice`.
-3. **Numeración de figuras**: si insertás las dos de Greiner en 2.4 y 2.7.5, se corren todas las posteriores. Conviene renumerar después de insertarlas.
+Actualizar el índice: clic derecho sobre el índice → **Actualizar índice**. La API no puede hacerlo.

@@ -28,7 +28,9 @@ Agradezco las tres devoluciones. Detallo a continuación, punto por punto, qué 
 | 9 | «¿Qué ocurre con el 11 % restante?», siendo que son los 8 fundadores de la Tabla 5 | 4.2 | **Corregido.** Se explica que ese 11,0 % son los 8 respondentes que son ellos mismos el fundador y que quedaron fuera de la pregunta para no evaluar su propia actividad. Se unificó además 18 % con 17,8 %. |
 | 10 | «p = 0,025 … con un nivel de confianza del 97,5 %» interpreta mal el p-valor | 4.4.1 | **Corregido.** Se eliminó la frase y se explica que el valor expresa la probabilidad de observar una diferencia igual o mayor bajo el supuesto de ausencia de efecto. |
 | 11 | Procesos pasa «de 12,4 a 12,4», pero se afirma caída en los cuatro cuadrantes | 4.4.2 / 5.1 | **Corregido.** Ahora el texto dice que la caída se verifica en tres de los cuatro cuadrantes y que Procesos se mantiene estable. |
-| 12 | Alfa de 0,32 leído como «coherente con el rezago» | 3.5 | **Corregido.** Se aclara que el alfa mide consistencia interna y no nivel de desarrollo, y se reconoce que Enfoque, con los mismos cuatro ítems, alcanza 0,81, de modo que la longitud de la escala no alcanza por sí sola como explicación. |
+| 12a | Tabla 14 vacía | 4.4.4 | **Corregido.** Se completó con los cuatro coeficientes de Spearman entre dotación y cada dimensión (n = 73): Procesos 0,251 (p = 0,033, única significativa), Competencias 0,120, Enfoque 0,119 y Proyección 0,063. |
+| 12b | Numeración incompleta de tablas y figuras | Todo el documento | **Corregido.** Tablas 1 a 14 y Figuras 1 a 36 quedaron correlativas. Se incorporó la Figura 1 (Greiner, 1972) en 2.4 y se renumeraron en consecuencia todas las figuras y sus referencias en el cuerpo. |
+| 13 | Alfa de 0,32 leído como «coherente con el rezago» | 3.5 | **Corregido.** Se aclara que el alfa mide consistencia interna y no nivel de desarrollo, y se reconoce que Enfoque, con los mismos cuatro ítems, alcanza 0,81, de modo que la longitud de la escala no alcanza por sí sola como explicación. |
 
 ---
 
@@ -76,9 +78,7 @@ Detallo acá las que decidí no modificar, con el fundamento en cada caso.
 | B | **Reformular el primer objetivo, formular hipótesis explícitas y rehacer el análisis con un registro por organización** (Jurado 1, puntos 1 y 2) | Son modificaciones de diseño, no de redacción. Rehacer todas las pruebas sobre n efectivo de organizaciones implica un trabajo que excede una corrección de entrega. Sí se ajustó el lenguaje causal en resumen, hallazgos, conclusiones y epílogo, que era la parte subsanable, y se incorporó el porcentaje a nivel organización donde correspondía. |
 | C | **Envío duplicado detectado y no excluido** (3.6 / 4.1) | Se mantiene declarado como limitación. Excluirlo implicaría rehacer los estadísticos del capítulo 4, con el mismo alcance del punto anterior. |
 | D | **Verificación de referencias de 2026** (encíclica de León XIV, entrevista de The Economist, Resolución 1/2026, Penna y Solymosi 2012, DOI de OECD, cita de Madre Teresa) | Pendiente de mi parte. Son verificaciones que debo hacer sobre las fuentes originales y prefiero no resolverlas por aproximación. |
-| E | **Numeración correlativa de tablas y figuras** | Pendiente. Requiere una pasada manual sobre el documento completo. |
-| F | **Tabla 14 vacía** | Pendiente de completar con los cuatro coeficientes de Spearman por dimensión. |
-| G | **Definición de PyME del Ministerio de Economía** (Jurado 2, punto 3) | Tomo la sugerencia para una eventual versión de publicación. No la incorporé ahora por tratarse de una ampliación del marco y no de una corrección. |
+| E | **Definición de PyME del Ministerio de Economía** (Jurado 2, punto 3) | Tomo la sugerencia para una eventual versión de publicación. No la incorporé ahora por tratarse de una ampliación del marco y no de una corrección. |
 
 ---
 
