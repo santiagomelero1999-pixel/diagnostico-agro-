@@ -1,87 +1,169 @@
-# Nota al jurado — Detalle de correcciones
+# Nota al jurado — Respuesta a las devoluciones
 
 **Santiago Nicolás Melero** · *La Odisea Digital del Factor Humano* · Universidad Austral
 
-Agradezco las tres devoluciones. Detallo a continuación, punto por punto, qué se corrigió y qué no, con el motivo en cada caso que quedó sin modificar.
+Agradezco las tres devoluciones. Respondo punto por punto, en el orden en que cada jurado las planteó, indicando en cada caso qué se corrigió y qué no, con el fundamento de las que quedaron sin modificar.
 
 ---
 
-## 1. Errores factuales
+# JURADO 1
 
-| # | Observación | Sección | Estado |
-|---|---|---|---|
-| 1 | Llama 3.3 70B atribuido a OpenAI | 3.3.4 | **Corregido.** Ahora figura Meta. Se mantiene la aclaración Groq / Grok, que era correcta. |
-| 2 | «Descendemos de chimpancés» | 6 | **Corregido.** Se aclara que compartimos un antepasado común. |
-| 3 | «A los pocos días de redactar este epílogo me encontré…» (ilógico temporalmente) | 6 | **Corregido.** Ahora: «Mientras terminaba de escribir este epílogo se publicó…». |
-| 4 | Dolan et al.: «lo que él denomina», siendo tres autores | 6 | **Corregido.** Se cita a Dolan, García y Richley y se usa «lo que ellos denominan». |
+## Áreas de mejora
+
+### 1. Desajuste entre pregunta y diseño
+
+**Corregido parcialmente.** Se eliminó el lenguaje causal en el resumen, en los hallazgos, en las conclusiones y en el epílogo. El epílogo era el caso más claro: afirmaba que «lo que explica la diferencia son las personas» y descartaba a la tecnología, que nunca se midió. Ahora dice que ni la antigüedad ni el tamaño mostraron asociación, que sobre tecnología el trabajo no puede decir nada porque no fue medida, y que lo observado es una asociación en 73 respuestas y no una relación causal.
+
+**No corregido:** la reformulación del primer objetivo y la formulación de hipótesis explícitas. Son cambios de diseño, no de redacción, y rehacerlos implicaría reescribir el planteo del trabajo. Lo tomo para una eventual versión de publicación.
+
+### 2. Unidad de análisis y criterios de inclusión
+
+**Corregido.** El apartado 4.1 ahora explicita los criterios de inclusión y exclusión, y la depuración quedó documentada: de las 77 respuestas relevadas se excluyeron cuatro —una multinacional de insumos, dos respondentes de un organismo público de investigación y un registro de prueba—, quedando **n = 73 respuestas válidas correspondientes a 67 organizaciones PyME distintas**, de las cuales 6 aportaron más de un respondente. Todas las tablas de perfil se recalcularon sobre esa misma base: antes el texto afirmaba que describían las 77 y que precedían al apartado, cuando están después y suman 73.
+
+Sobre la categoría «Internacional / sin dato»: se explicita ahora que agrupa dos situaciones distintas y que por eso el 21,9 % debe leerse como un techo y no como un recuento exacto de firmas extranjeras. El valor anterior, 20,8 % sobre 77, estaba mal calculado.
+
+**No corregido:** consolidar un registro por organización y rehacer todas las pruebas inferenciales sobre ese n efectivo. Sí se incorporó, en los tres lugares donde aparecía, el porcentaje a nivel organización (71,6 %) junto al porcentaje sobre respuestas (72,6 %), que antes se presentaban indistintamente.
+
+### 3. Construcción del puntaje
+
+**No corregido, y lo asumo como la observación de fondo.**
+
+El instrumento se aplicó exactamente como está formulado por Daraio y Preumayr (2025), sin alterar la dirección de los reactivos. Invertir el primer ítem de cada dimensión y recalcular puntajes, Alfas y clasificación por etapas modificaría la base de puntuación del modelo original y rompería la comparabilidad con la herramienta de la que este trabajo es una migración, que es precisamente su objeto.
+
+Lo que sí corregí es la **interpretación** que el trabajo hacía del Alfa bajo. El texto leía el 0,32 de Procesos como «coherente con el rezago» de esa dimensión, lo cual confunde dos cosas: el Alfa mide consistencia interna entre reactivos, no nivel de desarrollo. También eliminé el argumento de la longitud de la escala como explicación suficiente, porque, como bien señala la devolución, Enfoque tiene los mismos cuatro ítems y alcanza 0,81. El apartado 3.5 ahora identifica el reactivo negativo sin invertir como la causa más probable y lo deja declarado como limitación expresa.
+
+Queda señalado como la primera corrección a introducir en una próxima versión del instrumento, no de este trabajo.
+
+### 4. Alcance de las inferencias
+
+**Corregido parcialmente.** Se matizó la comparación con Molinari (2014): ahora el texto dice explícitamente que, al tratarse de instrumentos y categorías distintos, debe leerse como contextualización de la tendencia y no como validación cruzada del modelo.
+
+**No corregido:** la presentación del «bloque de saber hacer» como exploratorio y el tratamiento de la varianza de método común en la correlación Procesos–Competencias. Lo tomo para publicación.
+
+### 5. Marco conceptual
+
+**Corregido.** Se incorporó diálogo con la literatura de ciclo de vida organizacional en el capítulo 2: Greiner (1972) en 2.4 y en 2.7.3 —donde la crisis de autonomía describe el tramo de delegación—, Churchill y Lewis (1983) en 2.7.1 y 2.7.2, y Adizes (1988) en 2.4 y en las conclusiones. Se sumó además Perkins (2017) para sucesión y empresa familiar, y Bisang et al. (2008) y Moreno (2014) para gestión agropecuaria.
+
+Se incorporó también la **Figura 1**, que reproduce el esquema de las cinco fases de Greiner, con cita completa.
+
+**No corregido:** la fundamentación de la traslación del modelo de Herrmann del plano individual al organizacional. Reconozco que es un salto que el trabajo usa sin justificar en profundidad.
+
+### 6. Citas y bibliografía
+
+**Corregido:** las citas de Penna y Molinari ahora llevan año en todas sus apariciones. Se corrigió la atribución de Dolan et al. (2006), que decía «lo que él denomina» siendo tres autores.
+
+**No corregido, pendiente de mi parte:** la verificación de Penna y Solymosi (2012), el DOI de OECD (2023), la cita de la Madre Teresa, la discrepancia entre «Penna (2001)» en el texto y Solymosi y Penna (2001) en la referencia, la incorporación de la herramienta Excel de Preumayr y Daraio (2025) a la bibliografía, y las fuentes faltantes de los datos de EAPs, concentración de tierra y el estudio de Molinari. Son verificaciones que debo hacer sobre las fuentes originales y prefiero no resolverlas por aproximación.
+
+Sobre Gemini: ahora está declarado en el cuerpo del trabajo (apartado 3.3.1), no solo en referencias.
+
+### 7. Consistencia de los datos
+
+**Corregido.** Además de lo ya detallado en el punto 2, se corrigieron:
+
+| Inconsistencia | Estado |
+|---|---|
+| El 72,6 % presentado como porcentaje de organizaciones, calculado sobre respuestas | Unificado en los tres lugares, con el 71,6 % a nivel organización entre paréntesis |
+| «p = 0,025 … con un nivel de confianza del 97,5 %» | Eliminada la frase; se explica que el p-valor expresa la probabilidad de observar una diferencia igual o mayor bajo el supuesto de ausencia de efecto |
+| Procesos «de 12,4 a 12,4» presentado como caída en los cuatro cuadrantes | Ahora dice caída en tres de los cuatro; Procesos se mantiene estable |
+| Kruskal-Wallis «con al menos tres casos» que dejaba afuera a NEA/Cuyo, que tiene exactamente 3 | Reformulado a «más de tres casos», explicitando que NEA/Cuyo quedó fuera |
+| «¿Qué ocurre con el 11 % restante?» | Explicado: son los 8 respondentes que son ellos mismos el fundador, excluidos de la pregunta para no evaluar su propia actividad |
+| Llama 3.3 70B atribuido a OpenAI | Corregido a Meta |
+| Tabla 14 vacía | Completada con los cuatro coeficientes de Spearman |
+| Numeración incompleta de tablas y figuras | Tablas 1 a 14 y Figuras 1 a 36 quedaron correlativas, incluidas las referencias en el cuerpo |
+
+### 8. Aspectos éticos y de confidencialidad
+
+**Corregido.** La clave de acceso ya no se publica en la nota al jurado, que ahora aclara que el panel es de acceso restringido al investigador. Las organizaciones se presentan anonimizadas en el análisis multi-respondente y los agradecimientos no las identifican. El apartado 3.3.5 describe el consentimiento obtenido —aviso de confidencialidad previo al cuestionario, aceptación al continuar—, el almacenamiento de acceso restringido y el único envío a servicio externo, que corresponde al asistente Don Agro y se limita a valores agregados sin datos identificatorios.
+
+Se incorporó además al panel una función de **enmascarado de razones sociales**, que permite exhibir la base durante la defensa sin exponer la identidad de las organizaciones participantes.
+
+**Declarado como limitación:** el piloto no utilizó un formulario de consentimiento informado separado con aceptación expresa. Se propone para las próximas aplicaciones.
+
+### 9. Redacción y estructura
+
+**Corregido.** Se acotó el epílogo: se eliminó el catálogo de referencias de cultura popular (Terminator, Solaris) y se redujo a una línea el pasaje sobre Platón, la caja de Pandora y la Torre de Babel, que era el más tangencial. Se eliminaron las tríadas retóricas del cierre y la afirmación de que el humanismo es «la única clave para un futuro verdaderamente próspero», reemplazada por una formulación presentada explícitamente como opinión del autor.
+
+Se unificó también el registro en los pasajes de lenguaje genérico que la devolución señalaba, y se corrigió la contradicción entre 3.4.7 y 5.3 sobre la devolución al respondente.
+
+**No corregido:** la alineación completa del índice con los títulos del cuerpo y la condensación de las conclusiones repetidas en tres lugares.
 
 ---
 
-## 2. Inconsistencias numéricas
+# JURADO 2
 
-| # | Observación | Sección | Estado |
-|---|---|---|---|
-| 5 | Las tablas de perfil «preceden» al apartado y describirían n = 77, pero están después y suman 73 | 4.1 / 4.2 | **Corregido.** El texto ahora dice que siguen al apartado, en 4.2, y que están calculadas sobre n = 73. Todo el capítulo comparte una única base. |
-| 6 | 16 empresas internacionales informadas como 20,8 % sobre 77, mientras la Tabla 7 da 21,9 % sobre 73 | 3.6 / Tabla 7 / 5.2 | **Corregido.** Se unificó en 21,9 % sobre 73 y se explicita que la categoría agrupa firmas extranjeras y registros sin dato de región, por lo que ese valor es un techo y no un recuento exacto. |
-| 7 | El 72,6 % se presenta como porcentaje de organizaciones pero se calculó sobre respuestas | Resumen / 4.3.1 / 5.1 | **Corregido en los tres lugares.** Ahora dice «respuestas» y se agrega entre paréntesis el 71,6 % que corresponde al consolidar un registro por organización. |
-| 8 | Kruskal-Wallis con «al menos tres casos» deja afuera NEA/Cuyo, que tiene exactamente 3 | 4.2 | **Corregido.** Se cambió a «más de tres casos» y se explicita que NEA/Cuyo quedó fuera por reunir exactamente tres, número insuficiente para el contraste. |
-| 9 | «¿Qué ocurre con el 11 % restante?», siendo que son los 8 fundadores de la Tabla 5 | 4.2 | **Corregido.** Se explica que ese 11,0 % son los 8 respondentes que son ellos mismos el fundador y que quedaron fuera de la pregunta para no evaluar su propia actividad. Se unificó además 18 % con 17,8 %. |
-| 10 | «p = 0,025 … con un nivel de confianza del 97,5 %» interpreta mal el p-valor | 4.4.1 | **Corregido.** Se eliminó la frase y se explica que el valor expresa la probabilidad de observar una diferencia igual o mayor bajo el supuesto de ausencia de efecto. |
-| 11 | Procesos pasa «de 12,4 a 12,4», pero se afirma caída en los cuatro cuadrantes | 4.4.2 / 5.1 | **Corregido.** Ahora el texto dice que la caída se verifica en tres de los cuatro cuadrantes y que Procesos se mantiene estable. |
-| 12a | Tabla 14 vacía | 4.4.4 | **Corregido.** Se completó con los cuatro coeficientes de Spearman entre dotación y cada dimensión (n = 73): Procesos 0,251 (p = 0,033, única significativa), Competencias 0,120, Enfoque 0,119 y Proyección 0,063. |
-| 12b | Numeración incompleta de tablas y figuras | Todo el documento | **Corregido.** Tablas 1 a 14 y Figuras 1 a 36 quedaron correlativas. Se incorporó la Figura 1 (Greiner, 1972) en 2.4 y se renumeraron en consecuencia todas las figuras y sus referencias en el cuerpo. |
-| 13 | Alfa de 0,32 leído como «coherente con el rezago» | 3.5 | **Corregido.** Se aclara que el alfa mide consistencia interna y no nivel de desarrollo, y se reconoce que Enfoque, con los mismos cuatro ítems, alcanza 0,81, de modo que la longitud de la escala no alcanza por sí sola como explicación. |
+### 1. Citas de autor sin formato APA
 
----
+**Corregido parcialmente.** Se normalizaron las citas de Penna, Molinari y Dolan et al. La verificación completa de la bibliografía queda pendiente, como detallé en el punto 6 del Jurado 1.
 
-## 3. Contradicciones entre secciones
+### 2. Simplificación semántica para consultoría o empresarios PyME
 
-| # | Observación | Sección | Estado |
-|---|---|---|---|
-| 13 | El título «La madurez aumenta con el tamaño» contradice la independencia del tamaño sostenida en el Resumen y en 5.1 | 4.4.4 | **Corregido.** Nuevo título: «El tamaño de la dotación se asocia con Procesos, pero no con la madurez global». |
-| 14 | 5.1 dice que Procesos mejora sin avance equivalente en Competencias; 4.4.6 dice que ambas crecen en paralelo | 5.1 / 4.4.6 | **Corregido.** Se distingue el plano descriptivo (ambas crecen) del inferencial (solo Procesos alcanza significación). |
-| 15 | 3.4.7 dice que la devolución ya incluye plan de acción; 5.3 lo propone como mejora futura | 3.4.7 / 5.3 | **Corregido.** 5.3 ahora reconoce lo que ya existe y acota la mejora a que el texto deje de ser fijo por etapa. |
-| 16 | 5.2 descarta causalidad pero el epílogo afirma que «lo que explica la diferencia son las personas» y descarta a la tecnología, que nunca se midió | 5.2 / 6 | **Corregido.** Se reescribió el cierre: se explicita que la tecnología no fue medida, que la asociación hallada corresponde a la incorporación de directivos externos y que se trata de una asociación sobre 73 respuestas, no de una relación causal. |
-| 17 | «Esos dos cuadrantes» con referente ambiguo | 4.3.3 | **Corregido.** Se nombran Procesos y Competencias. |
-| 18 | En 2.7.4 la empresa de insumos y el taller «funcionan en sintonía la una con la otra», siendo ejemplos distintos | 2.7.4 | **Corregido.** Se aclara que son dos ejemplos independientes y que cada uno alcanza integración entre sus propias áreas. |
+**No corregido.** Coincido con la observación, pero entiendo que una versión orientada a consultoría es un producto distinto del trabajo final académico. La aplicación ya opera en ese registro: los reactivos están redactados en lenguaje llano y cada uno ofrece un ejemplo situado por rubro. Lo tomo como línea de trabajo para la versión de difusión.
+
+### 3. Definición de PyME del Ministerio de Economía
+
+**No corregido.** La tomo para una eventual versión de publicación. No la incorporé ahora por tratarse de una ampliación del marco conceptual y no de una corrección de consistencia, y porque la definición operativa que el trabajo utiliza —propiedad y gestión coincidentes, fines de lucro— es la que sostiene los criterios de inclusión y exclusión de la muestra.
 
 ---
 
-## 4. Estilo y registro
+# JURADO 3
 
-| # | Observación | Estado |
+### 1. Índice con paginación
+
+**No corregido al momento de esta entrega.** El índice está generado automáticamente y se actualiza con la paginación final del documento.
+
+### 2. Inconsistencias entre títulos y subtítulos
+
+**Corregido parcialmente.** Se corrigió el título del apartado 4.4.4, que decía «La madurez aumenta con el tamaño de la dotación» y contradecía tanto al resumen como al apartado 5.1 y a la propia regresión múltiple, donde la dotación no resulta significativa (p = 0,36). Ahora se titula «El tamaño de la dotación se asocia con Procesos, pero no con la madurez global». La revisión integral de títulos contra el índice queda pendiente.
+
+### 3. Citas sin año (Penna, Molinari)
+
+**Corregido.** Todas las apariciones de Penna y de Molinari llevan año.
+
+### 4. Numeración de tablas: se enumeran hasta la 7 y luego se retoma desde la 11
+
+**Corregido.** Las tablas quedaron correlativas de 1 a 14, y las figuras de 1 a 36.
+
+### 5. Consulta sobre la tabla de la página 47
+
+Es la tabla de puntos de corte que da base a la programación de la aplicación. El puntaje total del instrumento va de 0 a 80 —16 reactivos de 0 a 5— y se divide en cuatro tramos de 20 puntos: Confianza (0-20), Análisis (20-40), Delegación (40-60) y Perspectiva (60-80). La aplicación toma la suma de los 16 reactivos y asigna la etapa según ese corte.
+
+Corresponde señalar dos cosas. La primera es que los límites están superpuestos en la tabla, tal como observó el Jurado 1. La segunda, más de fondo, es que esos cortes fijos presuponen una progresión lineal que el propio marco declara no estricta. Son cortes heredados del instrumento original, no derivados de esta muestra, y así se declaran.
+
+### 6. ¿El objetivo principal está en la investigación o en la generación de una herramienta digital?
+
+En la herramienta. El trabajo se planteó como un desarrollo aplicado con un componente de validación empírica: el objetivo instrumental era migrar el diagnóstico de Daraio y Preumayr a una plataforma web operativa, y la muestra piloto funciona como prueba de que el instrumento digitalizado produce datos utilizables.
+
+Reconozco que esa jerarquía no siempre queda clara en el texto, y que la extensión del capítulo 4 puede sugerir lo contrario. La pregunta de investigación sobre factores asociados a la permanencia en etapas de transición es real, pero su alcance está acotado por el diseño: muestra de conveniencia, corte transversal y autoinforme. De ahí que las conclusiones se expresen en términos de asociación.
+
+### 7. ¿Cómo se redefinirían las escalas si participaran PyMEs del grupo 1, Confianza?
+
+Es la pregunta que más me interesa de las tres, porque toca el punto ciego del piloto: la etapa Confianza no tiene ni un caso en la muestra.
+
+Creo que pasarían dos cosas. La primera es que el piso de la escala se correría: hoy el reactivo más débil promedia 2,66 sobre 5, y con empresas en Confianza ese piso bajaría, lo que abriría recorrido en la parte baja de la distribución y probablemente mejoraría la consistencia interna de las subescalas, hoy comprimidas en el tramo medio-alto.
+
+La segunda es que quedaría expuesto el problema del primer reactivo de cada dimensión. Esos ítems describen rasgos propios de Confianza, y en una empresa que efectivamente está en esa etapa un valor alto indicaría menor madurez. Al sumarse sin invertir, el puntaje mezclaría direcciones opuestas, y eso se notaría mucho más que en esta muestra. Dicho de otro modo: la ausencia de casos en Confianza es, en parte, lo que mantiene el problema oculto.
+
+### 8. ¿Las empresas están más en madurez porque incorporan agentes externos o porque su tamaño les permite incorporarlos? ¿La transición es independiente de la región?
+
+Sobre lo primero: el dato no permite separar las dos cosas con certeza, pero sí acota la respuesta. Las empresas con directivos externos promedian 6,1 puntos más (55,3 frente a 49,2). Como esas firmas tienden a ser también las de mayor dotación (ρ = 0,38), se estimó una regresión múltiple con ambas variables: el efecto de los directivos externos se mantiene (β = 5,2; p = 0,047) mientras que la dotación no resulta significativa (β = 1,1; p = 0,36). Eso sugiere que lo que se asocia con la madurez es la incorporación en sí y no el tamaño que la habilita.
+
+Ahora bien, el diseño es transversal, de modo que la dirección queda abierta: es igual de posible que las empresas ya mejor gestionadas sean las que deciden incorporar directivos externos. Esa limitación está declarada en 5.2.
+
+Sobre la región: la prueba de Kruskal-Wallis no muestra diferencias significativas de puntaje entre las agrupaciones con más de tres casos (H = 3,49; p = 0,175; n = 70). Conviene aclarar, de todos modos, que el 53,4 % de la muestra está concentrado en Pampa Húmeda y que NEA/Cuyo quedó fuera del contraste por reunir solo tres casos. Con esa composición, la ausencia de diferencias regionales dice más sobre el sesgo de captación que sobre la independencia real de la variable.
+
+---
+
+# Síntesis de lo que no se incorporó
+
+| Observación | Jurado | Motivo |
 |---|---|---|
-| 19 | Construcción «no es X: es Y» repetida | **Corregido** en todos los pasajes señalados (nota al jurado, 2.7.3, 3.3.5, 4.4.3, 5.2). |
-| 20 | Fórmula «El trasfondo cualitativo de este…» repetida cuatro veces | **Corregido.** Las cuatro ocurrencias se redactaron de manera distinta. |
-| 21 | Lenguaje genérico: «democratiza el sistema», «posibilidades infinitas», «faculta el agrupamiento», «activo de análisis macro» | **Corregido.** Reemplazado por formulaciones descriptivas. |
-| 22 | «Sabiduría organizacional», «sintonía operativa del organismo empresarial» | **Corregido.** |
-| 23 | Tríadas retóricas en el cierre del epílogo | **Corregido.** Se eliminaron las enumeraciones de tres y se reemplazó el cierre por una formulación sobria, presentada explícitamente como opinión del autor. |
-| 24 | «Lejos de invalidar…» | **Corregido.** |
-
----
-
-## 5. Declaración de uso de inteligencia artificial
-
-| # | Observación | Sección | Estado |
-|---|---|---|---|
-| 25 | La declaración de que la IA «no participó en la redacción» deja expuesto al trabajo | 3.3.1 | **Corregido.** La declaración ahora refleja el uso efectivo: asistencia en la búsqueda bibliográfica y, en una etapa posterior, revisión editorial del texto ya redactado (consistencia entre apartados, repeticiones, tipeo y verificación de citas). Se mantiene explícito que el contenido conceptual, los análisis y las interpretaciones son propios. |
-
----
-
-## 6. Observaciones que NO se incorporaron
-
-Detallo acá las que decidí no modificar, con el fundamento en cada caso.
-
-| # | Observación | Motivo |
-|---|---|---|
-| A | **Invertir los ítems negativos y recalcular puntajes, alfas y clasificación por etapas** (Jurado 1, punto 3) | Es la observación más de fondo y la asumo como tal. El instrumento se aplicó exactamente como está formulado por Daraio y Preumayr (2025), sin alterar la dirección de los reactivos. Invertirlos ahora modificaría la base de puntuación del modelo original y rompería la comparabilidad con la herramienta de la que este trabajo es una migración, que es justamente su objeto. Prefiero dejar la limitación declarada de manera expresa en 3.5 —donde se identifica el reactivo negativo de Procesos, Competencias y Proyección y su efecto sobre el alfa— antes que presentar puntajes recalculados que ya no serían los del instrumento que se buscó digitalizar. Queda señalado como la primera corrección a introducir en una próxima versión del instrumento, no de este trabajo. |
-| B | **Reformular el primer objetivo, formular hipótesis explícitas y rehacer el análisis con un registro por organización** (Jurado 1, puntos 1 y 2) | Son modificaciones de diseño, no de redacción. Rehacer todas las pruebas sobre n efectivo de organizaciones implica un trabajo que excede una corrección de entrega. Sí se ajustó el lenguaje causal en resumen, hallazgos, conclusiones y epílogo, que era la parte subsanable, y se incorporó el porcentaje a nivel organización donde correspondía. |
-| C | **Envío duplicado detectado y no excluido** (3.6 / 4.1) | Se mantiene declarado como limitación. Excluirlo implicaría rehacer los estadísticos del capítulo 4, con el mismo alcance del punto anterior. |
-| D | **Verificación de referencias de 2026** (encíclica de León XIV, entrevista de The Economist, Resolución 1/2026, Penna y Solymosi 2012, DOI de OECD, cita de Madre Teresa) | Pendiente de mi parte. Son verificaciones que debo hacer sobre las fuentes originales y prefiero no resolverlas por aproximación. |
-| E | **Definición de PyME del Ministerio de Economía** (Jurado 2, punto 3) | Tomo la sugerencia para una eventual versión de publicación. No la incorporé ahora por tratarse de una ampliación del marco y no de una corrección. |
-
----
-
-## 7. Sobre confidencialidad
-
-La clave de acceso al panel ya no se publica en la nota al jurado. El panel incorpora además una función de enmascarado de razones sociales, que permite exhibir la base durante la defensa sin exponer la identidad de las organizaciones participantes.
+| Invertir los ítems negativos y recalcular puntajes, Alfas y etapas | 1 | Rompería la comparabilidad con el instrumento original que el trabajo migra. Declarado como limitación en 3.5 |
+| Reformular el primer objetivo y formular hipótesis explícitas | 1 | Cambio de diseño, no de redacción |
+| Consolidar un registro por organización y rehacer las pruebas | 1 | Ídem. Sí se incorporó el porcentaje a nivel organización |
+| Excluir el envío duplicado detectado | 1 | Implicaría rehacer los estadísticos del capítulo 4. Declarado como limitación |
+| Presentar el «bloque de saber hacer» como exploratorio | 1 | Pendiente para publicación |
+| Fundamentar la traslación del modelo de Herrmann al plano organizacional | 1 | Reconocido como salto no justificado en profundidad |
+| Verificación completa de referencias | 1 y 2 | Pendiente de mi parte, sobre las fuentes originales |
+| Alinear índice con títulos y condensar conclusiones repetidas | 1 y 3 | Pendiente |
+| Simplificación semántica para consultoría | 2 | Corresponde a una versión de difusión |
+| Definición de PyME del Ministerio de Economía | 2 | Ampliación del marco, no corrección |
