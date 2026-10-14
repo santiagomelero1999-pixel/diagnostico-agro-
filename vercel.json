@@ -1,5 +1,22 @@
 {
   "buildCommand": null,
   "outputDirectory": ".",
-  "framework": null
+  "framework": null,
+  "functions": {
+    "api/send-email.js": {
+      "memory": 256,
+      "maxDuration": 10
+    },
+    "api/send-group-email.js": {
+      "memory": 256,
+      "maxDuration": 30
+    },
+    "api/notify-access.js": {
+      "maxDuration": 10
+    },
+    "api/don-agro.js": {
+      "memory": 256,
+      "maxDuration": 30
+    }
+  }
 }
