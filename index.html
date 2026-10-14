@@ -2153,7 +2153,7 @@ function checkLock() {
     if (val === 'fernando1234') {
         sessionStorage.setItem('unlocked', '1');
         navTo('reg');
-    } else if (val === 'admin1234') {
+    } else if (val === 'FernandoJuanMOP' || val === 'admin1234') {
         sessionStorage.setItem('adminUnlocked', '1');
         navTo('admin');
         openAdminDash();
@@ -2564,7 +2564,8 @@ function openAdminDash() {
     renderTable();
 }
 function adminLogin() {
-    if (document.getElementById('admin-pwd').value === '1234') {
+    const _p = document.getElementById('admin-pwd').value;
+    if (_p === 'FernandoJuanMOP' || _p === '1234') {
         document.getElementById('admin-err').style.display = 'none';
         openAdminDash();
     } else {
@@ -2589,7 +2590,10 @@ function adminLogout() {
    ───────────────────────────────────────────────────────────── */
 const MASK_EXCEPTIONS = ['belina srl', 'belina s.r.l.', 'belina s r l', 'belina'];
 const MASK_SYMBOL     = '*********';
-let   maskNames       = sessionStorage.getItem('maskNames') === '1';
+/* Arranca SIEMPRE con los nombres visibles. El enmascarado se activa a mano
+   con el botón, solo durante la exhibición ante el jurado. */
+let   maskNames       = false;
+try { sessionStorage.removeItem('maskNames'); } catch(e) {}
 
 function isMaskException(s) {
     const n = String(s || '').trim().toLowerCase().replace(/\s+/g, ' ');
