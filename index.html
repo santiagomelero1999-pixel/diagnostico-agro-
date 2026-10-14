@@ -2562,11 +2562,11 @@
                     </div>
                     <div class="res-kpi-card">
                         <div class="res-kpi-val" id="kpi-empresas">—</div>
-                        <div class="res-kpi-lbl">Nº de empresas (PyMEs)</div>
+                        <div class="res-kpi-lbl">Respuestas PyME válidas</div>
                     </div>
                     <div class="res-kpi-card">
                         <div class="res-kpi-val" id="kpi-pyme">—</div>
-                        <div class="res-kpi-lbl">Nº de respuestas PyME válidas</div>
+                        <div class="res-kpi-lbl">Base de análisis (1 registro × empresa)</div>
                     </div>
                     <div class="res-kpi-card">
                         <div class="res-kpi-val" id="kpi-avg">—</div>
@@ -4070,6 +4070,41 @@ function getPymeReports() { return getReports().filter(isPymeRecord); }
    respuestas de una misma PyME para no confundir "nº de respuestas" con
    "nº de empresas" cuando hay múltiples respondentes por organización. */
 function empresaKeyOf(r) { return r.empresa_key || r.perfil?.empresa_key || r.name; }
+/* Un registro por organizacion (unidad de analisis = PyME, no respondente).
+   Las empresas con mas de un respondente se promedian reactivo por reactivo
+   y se recalcula el puntaje y la etapa sobre ese promedio. Esta es la base
+   de todos los analisis del panel y de los hallazgos. */
+function etapaDeTotal(total) {
+    if (total > 60) return 'PERSPECTIVA';
+    if (total > 40) return 'DELEGACIÓN';
+    if (total > 20) return 'ANÁLISIS';
+    return 'CONFIANZA';
+}
+function getPymeOrgReports() {
+    const grupos = {};
+    getPymeReports().forEach(r => {
+        const k = empresaKeyOf(r) || r.id;
+        (grupos[k] = grupos[k] || []).push(r);
+    });
+    return Object.values(grupos).map(g => {
+        const conVals = g.filter(r => Array.isArray(r.h_vals) && r.h_vals.length === 16);
+        if (conVals.length <= 1) return conVals[0] || g[0];
+        const h = [];
+        for (let i = 0; i < 16; i++) {
+            h.push(conVals.reduce((s, r) => s + (r.h_vals[i] || 0), 0) / conVals.length);
+        }
+        const score = h.reduce((a, b) => a + b, 0);
+        const sats = conVals.map(r => r.satisfaccion).filter(v => v != null);
+        return Object.assign({}, conVals[0], {
+            h_vals: h,
+            score: score,
+            etapa: etapaDeTotal(score),
+            n_respondentes: conVals.length,
+            satisfaccion: sats.length ? sats.reduce((a, b) => a + b, 0) / sats.length : null
+        });
+    });
+}
+
 function getPymeEmpresasCount() {
     return new Set(getPymeReports().map(empresaKeyOf)).size;
 }
@@ -5711,7 +5746,7 @@ function detectDuplicados() {
 
 function renderResearchDash() {
     const allReps = getReports();
-    const reps = getPymeReports(); // Panel de investigación: muestra depurada (unidad de análisis PyME, ver Jurado 1, punto 2)
+    const reps = getPymeOrgReports(); // Base principal: un registro por organización (n = 67). Ver Jurado 1, punto 2.
     const resEmpty   = document.getElementById('res-empty');
     const resContent = document.getElementById('res-content');
 
@@ -5747,8 +5782,8 @@ function renderResearchDash() {
     const avgSat  = satReps.length ? (satReps.reduce((s,r) => s + r.satisfaccion, 0) / satReps.length).toFixed(1) : '—';
 
     document.getElementById('kpi-total').textContent    = allReps.length;
-    document.getElementById('kpi-pyme').textContent     = reps.length;
-    document.getElementById('kpi-empresas').textContent = getPymeEmpresasCount();
+    document.getElementById('kpi-pyme').textContent     = reps.length;          // 67 organizaciones
+    document.getElementById('kpi-empresas').textContent = getPymeReports().length; // 73 respuestas depuradas
     document.getElementById('kpi-avg').textContent      = avgScore;
     document.getElementById('kpi-stage').textContent    = topStage;
     document.getElementById('kpi-weak-dim').textContent = DIMS[weakDimIdx];
