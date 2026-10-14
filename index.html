@@ -6062,7 +6062,18 @@ function renderResearchDash() {
 /* ----------------------------------------------------------------
    HALLAZGOS ESTADÍSTICOS — 6 gráficos + tabla de síntesis
 ---------------------------------------------------------------- */
+/* Envoltorio: si el calculo de un hallazgo falla, el error se muestra en el
+   panel en lugar de dejar el bloque vacio y la causa escondida en consola. */
 function renderHallazgosEstadisticos(reps) {
+    try {
+        _renderHallazgosEstadisticosInner(reps);
+    } catch (e) {
+        console.error('Hallazgos:', e);
+        const w = document.getElementById('hallazgos-wrap');
+        if (w) w.innerHTML = '<div style="padding:14px;border:1px solid #E53935;border-radius:8px;color:#C62828;font-size:.8rem;font-family:ui-monospace,monospace;white-space:pre-wrap;">Error al calcular los hallazgos (n = ' + (reps ? reps.length : '?') + '):\n' + (e && e.stack ? e.stack.split('\n').slice(0,3).join('\n') : String(e)) + '</div>';
+    }
+}
+function _renderHallazgosEstadisticosInner(reps) {
     const wrap = document.getElementById('hallazgos-wrap');
     if (!wrap) return;
     if (reps.length < 10) {
