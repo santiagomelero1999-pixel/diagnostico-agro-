@@ -2452,6 +2452,7 @@
                 <button class="btn-xs bx-accent" onclick="exportCSV()">⬇ Exportar CSV</button>
                 <button class="btn-xs bx-green"  onclick="migrateToSupabase()" id="btn-migrate">☁ Subir datos locales</button>
                 <button class="btn-xs bx-green"  onclick="repairSectors()" id="btn-repair-sectors">🔧 Reparar sectores</button>
+                <button class="btn-xs bx-gray"   id="btn-mask" onclick="toggleMask()">👁 Nombres: visibles</button>
                 <button class="btn-xs bx-gray"   onclick="adminLogout()">Cerrar Sesión</button>
             </div>
         </div>
@@ -4193,7 +4194,7 @@ function renderTable() {
         const tr = document.createElement('tr');
         tr.innerHTML = `
           <td>${d}</td>
-          <td><strong>${h(r.name)}</strong>${grpBadge}</td>
+          <td><strong>${h(maskName(r.name))}</strong>${grpBadge}</td>
           <td>${h(r.contact)}</td>
           <td style="max-width:140px; font-size:.8rem;">${h(r.sector)}</td>
           <td><span class="tbl-badge">${h(r.etapa)}</span></td>
@@ -4646,6 +4647,39 @@ function delReport(i) {
     if (report?.id) deleteFromSupabase(report.id);
 }
 
+/* ----------------------------------------------------------------
+   ENMASCARADO DE RAZONES SOCIALES
+   Para exhibir el panel ante el jurado sin exponer la identidad de las
+   organizaciones participantes. Afecta solo a la presentacion: no toca
+   los datos guardados ni la exportacion.
+---------------------------------------------------------------- */
+const MASK_EXCEPCIONES = ['belina srl', 'belina s.r.l.', 'belina s r l', 'belina',
+                          'establecimiento belina srl', 'establecimiento belina'];
+const MASK_SIMBOLO = '*********';
+let maskNames = false;
+try { sessionStorage.removeItem('maskNames'); } catch (e) {}
+
+function esExcepcionMask(s) {
+    const n = String(s || '').trim().toLowerCase().replace(/\s+/g, ' ');
+    return MASK_EXCEPCIONES.includes(n);
+}
+function maskName(s) {
+    if (!maskNames || !String(s || '').trim()) return s;
+    return esExcepcionMask(s) ? s : MASK_SIMBOLO;
+}
+function updateMaskBtn() {
+    const b = document.getElementById('btn-mask');
+    if (b) b.textContent = maskNames ? '🙈 Nombres: ocultos' : '👁 Nombres: visibles';
+}
+function toggleMask() {
+    maskNames = !maskNames;
+    try { sessionStorage.setItem('maskNames', maskNames ? '1' : '0'); } catch (e) {}
+    updateMaskBtn();
+    /* Redibuja la vista activa */
+    ['renderTable', 'renderEmpresas', 'renderGrupos', 'renderContacts', 'renderResearchDash']
+        .forEach(fn => { try { if (typeof window[fn] === 'function') window[fn](); } catch (e) {} });
+}
+
 function exportCSV() {
     const rep = getReports();
     if (!rep.length) { alert('No hay informes para exportar.'); return; }
@@ -4924,7 +4958,7 @@ async function renderGrupoDash(code) {
         const stColor = stageColors[r.etapa] || '#888';
         return `<tr>
             <td style="color:var(--gray);font-size:.75rem;">${i+1}</td>
-            <td><strong>${h(r.name)}</strong></td>
+            <td><strong>${h(maskName(r.name))}</strong></td>
             <td><span class="tbl-badge" style="border-color:${stColor}20;color:${stColor};">${h(r.etapa)}</span></td>
             <td><strong>${r.score}</strong><span style="color:var(--gray)">/80</span></td>
             ${dims.map(d => `<td>${d}<span style="color:var(--gray);font-size:.72rem;">/20</span></td>`).join('')}
@@ -5256,7 +5290,7 @@ function renderContacts() {
     tbody.innerHTML = unique.length === 0
         ? '<tr><td colspan="5" style="text-align:center;color:var(--gray);padding:32px;">Sin contactos registrados aún.</td></tr>'
         : unique.map(r => `<tr>
-            <td>${esc(r.name||'—')}</td>
+            <td>${esc(maskName(r.name)||'—')}</td>
             <td><strong>${esc(r.contact)}</strong></td>
             <td>${esc(r.sector||'—')}</td>
             <td>${r.etapa||'—'}</td>
