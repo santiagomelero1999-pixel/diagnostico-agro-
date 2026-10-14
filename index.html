@@ -4108,12 +4108,23 @@ function updateLastReport(total, etapaKey, sat) {
    ADMIN
 ---------------------------------------------------------------- */
 let _adminRealtimeChannel = null;
-function openAdminDash() {
+async function openAdminDash() {
     document.getElementById('admin-login-card').style.display = 'none';
     document.getElementById('admin-dash').style.display       = 'block';
     sessionStorage.removeItem('judgeMode');
     const tabBar = document.querySelector('.admin-tab-bar');
     if (tabBar) tabBar.style.display = '';
+
+    /* Los registros viven en Supabase; localStorage es solo una cache local
+       y arranca vacia en cada navegador y en cada dominio. Sin esta carga
+       inicial el panel se dibujaba sin datos, de modo que no aparecian ni
+       los hallazgos ni los conteos de la muestra depurada. */
+    const tb = document.getElementById('admin-tbody');
+    if (tb && !getReports().length) {
+        tb.innerHTML = '<tr><td colspan="99" style="padding:24px;text-align:center;color:#888;">Cargando registros…</td></tr>';
+    }
+    try { await pullFromSupabase(); } catch (e) { console.error('Carga inicial:', e); }
+
     renderTable();
     // Realtime: auto-refresh when any report changes
     if (!_adminRealtimeChannel) {
