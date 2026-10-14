@@ -5550,7 +5550,7 @@ window._pqSortAsc = {rank:true,dim:true,texto:true,avg:true};
 function renderPreguntasTable() {
     const wrap = document.getElementById('preguntas-wrap');
     if (!wrap) return;
-    const reps = getPymeReports().filter(r => r.h_vals?.length === 16);
+    const reps = getPymeOrgReports().filter(r => r.h_vals?.length === 16);
     if (!reps.length) { wrap.innerHTML = '<p style="font-size:.82rem;color:var(--gray);">Sin datos suficientes.</p>'; return; }
     const n = reps.length;
     const DC = {Enfoque:'#004D2C',Procesos:'#1565C0',Competencias:'#C8970A',Proyección:'#6A1B9A'};
@@ -5649,7 +5649,7 @@ async function askGemini() {
     const loadId = 'gload-' + Date.now();
     chat.innerHTML += `<div id="${loadId}" style="color:var(--gray);font-style:italic;padding:8px 0;">🤖 Pensando…</div>`;
     chat.scrollTop = chat.scrollHeight;
-    const ctx = buildGeminiContext(getPymeReports());
+    const ctx = buildGeminiContext(getPymeOrgReports());
     try {
         const res  = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`, {
             method:'POST', headers:{'Content-Type':'application/json'},
@@ -6832,7 +6832,7 @@ function renderHallazgosEstadisticos(reps) {
 }
 
 function renderCrossChart(variable) {
-    const reps   = getPymeReports();
+    const reps   = getPymeOrgReports();
     const DIMS   = ['Enfoque','Procesos','Competencias','Proyección'];
     const STAGES = ['CONFIANZA','ANÁLISIS','DELEGACIÓN','PERSPECTIVA'];
 
@@ -6968,7 +6968,7 @@ function drawCrossChart() {
 }
 
 function renderGenChart() {
-    const reps = getPymeReports().filter(r => r.score !== null);
+    const reps = getPymeOrgReports().filter(r => r.score !== null);
     const GEN_ORDER = [
         '1ra generación (fundador)',
         '2da generación',
@@ -7765,7 +7765,7 @@ async function askAgro() {
     msgs.scrollTop = msgs.scrollHeight;
 
     try {
-        const ctx = buildGeminiContext(getPymeReports());
+        const ctx = buildGeminiContext(getPymeOrgReports());
         const systemMsg = (ctx || 'Sos un experto en organizaciones agropecuarias argentinas.') +
             '\n\nRespondé siempre en español rioplatense, de forma concisa, técnica y orientada a la acción. Usá párrafos cortos.';
 
