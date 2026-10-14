@@ -7482,7 +7482,7 @@ function buildInformeCompletoHTML(r) {
     const {dimScores,total,weakest,strongest,pct,sc,fecha,stageDesc,lectura,fortalezaTexto,dimAdvice,radarSVG,mapaHTML,rankHTML,brechaHTML,CSS,hv} = D;
 
     const empresa = r.empresa_key || r.perfil?.empresa_key || r.name;
-    const peers = getReports().filter(rep => {
+    const peers = getPymeOrgReports().filter(rep => {
         const k = rep.empresa_key || rep.perfil?.empresa_key || rep.name;
         return k === empresa && rep.name !== r.name && Array.isArray(rep.h_vals) && rep.h_vals.length === 16;
     });
@@ -7567,7 +7567,7 @@ function buildInformeCompletoHTML(r) {
 
     // Contexto de muestra
     let secMuestra = '';
-    const allValid = getReports().filter(rep=>Array.isArray(rep.h_vals)&&rep.h_vals.length===16&&typeof rep.score==='number');
+    const allValid = getPymeOrgReports().filter(rep=>Array.isArray(rep.h_vals)&&rep.h_vals.length===16&&typeof rep.score==='number');
     if (allValid.length >= 2) {
         const avgTotal = Math.round(allValid.reduce((a,rep)=>a+rep.score,0)/allValid.length);
         const avgDims = DIMS.map((_,di)=>Math.round(allValid.reduce((a,rep)=>a+(rep.h_vals.slice(di*4,di*4+4).reduce((x,y)=>x+y,0)),0)/allValid.length));
