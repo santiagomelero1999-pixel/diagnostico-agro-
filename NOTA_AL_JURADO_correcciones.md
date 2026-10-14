@@ -171,3 +171,37 @@ Sobre la región: la prueba de Kruskal-Wallis no muestra diferencias significati
 | Alinear índice con títulos y condensar conclusiones repetidas | 1 y 3 | Pendiente |
 | Simplificación semántica para consultoría | 2 | Corresponde a una versión de difusión |
 | Definición de PyME del Ministerio de Economía | 2 | Ampliación del marco, no corrección |
+
+# Segunda revisión (versión editada, 8/10)
+
+Todos los puntos señalados se incorporaron en el documento. Se detallan por sección.
+
+| Sección | Observación | Resolución |
+|---|---|---|
+| 4.1 | Rastro «el problema de independencia que señalaba la devolución» | Eliminado. |
+| 4.1 / 3.5 | Promedio «reactivo por reactivo» vs. exportación por dimensión | Aclarado en 4.1: el panel conserva las 16 respuestas de cada registro y sobre ellas se promedió; la exportación en CSV solo informa puntajes por dimensión. |
+| 4.1 / Nota al jurado | Qué queda sobre 73 respuestas | Explicitado: alfa de Cronbach (3.5), ranking de ítems del Hallazgo 5 y composición por sector (Tabla 6) se calculan por cuestionario; todo lo demás, sobre 67 organizaciones. |
+| 4.2 | Kruskal-Wallis por región con n = 70 | Recalculado sobre 67 organizaciones: H = 3,19; p = 0,203; n = 64 (Pampa Húmeda 35, NOA 13, Internacional 16). |
+| 4.4.2 | 54,3 / 51,4; «repunte»; 35 contra 33; «cuatro cuadrantes» | Corregido a 54,5 / 51,6; 32 contra 30; la tercera generación no muestra recuperación; la caída aparece en tres de los cuatro cuadrantes. |
+| 4.4.3 | Tabla 13 con 22 y 34 casos; H(3) | Tabla 13 en 19 y 31 organizaciones (53,5 y 52,2); Kruskal-Wallis recalculado: H(3) = 4,22; p = 0,238. |
+| 4.4.4 / 5.1 | 53,2 → 55,9 vs. 56,7 | Unificado: 50,5 → 53,5 → 56,7. |
+| 4.4.6 / 5.1 | Procesos 12,3 y brecha 0,4 | Corregido a 12,4 y 0,3; en 5.1 Enfoque y Proyección 14,0 y Procesos 12,4. |
+| 4.5.2 | 23 registros; n = 7/11/5; 42,7 y 53,7 | Corregido a 22 organizaciones; n = 7/10/5; 43,4 y 54,0. |
+| 5.1 | Resultado de satisfacción duplicado | Fusionado en una sola mención. |
+| 3.6 | Análisis por organización como «prueba de robustez» | Reescrito: es el análisis principal; la base de 73 fue solo una primera corrida. |
+| 4.4.1 | Regresión múltiple con valores viejos | Recalculada sobre 67 organizaciones: directivos externos β = 5,4 (p = 0,049); dotación β = 1,4 (p = 0,28); R² = 0,11; ρ directivos–dotación = 0,383 (p = 0,001). |
+| 4.2 / 4.3 | 66,0 %; 69 %; «73 empresas» | 66,3 %; 70 %; 67 organizaciones. |
+| 2.1 / 3.6 / 5.2 | 21,9 % y «16 de los casos» | 23,9 % (16 de 67) en los tres lugares. |
+| Figura 30 | Alfa 0,32 «coherente con el rezago» | Nota reescrita en línea con 3.5. |
+| 6 | «73 respuestas» | 67 organizaciones. |
+| 2.7.5 / 2.5 | Premisas de Herrmann distintas | Se indica que el segundo principio reformula la premisa de sinergia. |
+| 1.3 | Núcleo teórico Preumayr vs. Herrmann | Aclarado: el núcleo es el modelo de Preumayr y Daraio; Herrmann aporta la arquitectura de cuadrantes. |
+| Tabla 1 | Formato del monto tramo 2 | Corregido. |
+| 1.3 / 4.2 / 5.2 / 3.4.4 | «propone», doble coma, minúscula tras punto, construcción no paralela | Corregidos. |
+| Tabla 14 | Texto en negrita con guiones | Convertida en tabla. |
+| Referencias | Platón y Lem sin cita; URL duplicada | Entradas eliminadas; URL única. |
+| 6 | Madre Teresa «como se citó en Preumayr, 2025» | Verificado: la cita figura en la tesis de Preumayr (2025). |
+| 6 | Registro del epílogo | Reescrito en tercera persona (sin primera persona singular ni plural), según Jurado 1, punto 9. |
+| QuillBot | «no fue neutral, fue una decisión»; «no invalida… lo contextualiza»; «lejos de invalidar»; «llegar no es quedarse»; bloques «En síntesis» | Todos reformulados; los cuatro bloques de 2.7 llevan ahora un encabezado descriptivo propio. |
+
+Sobre Molinari: las citas «Molinari (2012/2023)» remiten al libro *El salto del dueño* y «Molinari (2014)» a la presentación de diapositivas sobre 715 empresas; son dos fuentes distintas y ambas figuran en las referencias. Del mismo modo, «Daraio y Preumayr (2025)» es el documento de cátedra del modelo y «Preumayr y Daraio (2025)» la herramienta de Excel, según el orden de autores de cada fuente.
