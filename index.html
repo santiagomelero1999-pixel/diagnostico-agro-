@@ -5400,13 +5400,18 @@ function _pearsonXY(x, y) {
     const t = r * Math.sqrt(n-2) / Math.sqrt(Math.max(1e-9, 1-r*r));
     return {r, t};
 }
+/* p-valor bilateral de la t de Student (df = n-2). Hasta ahora la
+   significacion se decidia con |t| > 1,96, que es la normal y sobreestima
+   la significacion en muestras chicas: con n = 22 el umbral real es 2,09. */
+function _lgamma(z){ const g=7, c=[0.99999999999980993,676.5203681218851,-1259.1392167224028,771.32342877765313,-176.61502916214059,12.507343278686905,-0.13857109526572012,9.9843695780195716e-6,1.5056327351493116e-7]; if(z<0.5) return Math.log(Math.PI/Math.sin(Math.PI*z))-_lgamma(1-z); z-=1; let x=c[0]; for(let i=1;i<g+2;i++) x+=c[i]/(z+i); const t=z+g+0.5; return 0.5*Math.log(2*Math.PI)+(z+0.5)*Math.log(t)-t+Math.log(x); }
+function tPValue(t, df){ if(!isFinite(t)||df<1) return 1; const a=Math.abs(t); const k=Math.exp(_lgamma((df+1)/2)-_lgamma(df/2))/Math.sqrt(df*Math.PI); const pdf=x=>k*Math.pow(1+x*x/df,-(df+1)/2); const N=2000, hi=a+40; const h=hi/N; let sInt=pdf(a)+pdf(hi); for(let i=1;i<N;i++){ sInt+=(i%2?4:2)*pdf(a+i*h); } const tail=sInt*h/3; return Math.min(1,2*tail); }
 function statSpearman(xRaw, yRaw) {
     const pairs = xRaw.map((v,i)=>[v,yRaw[i]]).filter(p=>p[0]!=null&&p[1]!=null);
     if (pairs.length < 4) return null;
     const x = pairs.map(p=>p[0]), y = pairs.map(p=>p[1]);
     const {r, t} = _pearsonXY(_rankList(x), _rankList(y));
-    const sig = Math.abs(t) > 1.96;
-    return {r:+r.toFixed(3), t:+t.toFixed(2), n:pairs.length, sig};
+    const p = tPValue(t, pairs.length-2);
+    return {r:+r.toFixed(3), t:+t.toFixed(2), n:pairs.length, p:+p.toFixed(3), sig: p < 0.05};
 }
 function statMannWhitney(g1, g2) {
     const combined = [...g1.map(v=>({v,g:1})),...g2.map(v=>({v,g:2}))].sort((a,b)=>a.v-b.v);
@@ -5442,7 +5447,8 @@ function statPearson(xRaw, yRaw) {
     if (pairs.length < 4) return null;
     const x = pairs.map(p=>p[0]), y = pairs.map(p=>p[1]);
     const {r, t} = _pearsonXY(x, y);
-    return {r:+r.toFixed(3), t:+t.toFixed(2), n:pairs.length, sig: Math.abs(t)>1.96};
+    const p = tPValue(t, pairs.length-2);
+    return {r:+r.toFixed(3), t:+t.toFixed(2), n:pairs.length, p:+p.toFixed(3), sig: p < 0.05};
 }
 function statKruskalWallis(groups) {
     const nonEmpty = groups.filter(g => g.length > 0);
@@ -5896,6 +5902,7 @@ function renderResearchDash() {
                              backgroundColor: '#004D2C', borderRadius: 4 }]
             },
             options: {
+                layout: { padding: { top: 22 } },
                 responsive: true,
                 scales: {
                     y: { beginAtZero: true, ticks: { stepSize: 1, font: baseFont }, grid: { color: '#F0F0F0' } },
@@ -6241,12 +6248,12 @@ function _renderHallazgosEstadisticosInner(reps) {
                     <div style="background:#F7F9F5;border:1px solid var(--border);padding:14px 12px;border-radius:4px;border-top:3px solid #004D2C;">
                         <div style="font-size:.55rem;text-transform:uppercase;letter-spacing:1px;color:var(--gray);margin-bottom:4px;">Con directivo externo</div>
                         <div style="font-size:1.6rem;font-weight:900;color:#004D2C;">${avgSi}<span style="font-size:.75rem;font-weight:400;">/80</span></div>
-                        <div style="font-size:.62rem;color:var(--gray);">N = ${gSi.length} respondentes</div>
+                        <div style="font-size:.62rem;color:var(--gray);">N = ${gSi.length} organizaciones</div>
                     </div>
                     <div style="background:#F5F5F5;border:1px solid var(--border);padding:14px 12px;border-radius:4px;border-top:3px solid #9E9E9E;">
                         <div style="font-size:.55rem;text-transform:uppercase;letter-spacing:1px;color:var(--gray);margin-bottom:4px;">Sin directivo externo</div>
                         <div style="font-size:1.6rem;font-weight:900;color:#757575;">${avgNo}<span style="font-size:.75rem;font-weight:400;">/80</span></div>
-                        <div style="font-size:.62rem;color:var(--gray);">N = ${gNo.length} respondentes</div>
+                        <div style="font-size:.62rem;color:var(--gray);">N = ${gNo.length} organizaciones</div>
                     </div>
                     <div style="background:${mw&&mw.sig?'#E8F5E9':'#F5F5F5'};border:1px solid ${mw&&mw.sig?'#C8E6C9':'var(--border)'};padding:14px 12px;border-radius:4px;border-top:3px solid ${mw&&mw.sig?'#2E7D32':'#9E9E9E'};">
                         <div style="font-size:.55rem;text-transform:uppercase;letter-spacing:1px;color:var(--gray);margin-bottom:4px;">Diferencia neta</div>
@@ -6341,7 +6348,7 @@ function _renderHallazgosEstadisticosInner(reps) {
                     </div>
                     <div style="background:${spAnt.sig?'#FFF8E1':'#F5F5F5'};border:1px solid ${spAnt.sig?'#FFE082':'var(--border)'};padding:14px 12px;border-radius:4px;">
                         <div style="font-size:.55rem;text-transform:uppercase;letter-spacing:1px;color:var(--gray);margin-bottom:4px;">Significancia</div>
-                        <div style="font-size:1rem;font-weight:900;color:${spAnt.sig?'#F57F17':'#757575'};">${spAnt.sig?'p &lt; 0.05':'ns'}</div>
+                        <div style="font-size:1rem;font-weight:900;color:${spAnt.sig?'#F57F17':'#757575'};">p = ${spAnt.p}</div>
                         <div style="font-size:.62rem;color:var(--gray);">${spAnt.sig?'Significativo':'No significativo'}</div>
                     </div>
                 </div>
@@ -6694,12 +6701,12 @@ function _renderHallazgosEstadisticosInner(reps) {
                     </div>
                     <div style="background:${spSat.sig?'#E8F5E9':'#F5F5F5'};border:1px solid ${spSat.sig?'#C8E6C9':'var(--border)'};padding:14px 12px;border-radius:4px;">
                         <div style="font-size:.55rem;text-transform:uppercase;letter-spacing:1px;color:var(--gray);margin-bottom:4px;">Significancia</div>
-                        <div style="font-size:1rem;font-weight:900;color:${spSat.sig?'#2E7D32':'#757575'};">${spSat.sig?'p &lt; 0.05':'ns'}</div>
+                        <div style="font-size:1rem;font-weight:900;color:${spSat.sig?'#2E7D32':'#757575'};">p = ${spSat.p}</div>
                         <div style="font-size:.62rem;color:var(--gray);">${spSat.sig?'&#10003; Significativo':'No significativo'}</div>
                     </div>
                 </div>
                 <div style="background:#F9F9F9;border:1px solid var(--border);padding:10px 14px;border-radius:4px;font-size:.75rem;color:var(--mid);">
-                    Spearman &rho; = ${spSat.r} &middot; t = ${spSat.t} &middot; n = ${spSat.n} &middot; ${spSat.sig?'p &lt; 0.05 &#10003;':'no significativo'} &nbsp;${badge('&rho;='+spSat.r,spSat.sig)} ${tipSp} ${tipP}
+                    Spearman &rho; = ${spSat.r} &middot; t = ${spSat.t} &middot; n = ${spSat.n} &middot; p = ${spSat.p} ${spSat.sig?'&#10003;':'(no significativo)'} &nbsp;${badge('&rho;='+spSat.r,spSat.sig)} ${tipSp} ${tipP}
                 </div>` : '<div style="color:var(--gray);font-size:.8rem;">Datos insuficientes para el test.</div>'}
                 <div class="stat-footer">Dato exploratorio &#8212; requiere muestra m&#225;s amplia de respondentes patrimoniales para confirmar causalidad entre madurez organizacional y bienestar del fundador.</div>
             </div>
