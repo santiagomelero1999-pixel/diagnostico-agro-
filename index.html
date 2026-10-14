@@ -4080,10 +4080,20 @@ function etapaDeTotal(total) {
     if (total > 20) return 'ANÁLISIS';
     return 'CONFIANZA';
 }
+/* Clave canonica cuando no hay empresa_key asignada: nombre en minusculas,
+   sin puntuacion ni sufijos societarios, para que "Estudio Pire" y
+   "ESTUDIO PIRE", o "Agricola Las Lanzas SA" y "Las lanzas", cuenten
+   como la misma organizacion. */
+function normEmpresaNombre(s) {
+    let n = String(s || '').toLowerCase().trim().replace(/[.,]/g, '');
+    n = n.replace(/\bagricola\b/g, '');
+    n = n.replace(/\b(s a e|sae|s a s|sas|srl|s r l|sa|s a)\b/g, '');
+    return n.replace(/\s+/g, ' ').trim();
+}
 function getPymeOrgReports() {
     const grupos = {};
     getPymeReports().forEach(r => {
-        const k = empresaKeyOf(r) || r.id;
+        const k = r.empresa_key || r.perfil?.empresa_key || normEmpresaNombre(r.name) || r.id;
         (grupos[k] = grupos[k] || []).push(r);
     });
     return Object.values(grupos).map(g => {
