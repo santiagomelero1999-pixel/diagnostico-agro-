@@ -22,7 +22,9 @@ Agradezco las tres devoluciones. Respondo punto por punto, en el orden en que ca
 
 Sobre la categoría «Internacional / sin dato»: se explicita ahora que agrupa dos situaciones distintas y que por eso el 21,9 % debe leerse como un techo y no como un recuento exacto de firmas extranjeras. El valor anterior, 20,8 % sobre 77, estaba mal calculado.
 
-**No corregido:** consolidar un registro por organización y rehacer todas las pruebas inferenciales sobre ese n efectivo. Sí se incorporó, en los tres lugares donde aparecía, el porcentaje a nivel organización (71,6 %) junto al porcentaje sobre respuestas (72,6 %), que antes se presentaban indistintamente.
+**Corregido también en este punto, y es el cambio más de fondo de esta versión.** La base principal de análisis pasó a ser la organización y no el respondente. Para las seis empresas que aportaron dos respondentes se promediaron sus respuestas reactivo por reactivo y se recalculó sobre ese promedio el puntaje y la etapa, quedando **n = 67 organizaciones**. Todo el capítulo 4 de resultados y todas las pruebas inferenciales se rehicieron sobre esa base; el perfil de los respondentes se sigue informando sobre las 73 respuestas, y el apartado 4.1 explicita por qué conviven los dos niveles. Con un único registro por organización desaparece además el problema de independencia que señalaba la devolución.
+
+Los resultados se movieron poco, lo que refuerza la robustez de los hallazgos: en transición 72,6 % → **70,1 %**; etapa profesional 27,4 % → **29,9 %**; diferencia por directivo externo +6,1 → **+6,6 puntos** (U = 697,0; p = 0,023); dotación con Procesos ρ = 0,251 → **0,266**; antigüedad ρ = −0,127 → **−0,162**, igualmente no significativa. Ninguna conclusión cambió de signo ni de significación.
 
 ### 3. Construcción del puntaje
 
@@ -97,7 +99,7 @@ Se unificó también el registro en los pasajes de lenguaje genérico que la dev
 
 ### 2. Simplificación semántica para consultoría o empresarios PyME
 
-**No corregido.** Coincido con la observación, pero entiendo que una versión orientada a consultoría es un producto distinto del trabajo final académico. La aplicación ya opera en ese registro: los reactivos están redactados en lenguaje llano y cada uno ofrece un ejemplo situado por rubro. Lo tomo como línea de trabajo para la versión de difusión.
+**No corregido.** Coincido con la observación, pero entiendo que una versión orientada a consultoría es un producto distinto del trabajo final académico. La aplicación, que fue actualizada para reflejar esta misma base de 67 organizaciones en su Panel de Investigación, ya opera en ese registro: los reactivos están redactados en lenguaje llano y cada uno ofrece un ejemplo situado por rubro. Lo tomo como línea de trabajo para la versión de difusión.
 
 ### 3. Definición de PyME del Ministerio de Economía
 
@@ -159,7 +161,6 @@ Sobre la región: la prueba de Kruskal-Wallis no muestra diferencias significati
 |---|---|---|
 | Invertir los ítems negativos y recalcular puntajes, Alfas y etapas | 1 | Rompería la comparabilidad con el instrumento original que el trabajo migra. Declarado como limitación en 3.5 |
 | Reformular el primer objetivo y formular hipótesis explícitas | 1 | Cambio de diseño, no de redacción |
-| Consolidar un registro por organización y rehacer las pruebas | 1 | Ídem. Sí se incorporó el porcentaje a nivel organización |
 | Excluir el envío duplicado detectado | 1 | Implicaría rehacer los estadísticos del capítulo 4. Declarado como limitación |
 | Presentar el «bloque de saber hacer» como exploratorio | 1 | Pendiente para publicación |
 | Fundamentar la traslación del modelo de Herrmann al plano organizacional | 1 | Reconocido como salto no justificado en profundidad |
