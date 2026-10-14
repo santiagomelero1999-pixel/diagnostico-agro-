@@ -89,7 +89,9 @@ Se incorporó además al panel una función de **enmascarado de razones sociales
 
 Se unificó también el registro en los pasajes de lenguaje genérico que la devolución señalaba, y se corrigió la contradicción entre 3.4.7 y 5.3 sobre la devolución al respondente.
 
-**No corregido:** la alineación completa del índice con los títulos del cuerpo y la condensación de las conclusiones repetidas en tres lugares.
+**Corregido también:** el Resumen quedó reducido a un párrafo de cierre que remite al capítulo 5, que pasa a ser el único lugar donde se desarrollan las conclusiones; el epílogo ya no las repite. Se reformuló además el título del hallazgo principal, que hablaba de «sincronismo funcional» entre Procesos y Competencias: la correlación observada (r = 0,498) proviene del mismo cuestionario autoadministrado y no autoriza esa lectura, de modo que ahora se presenta como dos dimensiones que se mueven juntas.
+
+**Pendiente:** la alineación fina del índice con los títulos del cuerpo y la paginación, que se actualiza al regenerar el índice.
 
 ---
 
