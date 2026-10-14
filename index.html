@@ -1690,6 +1690,7 @@
                 <h2 class="card-title" style="margin-bottom:0;">Informes Guardados</h2>
             </div>
             <div class="admin-btns">
+                <button class="btn-xs bx-gray"   id="btn-mask" onclick="toggleMask()">👁 Nombres: visibles</button>
                 <button class="btn-xs bx-accent" onclick="exportCSV()">⬇ Exportar CSV</button>
                 <button class="btn-xs bx-gray"   onclick="adminLogout()">Cerrar Sesión</button>
             </div>
@@ -2579,7 +2580,38 @@ function adminLogout() {
     navTo('lock');
 }
 
+/* ─────────────────────────────────────────────────────────────
+   Enmascarado de razones sociales para la exhibición ante el jurado.
+   Reemplaza el nombre de la empresa por un símbolo en las vistas del
+   panel, sin alterar los datos almacenados en Supabase ni la exportación
+   CSV. Las firmas listadas en MASK_EXCEPTIONS se muestran siempre, por
+   contar con autorización expresa para su identificación.
+   ───────────────────────────────────────────────────────────── */
+const MASK_EXCEPTIONS = ['belina srl', 'belina s.r.l.', 'belina s r l', 'belina'];
+const MASK_SYMBOL     = '*********';
+let   maskNames       = sessionStorage.getItem('maskNames') === '1';
+
+function isMaskException(s) {
+    const n = String(s || '').trim().toLowerCase().replace(/\s+/g, ' ');
+    return MASK_EXCEPTIONS.includes(n);
+}
+function maskName(s) {
+    if (!maskNames || !String(s || '').trim()) return s;
+    return isMaskException(s) ? s : MASK_SYMBOL;
+}
+function updateMaskBtn() {
+    const b = document.getElementById('btn-mask');
+    if (b) b.textContent = maskNames ? '🙈 Nombres: ocultos' : '👁 Nombres: visibles';
+}
+function toggleMask() {
+    maskNames = !maskNames;
+    sessionStorage.setItem('maskNames', maskNames ? '1' : '0');
+    updateMaskBtn();
+    renderTable();
+}
+
 function renderTable() {
+    updateMaskBtn();
     const rep  = getReports();
     const tb   = document.getElementById('admin-tbody');
     const emp  = document.getElementById('admin-empty');
@@ -2591,7 +2623,7 @@ function renderTable() {
         const tr = document.createElement('tr');
         tr.innerHTML = `
           <td>${d}</td>
-          <td><strong>${h(r.name)}</strong></td>
+          <td><strong>${h(maskName(r.name))}</strong></td>
           <td>${h(r.contact)}</td>
           <td style="max-width:140px; font-size:.8rem;">${h(r.sector)}</td>
           <td><span class="tbl-badge">${h(r.etapa)}</span></td>
@@ -2643,7 +2675,7 @@ function openView(i) {
         </div>` : '';
     document.getElementById('mv-body').innerHTML = `
         <div class="m-grid">
-            <div class="m-info-block"><label>Empresa</label><p>${h(r.name)}</p></div>
+            <div class="m-info-block"><label>Empresa</label><p>${h(maskName(r.name))}</p></div>
             <div class="m-info-block"><label>Contacto</label><p>${h(r.contact)}</p></div>
             <div class="m-info-block"><label>Sector</label><p>${h(r.sector)}</p></div>
             <div class="m-info-block"><label>Fecha</label><p>${d}</p></div>
