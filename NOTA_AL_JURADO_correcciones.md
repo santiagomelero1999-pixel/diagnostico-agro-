@@ -56,7 +56,7 @@ Se incorporó también la **Figura 1**, que reproduce el esquema de las cinco fa
 
 **Corregido:** las citas de Penna y Molinari ahora llevan año en todas sus apariciones. Se corrigió la atribución de Dolan et al. (2006), que decía «lo que él denomina» siendo tres autores.
 
-**No corregido, pendiente de mi parte:** la verificación de Penna y Solymosi (2012), el DOI de OECD (2023), la cita de la Madre Teresa, la discrepancia entre «Penna (2001)» en el texto y Solymosi y Penna (2001) en la referencia, la incorporación de la herramienta Excel de Preumayr y Daraio (2025) a la bibliografía, y las fuentes faltantes de los datos de EAPs, concentración de tierra y el estudio de Molinari. Son verificaciones que debo hacer sobre las fuentes originales y prefiero no resolverlas por aproximación.
+**Corregido.** Las referencias observadas se revisaron una por una. La entrada «Penna y Solymosi (2012), The desert crossing, Family Business Press» y la cita «Penna (2001)» se eliminaron: el trabajo que corresponde es Solymossy y Penna (2005), *Sustainable growth for the small business: A theory of organizational transition*, publicado en las actas de la Global Organization Design Society, que pude verificar en su sitio y cuyo enlace se incorporó a la bibliografía. El DOI de OECD (2023) corresponde efectivamente al *SME and Entrepreneurship Outlook 2023*. La metáfora de la «travesía del desierto» se atribuye en todos los casos a Penna (2008), *Pymes en crecimiento*. La cita de la Madre Teresa, que tomé del trabajo de Preumayr (2025), pasa a citarse como fuente secundaria («como se citó en Preumayr, 2025») y se retira de la bibliografía la entrada de Kreeft (2011), que no consulté de primera mano. La herramienta Excel de Preumayr y Daraio (2025) figura en la bibliografía.
 
 Sobre Gemini: ahora está declarado en el cuerpo del trabajo (apartado 3.3.1), no solo en referencias.
 
@@ -168,7 +168,6 @@ Sobre la región: la prueba de Kruskal-Wallis no muestra diferencias significati
 | Excluir el envío duplicado detectado | 1 | Implicaría rehacer los estadísticos del capítulo 4. Declarado como limitación |
 | Presentar el «bloque de saber hacer» como exploratorio | 1 | Pendiente para publicación |
 | Fundamentar la traslación del modelo de Herrmann al plano organizacional | 1 | Reconocido como salto no justificado en profundidad |
-| Verificación completa de referencias | 1 y 2 | Pendiente de mi parte, sobre las fuentes originales |
 | Alinear índice con títulos y condensar conclusiones repetidas | 1 y 3 | Pendiente |
 | Simplificación semántica para consultoría | 2 | Corresponde a una versión de difusión |
 | Definición de PyME del Ministerio de Economía | 2 | Ampliación del marco, no corrección |
