@@ -6203,9 +6203,11 @@ function _renderHallazgosEstadisticosInner(reps) {
     // ══════════════════════════════════════════════════════════
     const satPairs = reps.filter(r=>r.satisfaccion!=null).map(r=>({sat:r.satisfaccion, sc:r.score}));
     const spSat = satPairs.length>=4 ? statSpearman(satPairs.map(p=>p.sat), satPairs.map(p=>p.sc)) : null;
-    const satGroups = [2,3,4,5].map(s=>{
-        const vs = satPairs.filter(p=>p.sat===s).map(p=>p.sc);
-        return {label:`${s} — ${['','','Insatisfecho','Neutro','Satisfecho','Muy satisfecho'][s]}`, avg: vs.length?(vs.reduce((a,b)=>a+b)/vs.length).toFixed(1):null, n:vs.length};
+    // Niveles 1 y 2 se agrupan como "Insatisfecho" (escala 1–5); así se incluyen todos los casos con dato.
+    const satGroups = [[1,2],[3],[4],[5]].map(levels=>{
+        const vs = satPairs.filter(p=>levels.includes(p.sat)).map(p=>p.sc);
+        const lab = levels.length>1 ? '1–2 — Insatisfecho' : `${levels[0]} — ${['','','','Neutro','Satisfecho','Muy satisfecho'][levels[0]]}`;
+        return {label:lab, avg: vs.length?(vs.reduce((a,b)=>a+b)/vs.length).toFixed(1):null, n:vs.length};
     }).filter(g=>g.n>0);
 
     // ══════════════════════════════════════════════════════════
@@ -6273,7 +6275,7 @@ function _renderHallazgosEstadisticosInner(reps) {
                     ${mw?`<div>Mann-Whitney: U=${mw.U}, z=${mw.z} &nbsp;${badge('z='+mw.z,mw.sig)} ${tipMW}</div>`:''}
                     ${ols1?`<div>Regresi&#243;n OLS: &beta;=${ols1.b1}, R&#178;=${ols1.R2}, t=${ols1.t} &nbsp;${badge('R²='+ols1.R2,ols1.sig)} ${tipOLS}</div>`:''}
                 </div>
-                <div class="stat-footer">Predictor estad&#237;sticamente significativo: tener al menos un directivo externo predice ~${ols1?ols1.b1:'&#8212;'} puntos adicionales de madurez, independientemente del tama&#241;o o antig&#252;edad de la empresa.</div>
+                <div class="stat-footer">Predictor estad&#237;sticamente significativo: tener al menos un directivo externo se asocia con ~${ols1?ols1.b1:'&#8212;'} puntos adicionales de madurez (asociaci&#243;n, no causalidad).</div>
             </div>
         </div>
     </div>
@@ -6372,7 +6374,7 @@ function _renderHallazgosEstadisticosInner(reps) {
     <div class="hallazgo-card" id="hcard-4">
         <div class="hallazgo-header" onclick="toggleHallazgo(4)">
             <div class="h-num">H4</div>
-            <div class="h-title-text">El tama&#241;o de la dotaci&#243;n mueve (solo) la dimensi&#243;n de Procesos</div>
+            <div class="h-title-text">El tama&#241;o de la dotaci&#243;n se asocia (solo) con la dimensi&#243;n de Procesos</div>
             <span class="h-sig-pill ${spDims[1]?.sig?'sig':'ns'}">${spDims[1]?.sig?'&#10003; Sig':'ns'}</span>
             <div class="hallazgo-chevron" id="h4-chevron">&#9662;</div>
         </div>
@@ -6692,7 +6694,7 @@ function _renderHallazgosEstadisticosInner(reps) {
                     <div class="res-chart-title">Score promedio por nivel de satisfacci&#243;n declarada del fundador/socio (n=${satPairs.length})</div>
                     <canvas id="chart-h6-sat" height="180"></canvas>
                 </div>
-                <div class="stat-footer">A mayor madurez estructural, mayor satisfacci&#243;n declarada por quien conduce la empresa. Dato exploratorio &#8212; requiere muestra m&#225;s amplia para confirmar causalidad.</div>
+                <div class="stat-footer">A mayor madurez estructural, mayor satisfacci&#243;n declarada por quien conduce la empresa. Dato exploratorio &#8212; requiere muestra m&#225;s amplia para confirmar la asociaci&#243;n.</div>
             </div>
             <div id="h6-inf" style="display:none;">
                 ${spSat ? `
@@ -6716,7 +6718,7 @@ function _renderHallazgosEstadisticosInner(reps) {
                 <div style="background:#F9F9F9;border:1px solid var(--border);padding:10px 14px;border-radius:4px;font-size:.75rem;color:var(--mid);">
                     Spearman &rho; = ${spSat.r} &middot; t = ${spSat.t} &middot; n = ${spSat.n} &middot; p = ${spSat.p} ${spSat.sig?'&#10003;':'(no significativo)'} &nbsp;${badge('&rho;='+spSat.r,spSat.sig)} ${tipSp} ${tipP}
                 </div>` : '<div style="color:var(--gray);font-size:.8rem;">Datos insuficientes para el test.</div>'}
-                <div class="stat-footer">Dato exploratorio &#8212; requiere muestra m&#225;s amplia de respondentes patrimoniales para confirmar causalidad entre madurez organizacional y bienestar del fundador.</div>
+                <div class="stat-footer">Dato exploratorio &#8212; requiere muestra m&#225;s amplia de respondentes patrimoniales para confirmar la asociaci&#243;n entre madurez organizacional y bienestar del fundador.</div>
             </div>
         </div>
     </div>
