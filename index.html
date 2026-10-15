@@ -4070,6 +4070,22 @@ function getPymeReports() { return getReports().filter(isPymeRecord); }
    respuestas de una misma PyME para no confundir "nº de respuestas" con
    "nº de empresas" cuando hay múltiples respondentes por organización. */
 function empresaKeyOf(r) { return r.empresa_key || r.perfil?.empresa_key || r.name; }
+/* Clave de organizacion para TODO el analisis: la empresa_key guardada (si la
+   hay) o el nombre, siempre pasados por normEmpresaNombre. Sin esto, una
+   empresa_key cargada a mano ("Estudio Pire") y el nombre de su otro
+   respondente ("ESTUDIO PIRE") se contaban como dos organizaciones. */
+function orgKeyOf(r) { return normEmpresaNombre(r.empresa_key || r.perfil?.empresa_key || r.name) || r.id; }
+/* Agrupa registros por organizacion. Devuelve [{key, label, rs}], con label =
+   nombre para exhibir (la empresa_key asignada o el nombre del primer registro). */
+function groupByOrg(reps) {
+    const g = {};
+    reps.forEach(r => {
+        const k = orgKeyOf(r);
+        if (!g[k]) g[k] = { key: k, label: r.empresa_key || r.perfil?.empresa_key || r.name, rs: [] };
+        g[k].rs.push(r);
+    });
+    return Object.values(g);
+}
 /* Un registro por organizacion (unidad de analisis = PyME, no respondente).
    Las empresas con mas de un respondente se promedian reactivo por reactivo
    y se recalcula el puntaje y la etapa sobre ese promedio. Esta es la base
@@ -4093,7 +4109,7 @@ function normEmpresaNombre(s) {
 function getPymeOrgReports() {
     const grupos = {};
     getPymeReports().forEach(r => {
-        const k = r.empresa_key || r.perfil?.empresa_key || normEmpresaNombre(r.name) || r.id;
+        const k = orgKeyOf(r);
         (grupos[k] = grupos[k] || []).push(r);
     });
     return Object.values(grupos).map(g => {
@@ -4116,7 +4132,7 @@ function getPymeOrgReports() {
 }
 
 function getPymeEmpresasCount() {
-    return new Set(getPymeReports().map(empresaKeyOf)).size;
+    return new Set(getPymeReports().map(orgKeyOf)).size;
 }
 
 function saveReport() {
@@ -4343,9 +4359,9 @@ function openView(i) {
     </div>`;
 
     // Sección de comparativa por empresa (peers)
-    const empresa = r.empresa_key || r.perfil?.empresa_key || r.name;
+    const empresa = orgKeyOf(r);
     const peers = getReports().filter((rep,j) => {
-        const k = rep.empresa_key || rep.perfil?.empresa_key || rep.name;
+        const k = orgKeyOf(rep);
         return k === empresa && j !== i && Array.isArray(rep.h_vals) && rep.h_vals.length === 16;
     });
     let peerHtml = '';
@@ -6000,15 +6016,7 @@ function renderResearchDash() {
     renderCrossChart(document.getElementById('cross-var').value || 'region');
 
     // ── Brechas intra-empresa ─────────────────────────────────────
-    const byEmpresaB = {};
-    reps.forEach(r => {
-        if (r.score === null) return;
-        const key = r.empresa_key || r.perfil?.empresa_key || r.name;
-        if (!key) return;
-        if (!byEmpresaB[key]) byEmpresaB[key] = [];
-        byEmpresaB[key].push(r);
-    });
-    const multiB = Object.values(byEmpresaB).filter(rs => rs.length >= 2);
+    const multiB = groupByOrg(reps.filter(r => r.score !== null)).map(o => o.rs).filter(rs => rs.length >= 2);
     const bWrap = document.getElementById('brechas-wrap');
     if (!multiB.length) {
         bWrap.innerHTML = '<p style="font-size:.82rem;color:var(--gray);">Sin datos — se necesitan al menos 2 respuestas vinculadas a la misma empresa (usá el tab 🏢 Empresas).</p>';
@@ -7105,13 +7113,7 @@ function renderGenChart() {
 function renderEmpresasPanel() {
     const reps = getPymeReports();
     const byEmpresa = {};
-    reps.forEach(r => {
-        if (r.score === null) return;
-        const key = r.empresa_key || r.perfil?.empresa_key || r.name;
-        if (!key) return;
-        if (!byEmpresa[key]) byEmpresa[key] = [];
-        byEmpresa[key].push(r);
-    });
+    groupByOrg(reps.filter(r => r.score !== null)).forEach(o => { byEmpresa[o.label] = o.rs; });
     const DIMS_E = ['Enfoque','Procesos','Competencias','Proyección'];
     const stgColor = { CONFIANZA:'#E53935', 'ANÁLISIS':'#FB8C00', 'DELEGACIÓN':'#1565C0', PERSPECTIVA:'#2E7D32' };
     const wrap = document.getElementById('empresas-compare-wrap');
@@ -7161,7 +7163,7 @@ function renderEmpresasPanel() {
 }
 
 function downloadEmpresaPDF(key) {
-    const reps = getPymeReports().filter(r => (r.empresa_key || r.perfil?.empresa_key || r.name) === key && r.score !== null);
+    const reps = getPymeReports().filter(r => orgKeyOf(r) === normEmpresaNombre(key) && r.score !== null);
     if (!reps.length) return;
     const html = buildEmpresaReportHTML(key, reps);
     const w = window.open('', '_blank');
@@ -7509,9 +7511,9 @@ function buildInformeCompletoHTML(r) {
     const D = _sharedReportData(r);
     const {dimScores,total,weakest,strongest,pct,sc,fecha,stageDesc,lectura,fortalezaTexto,dimAdvice,radarSVG,mapaHTML,rankHTML,brechaHTML,CSS,hv} = D;
 
-    const empresa = r.empresa_key || r.perfil?.empresa_key || r.name;
+    const empresa = orgKeyOf(r);
     const peers = getPymeOrgReports().filter(rep => {
-        const k = rep.empresa_key || rep.perfil?.empresa_key || rep.name;
+        const k = orgKeyOf(rep);
         return k === empresa && rep.name !== r.name && Array.isArray(rep.h_vals) && rep.h_vals.length === 16;
     });
 
