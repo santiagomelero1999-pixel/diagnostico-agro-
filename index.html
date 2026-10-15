@@ -6205,7 +6205,7 @@ function _renderHallazgosEstadisticosInner(reps) {
     const spSat = satPairs.length>=4 ? statSpearman(satPairs.map(p=>p.sat), satPairs.map(p=>p.sc)) : null;
     // Niveles 1 y 2 se agrupan como "Insatisfecho" (escala 1–5); así se incluyen todos los casos con dato.
     const satGroups = [[1,2],[3],[4],[5]].map(levels=>{
-        const vs = satPairs.filter(p=>levels.includes(p.sat)).map(p=>p.sc);
+        const vs = satPairs.filter(p=>levels.includes(Math.floor(p.sat))).map(p=>p.sc); // promedio por organización (p. ej. 2,5) se asigna al nivel inferior
         const lab = levels.length>1 ? '1–2 — Insatisfecho' : `${levels[0]} — ${['','','','Neutro','Satisfecho','Muy satisfecho'][levels[0]]}`;
         return {label:lab, avg: vs.length?(vs.reduce((a,b)=>a+b)/vs.length).toFixed(1):null, n:vs.length};
     }).filter(g=>g.n>0);
