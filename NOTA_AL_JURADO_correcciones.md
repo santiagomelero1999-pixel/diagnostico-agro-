@@ -12,9 +12,9 @@ Agradezco las tres devoluciones. Respondo punto por punto, en el orden en que ca
 
 ### 1. Desajuste entre pregunta y diseño
 
-**Corregido parcialmente.** Se eliminó el lenguaje causal en el resumen, en los hallazgos, en las conclusiones y en el epílogo. El epílogo era el caso más claro: afirmaba que «lo que explica la diferencia son las personas» y descartaba a la tecnología, que nunca se midió. Ahora dice que ni la antigüedad ni el tamaño mostraron asociación, que sobre tecnología el trabajo no puede decir nada porque no fue medida, y que lo observado es una asociación en 73 respuestas y no una relación causal.
+**Corregido parcialmente.** Se eliminó el lenguaje causal en el resumen, en los hallazgos, en las conclusiones y en el epílogo. El epílogo era el caso más claro: afirmaba que «lo que explica la diferencia son las personas» y descartaba a la tecnología, que nunca se midió. Ahora dice que ni la antigüedad ni el tamaño mostraron asociación, que sobre tecnología el trabajo no puede decir nada porque no fue medida, y que lo observado es una asociación en 67 organizaciones y no una relación causal.
 
-**No corregido:** la reformulación del primer objetivo y la formulación de hipótesis explícitas. Son cambios de diseño, no de redacción, y rehacerlos implicaría reescribir el planteo del trabajo. Lo tomo para una eventual versión de publicación.
+**Corregido también:** el primer objetivo se reformuló en términos de factores asociados (apartados 1.4 y 5), y en 1.4 se formula de manera explícita la hipótesis de trabajo (H1): el desarrollo del factor humano está asociado con el avance del resto de las dimensiones de madurez, evaluada en términos de asociación y no de causalidad por tratarse de un diseño transversal de autoinforme. Las conclusiones de 5.1 remiten a esa hipótesis.
 
 ### 2. Unidad de análisis y criterios de inclusión
 
@@ -42,7 +42,7 @@ Queda señalado como la primera corrección a introducir en una próxima versió
 
 **Corregido parcialmente.** Se matizó la comparación con Molinari (2014): ahora el texto dice explícitamente que, al tratarse de instrumentos y categorías distintos, debe leerse como contextualización de la tendencia y no como validación cruzada del modelo.
 
-**No corregido:** la presentación del «bloque de saber hacer» como exploratorio y el tratamiento de la varianza de método común en la correlación Procesos–Competencias. Lo tomo para publicación.
+**Corregido también:** el Hallazgo 5 se presenta ahora de manera expresa como exploratorio, aclarando que el «bloque de saber hacer» no es una dimensión del instrumento sino un agrupamiento temático de reactivos construido a posteriori, sin prueba inferencial. En 4.4.6 se declara que ambas subescalas provienen del mismo cuestionario autoadministrado y que no puede descartarse varianza de método común, de modo que la lectura se sostiene como interpretación teórica y no como prueba. El contraste unilateral del Hallazgo 1 se justifica a priori a partir del marco teórico (Solymossy y Penna, 2005; Preumayr, 2025) y se acompaña de la regresión bilateral, que arroja el mismo resultado. La diferencia generacional dejó de presentarse como «crisis de sucesión» y se expone como hipótesis a profundizar, con la lectura de Perkins (2017) como explicación complementaria.
 
 ### 5. Marco conceptual
 
@@ -50,7 +50,9 @@ Queda señalado como la primera corrección a introducir en una próxima versió
 
 Se incorporó también la **Figura 1**, que reproduce el esquema de las cinco fases de Greiner, con cita completa.
 
-**No corregido:** la fundamentación de la traslación del modelo de Herrmann del plano individual al organizacional. Reconozco que es un salto que el trabajo usa sin justificar en profundidad.
+**Corregido también:** se agregó el apartado 2.6, que fundamenta la traslación del modelo de Herrmann (1989) del plano individual al organizacional. Se explicita que Daraio y Preumayr (2025) no sostienen que una empresa piense como un individuo, sino que utilizan los cuatro cuadrantes como esquema heurístico para ordenar las áreas de gestión, apoyados en la analogía persona-organización de 2.4.1 y en la extensión que el propio Herrmann hizo a equipos y organizaciones; se declara que es un uso organizador del modelo y no una extensión empírica de su validez.
+
+**Conservado por decisión del autor:** el epígrafe del Génesis que abre el Círculo de Confianza y las referencias aristotélicas de 2.2 y 2.4.1. Se mantienen como recurso de presentación y de analogía, no como sustento conceptual, que ahora descansa en la literatura incorporada.
 
 ### 6. Citas y bibliografía
 
@@ -85,13 +87,13 @@ Se incorporó además al panel una función de **enmascarado de razones sociales
 
 ### 9. Redacción y estructura
 
-**Corregido.** Se acotó el epílogo: se eliminó el catálogo de referencias de cultura popular (Terminator, Solaris) y se redujo a una línea el pasaje sobre Platón, la caja de Pandora y la Torre de Babel, que era el más tangencial. Se eliminaron las tríadas retóricas del cierre y la afirmación de que el humanismo es «la única clave para un futuro verdaderamente próspero», reemplazada por una formulación presentada explícitamente como opinión del autor.
+**Corregido.** Se acotó el epílogo: se eliminó el catálogo de referencias de cultura popular (Terminator, Solaris) y se redujo a una línea el pasaje sobre Platón, la caja de Pandora y la Torre de Babel, que era el más tangencial. El epílogo quedó en cinco párrafos breves, en tercera persona, que van de la inquietud contemporánea por la tecnología a lo que el piloto efectivamente observó, y cierran con la convicción del autor presentada como tal. Se eliminaron las tríadas retóricas del cierre y la afirmación de que el humanismo es «la única clave para un futuro verdaderamente próspero», reemplazada por una formulación presentada explícitamente como opinión del autor.
 
-Se unificó también el registro en los pasajes de lenguaje genérico que la devolución señalaba, y se corrigió la contradicción entre 3.4.7 y 5.3 sobre la devolución al respondente.
+Se realizó una corrección de estilo integral: se unificó el registro académico impersonal en todo el cuerpo, incluidos los apartados nuevos del marco teórico y de resultados, eliminando los giros coloquiales y las oraciones fragmentarias; se corrigieron los errores de tipeo y acentuación señalados; y se corrigió la contradicción entre 3.4.7 y 5.3 sobre la devolución al respondente. La justificación de la supresión de la escala de proyecto deseado es ahora la misma en 3.4.5 y en 5.2: una decisión pragmática.
 
 **Corregido también:** el Resumen quedó reducido a un párrafo de cierre que remite al capítulo 5, que pasa a ser el único lugar donde se desarrollan las conclusiones; el epílogo ya no las repite. Se reformuló además el título del hallazgo principal, que hablaba de «sincronismo funcional» entre Procesos y Competencias: la correlación observada (r = 0,498) proviene del mismo cuestionario autoadministrado y no autoriza esa lectura, de modo que ahora se presenta como dos dimensiones que se mueven juntas.
 
-**Pendiente:** la alineación fina del índice con los títulos del cuerpo y la paginación, que se actualiza al regenerar el índice.
+**Pendiente únicamente:** la paginación del índice, que se actualiza al regenerar el índice automático en la versión final; los títulos del índice ya coinciden con los del cuerpo.
 
 ---
 
@@ -99,7 +101,7 @@ Se unificó también el registro en los pasajes de lenguaje genérico que la dev
 
 ### 1. Citas de autor sin formato APA
 
-**Corregido parcialmente.** Se normalizaron las citas de Penna, Molinari y Dolan et al. La verificación completa de la bibliografía queda pendiente, como detallé en el punto 6 del Jurado 1.
+**Corregido.** Se normalizaron en formato APA las citas de Penna, Molinari y Dolan et al., y la bibliografía completa se verificó entrada por entrada, como se detalla en el punto 6 del Jurado 1.
 
 ### 2. Simplificación semántica para consultoría o empresarios PyME
 
@@ -107,7 +109,7 @@ Se unificó también el registro en los pasajes de lenguaje genérico que la dev
 
 ### 3. Definición de PyME del Ministerio de Economía
 
-**No corregido.** La tomo para una eventual versión de publicación. No la incorporé ahora por tratarse de una ampliación del marco conceptual y no de una corrección de consistencia, y porque la definición operativa que el trabajo utiliza —propiedad y gestión coincidentes, fines de lucro— es la que sostiene los criterios de inclusión y exclusión de la muestra.
+**Corregido.** El apartado 2.1 incorpora la definición normativa vigente en la Argentina: la Ley 24.467 (art. 2), el Registro de Empresas MiPyMES y las cuatro categorías creadas por la Resolución 220/2019, y los topes de ventas anuales para el sector agropecuario fijados por la Resolución 1/2026, que se presentan en la Tabla 1. Se explica por qué ambas definiciones son complementarias y por qué la muestra no se clasificó según los parámetros normativos: el instrumento no relevó facturación y 16 de las 67 organizaciones corresponden a otros países, cuyas legislaciones definen a la PyME con criterios propios.
 
 ---
 
@@ -119,7 +121,7 @@ Se unificó también el registro en los pasajes de lenguaje genérico que la dev
 
 ### 2. Inconsistencias entre títulos y subtítulos
 
-**Corregido parcialmente.** Se corrigió el título del apartado 4.4.4, que decía «La madurez aumenta con el tamaño de la dotación» y contradecía tanto al resumen como al apartado 5.1 y a la propia regresión múltiple, donde la dotación no resulta significativa (p = 0,36). Ahora se titula «El tamaño de la dotación se asocia con Procesos, pero no con la madurez global». La revisión integral de títulos contra el índice queda pendiente.
+**Corregido.** Se corrigió el título del apartado 4.4.4, que decía «La madurez aumenta con el tamaño de la dotación» y contradecía tanto al resumen como al apartado 5.1 y a la propia regresión múltiple, donde la dotación no resulta significativa (p = 0,28). Ahora se titula «El tamaño de la dotación se asocia con Procesos, pero no con la madurez global», y el título del hallazgo principal pasó a «Procesos y personas: dos dimensiones asociadas». Se revisaron todos los títulos y subtítulos contra el índice.
 
 ### 3. Citas sin año (Penna, Molinari)
 
@@ -151,11 +153,11 @@ La segunda es que quedaría expuesto el problema del primer reactivo de cada dim
 
 ### 8. ¿Las empresas están más en madurez porque incorporan agentes externos o porque su tamaño les permite incorporarlos? ¿La transición es independiente de la región?
 
-Sobre lo primero: el dato no permite separar las dos cosas con certeza, pero sí acota la respuesta. Las empresas con directivos externos promedian 6,1 puntos más (55,3 frente a 49,2). Como esas firmas tienden a ser también las de mayor dotación (ρ = 0,38), se estimó una regresión múltiple con ambas variables: el efecto de los directivos externos se mantiene (β = 5,2; p = 0,047) mientras que la dotación no resulta significativa (β = 1,1; p = 0,36). Eso sugiere que lo que se asocia con la madurez es la incorporación en sí y no el tamaño que la habilita.
+Sobre lo primero: el dato no permite separar las dos cosas con certeza, pero sí acota la respuesta. Sobre las 67 organizaciones, las empresas con directivos externos promedian 6,6 puntos más (55,7 frente a 49,1). Como esas firmas tienden a ser también las de mayor dotación (ρ = 0,383; p = 0,001), se estimó una regresión múltiple con ambas variables: el efecto de los directivos externos se mantiene (β = 5,4; p = 0,049) mientras que la dotación no resulta significativa (β = 1,4 por tramo; p = 0,28; R² = 0,11). Eso sugiere que lo que se asocia con la madurez es la incorporación en sí y no el tamaño que la habilita.
 
 Ahora bien, el diseño es transversal, de modo que la dirección queda abierta: es igual de posible que las empresas ya mejor gestionadas sean las que deciden incorporar directivos externos. Esa limitación está declarada en 5.2.
 
-Sobre la región: la prueba de Kruskal-Wallis no muestra diferencias significativas de puntaje entre las agrupaciones con más de tres casos (H = 3,49; p = 0,175; n = 70). Conviene aclarar, de todos modos, que el 53,4 % de la muestra está concentrado en Pampa Húmeda y que NEA/Cuyo quedó fuera del contraste por reunir solo tres casos. Con esa composición, la ausencia de diferencias regionales dice más sobre el sesgo de captación que sobre la independencia real de la variable.
+Sobre la región: la prueba de Kruskal-Wallis no muestra diferencias significativas de puntaje entre las agrupaciones con más de tres casos (H = 3,19; p = 0,203; n = 64 organizaciones). Corresponde aclarar, de todos modos, que el 52,2 % de la muestra está concentrado en Pampa Húmeda y que NEA/Cuyo quedó fuera del contraste por reunir solo tres casos. Con esa composición, la ausencia de diferencias regionales dice más sobre el sesgo de captación que sobre la independencia real de la variable.
 
 ---
 
@@ -164,13 +166,9 @@ Sobre la región: la prueba de Kruskal-Wallis no muestra diferencias significati
 | Observación | Jurado | Motivo |
 |---|---|---|
 | Invertir los ítems negativos y recalcular puntajes, Alfas y etapas | 1 | Rompería la comparabilidad con el instrumento original que el trabajo migra. Declarado como limitación en 3.5 |
-| Reformular el primer objetivo y formular hipótesis explícitas | 1 | Cambio de diseño, no de redacción |
 | Excluir el envío duplicado detectado | 1 | Implicaría rehacer los estadísticos del capítulo 4. Declarado como limitación |
-| Presentar el «bloque de saber hacer» como exploratorio | 1 | Pendiente para publicación |
-| Fundamentar la traslación del modelo de Herrmann al plano organizacional | 1 | Reconocido como salto no justificado en profundidad |
-| Alinear índice con títulos y condensar conclusiones repetidas | 1 y 3 | Pendiente |
+| Paginación del índice | 1 y 3 | Se actualiza al regenerar el índice en la versión final |
 | Simplificación semántica para consultoría | 2 | Corresponde a una versión de difusión |
-| Definición de PyME del Ministerio de Economía | 2 | Ampliación del marco, no corrección |
 
 # Segunda revisión (versión editada, 8/10)
 
