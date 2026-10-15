@@ -4748,7 +4748,7 @@ function toggleMask() {
     try { sessionStorage.setItem('maskNames', maskNames ? '1' : '0'); } catch (e) {}
     updateMaskBtn();
     /* Redibuja la vista activa */
-    ['renderTable', 'renderEmpresas', 'renderGrupos', 'renderContacts', 'renderResearchDash']
+    ['renderTable', 'renderEmpresasPanel', 'renderGrupos', 'renderContacts', 'renderResearchDash']
         .forEach(fn => { try { if (typeof window[fn] === 'function') window[fn](); } catch (e) {} });
 }
 
@@ -7124,7 +7124,9 @@ function renderEmpresasPanel() {
         wrap.innerHTML = '<p style="font-size:.82rem;color:var(--gray);">Sin datos — asigná una Empresa canónica a registros de la misma PyME desde "Editar" (tab Registros).</p>';
         return;
     }
-    wrap.innerHTML = multi.map(([empName, rs]) => {
+    wrap.innerHTML = multi.map(([empName, rs], mi) => {
+        /* Con enmascarado activo, cada empresa se muestra como "Empresa A, B, C…" (como en la tesis). */
+        const dispName = maskNames ? `Empresa ${String.fromCharCode(65 + mi)}` : empName;
         const avg = Math.round(rs.reduce((a,r)=>a+r.score,0)/rs.length);
         const diff = Math.max(...rs.map(r=>r.score)) - Math.min(...rs.map(r=>r.score));
         const rows = rs.slice().sort((a,b)=>(b.score||0)-(a.score||0)).map(r => {
@@ -7132,7 +7134,7 @@ function renderEmpresasPanel() {
             const dims = DIMS_E.map((_,di) => r.h_vals ? r.h_vals.slice(di*4,di*4+4).reduce((a,b)=>a+b,0) : '—');
             const badge = `<span style="background:${stgColor[r.etapa]||'#888'};color:#fff;font-size:.6rem;font-weight:700;padding:2px 6px;border-radius:2px;letter-spacing:.5px;">${r.etapa}</span>`;
             return `<tr>
-                <td style="font-size:.8rem;">${h(r.name)}</td>
+                <td style="font-size:.8rem;">${h(maskNames ? dispName : r.name)}</td>
                 <td style="font-size:.75rem;color:var(--gray);">${h(rol)}</td>
                 <td><strong>${r.score}</strong><span style="color:var(--gray)">/80</span></td>
                 <td>${badge}</td>
@@ -7142,7 +7144,7 @@ function renderEmpresasPanel() {
         const safeKey = h(empName).replace(/'/g, "\\'");
         return `<div style="margin-bottom:24px;border:1.5px solid var(--border);padding:16px 18px;">
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px;">
-                <div style="font-size:.9rem;font-weight:700;color:var(--primary);">${h(empName)}</div>
+                <div style="font-size:.9rem;font-weight:700;color:var(--primary);">${h(dispName)}</div>
                 <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
                     <span style="font-size:.78rem;color:var(--gray);">${rs.length} respuesta${rs.length!==1?'s':''} · Prom: <strong>${avg}/80</strong> · Dispersión: <strong style="color:${diff>10?'#C62828':'var(--accent)'};">${diff} pts</strong></span>
                     <button class="btn-xs bx-accent" onclick="downloadEmpresaPDF('${safeKey}')">📄 Descargar PDF</button>
