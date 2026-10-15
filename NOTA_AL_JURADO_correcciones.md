@@ -201,7 +201,7 @@ Todos los puntos señalados se incorporaron en el documento. Se detallan por sec
 | Tabla 14 | Texto en negrita con guiones | Convertida en tabla. |
 | Referencias | Platón y Lem sin cita; URL duplicada | Entradas eliminadas; URL única. |
 | 6 | Madre Teresa «como se citó en Preumayr, 2025» | Verificado: la cita figura en la tesis de Preumayr (2025). |
-| 6 | Registro del epílogo | Reescrito en tercera persona (sin primera persona singular ni plural), según Jurado 1, punto 9. |
+| 6 | Registro y extensión del epílogo | Reescrito en tercera persona y reducido de ocho párrafos a tres (de unas 5.700 a 2.800 caracteres), conservando todas las citas; responde al punto 9 del Jurado 1 («extenso y tangencial», oscilación de persona). |
 | QuillBot | «no fue neutral, fue una decisión»; «no invalida… lo contextualiza»; «lejos de invalidar»; «llegar no es quedarse»; bloques «En síntesis» | Todos reformulados; los cuatro bloques de 2.7 llevan ahora un encabezado descriptivo propio. |
 
 Sobre Molinari: las citas «Molinari (2012/2023)» remiten al libro *El salto del dueño* y «Molinari (2014)» a la presentación de diapositivas sobre 715 empresas; son dos fuentes distintas y ambas figuran en las referencias. Del mismo modo, «Daraio y Preumayr (2025)» es el documento de cátedra del modelo y «Preumayr y Daraio (2025)» la herramienta de Excel, según el orden de autores de cada fuente.
