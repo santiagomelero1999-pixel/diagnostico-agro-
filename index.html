@@ -4053,7 +4053,15 @@ async function pullFromSupabase() {
    PERSISTENCIA
 ---------------------------------------------------------------- */
 function getReports() {
-    try { return JSON.parse(localStorage.getItem('agro_reports') || '[]'); }
+    try {
+        const arr = JSON.parse(localStorage.getItem('agro_reports') || '[]');
+        /* La base guarda "equipoDirectivo"; el análisis lee "equipoDir" */
+        arr.forEach(r => {
+            if (r.perfil && r.perfil.equipoDir == null && r.perfil.equipoDirectivo != null)
+                r.perfil.equipoDir = r.perfil.equipoDirectivo;
+        });
+        return arr;
+    }
     catch(e) { return []; }
 }
 function setReports(arr) { localStorage.setItem('agro_reports', JSON.stringify(arr)); }
@@ -4256,7 +4264,7 @@ function renderTable() {
 
     if (!rep.length) { emp.style.display='block'; return; }
     emp.style.display = 'none';
-    rep.forEach((r) => {
+    belinaFirst(rep).forEach((r) => {
         // Use real index in allRep so openView/openEdit/delReport work correctly when filtered
         const realIdx = allRep.indexOf(r);
         const d = new Date(r.ts).toLocaleDateString('es-AR',{day:'2-digit',month:'2-digit',year:'numeric'});
@@ -4267,7 +4275,7 @@ function renderTable() {
         tr.innerHTML = `
           <td>${d}</td>
           <td><strong>${h(maskName(r.name))}</strong>${grpBadge}</td>
-          <td>${h(r.contact)}</td>
+          <td>${h(maskContact(r))}</td>
           <td style="max-width:140px; font-size:.8rem;">${h(r.sector)}</td>
           <td><span class="tbl-badge">${h(r.etapa)}</span></td>
           <td><strong>${r.score}</strong><span style="color:var(--gray)">/80</span></td>
@@ -4442,8 +4450,8 @@ function openView(i) {
 
     document.getElementById('mv-body').innerHTML = `
         <div class="m-grid">
-            <div class="m-info-block"><label>Empresa</label><p>${h(r.name)}</p></div>
-            <div class="m-info-block"><label>Contacto</label><p>${h(r.contact)}</p></div>
+            <div class="m-info-block"><label>Empresa</label><p>${h(maskName(r.name))}</p></div>
+            <div class="m-info-block"><label>Contacto</label><p>${h(maskContact(r))}</p></div>
             <div class="m-info-block"><label>Sector</label><p>${h(r.sector)}</p></div>
             <div class="m-info-block"><label>Fecha</label><p>${d}</p></div>
             <div class="m-info-block"><label>Etapa</label><p><strong>${h(r.etapa)}</strong></p></div>
@@ -4739,6 +4747,17 @@ function maskName(s) {
     if (!maskNames || !String(s || '').trim()) return s;
     return esExcepcionMask(s) ? s : MASK_SIMBOLO;
 }
+/* El mail se oculta salvo que la organizacion sea una excepcion */
+function maskContact(r) {
+    const c = r?.contact;
+    if (!maskNames || !String(c || '').trim()) return c;
+    return esExcepcionMask(r.name) || esExcepcionMask(r.empresa_key || r.perfil?.empresa_key) ? c : MASK_SIMBOLO;
+}
+/* Pone primero a las excepciones (Establecimiento Belina SRL), resto en su orden */
+function belinaFirst(arr, keyFn = r => [r.name, r.empresa_key || r.perfil?.empresa_key]) {
+    const esB = x => [].concat(keyFn(x)).some(esExcepcionMask);
+    return arr.filter(esB).concat(arr.filter(x => !esB(x)));
+}
 function updateMaskBtn() {
     const b = document.getElementById('btn-mask');
     if (b) b.textContent = maskNames ? '🙈 Nombres: ocultos' : '👁 Nombres: visibles';
@@ -5025,7 +5044,7 @@ async function renderGrupoDash(code) {
         (strongest.name !== weakest.name ? ` · Mayor fortaleza del grupo: <strong>${strongest.name}</strong> (${strongest.avg}/20)` : '');
 
     // Participants table
-    document.getElementById('gdash-tbody').innerHTML = members.map((r, i) => {
+    document.getElementById('gdash-tbody').innerHTML = belinaFirst(members).map((r, i) => {
         const dims = [0,1,2,3].map(di => r.h_vals.slice(di*4,di*4+4).reduce((a,b)=>a+b,0));
         const stColor = stageColors[r.etapa] || '#888';
         return `<tr>
@@ -5361,9 +5380,9 @@ function renderContacts() {
     const tbody = document.getElementById('contacts-tbody');
     tbody.innerHTML = unique.length === 0
         ? '<tr><td colspan="5" style="text-align:center;color:var(--gray);padding:32px;">Sin contactos registrados aún.</td></tr>'
-        : unique.map(r => `<tr>
+        : belinaFirst(unique).map(r => `<tr>
             <td>${esc(maskName(r.name)||'—')}</td>
-            <td><strong>${esc(r.contact)}</strong></td>
+            <td><strong>${esc(maskContact(r))}</strong></td>
             <td>${esc(r.sector||'—')}</td>
             <td>${r.etapa||'—'}</td>
             <td>${r.ts ? r.ts.slice(0,10) : '—'}</td>
@@ -7124,9 +7143,11 @@ function renderEmpresasPanel() {
         wrap.innerHTML = '<p style="font-size:.82rem;color:var(--gray);">Sin datos — asigná una Empresa canónica a registros de la misma PyME desde "Editar" (tab Registros).</p>';
         return;
     }
-    wrap.innerHTML = multi.map(([empName, rs], mi) => {
-        /* Con enmascarado activo, cada empresa se muestra como "Empresa A, B, C…" (como en la tesis). */
-        const dispName = maskNames ? `Empresa ${String.fromCharCode(65 + mi)}` : empName;
+    /* Establecimiento Belina SRL va primera y con su nombre; el resto, "Empresa A, B, C…" (como en la tesis). */
+    const esBelinaOrg = ([k, rs]) => [k, ...rs.map(r => r.name)].some(esExcepcionMask);
+    let letra = 0;
+    wrap.innerHTML = belinaFirst(multi, ([k, rs]) => [k, ...rs.map(r => r.name)]).map(([empName, rs]) => {
+        const dispName = (!maskNames || esBelinaOrg([empName, rs])) ? empName : `Empresa ${String.fromCharCode(65 + letra++)}`;
         const avg = Math.round(rs.reduce((a,r)=>a+r.score,0)/rs.length);
         const diff = Math.max(...rs.map(r=>r.score)) - Math.min(...rs.map(r=>r.score));
         const rows = rs.slice().sort((a,b)=>(b.score||0)-(a.score||0)).map(r => {
@@ -7134,7 +7155,7 @@ function renderEmpresasPanel() {
             const dims = DIMS_E.map((_,di) => r.h_vals ? r.h_vals.slice(di*4,di*4+4).reduce((a,b)=>a+b,0) : '—');
             const badge = `<span style="background:${stgColor[r.etapa]||'#888'};color:#fff;font-size:.6rem;font-weight:700;padding:2px 6px;border-radius:2px;letter-spacing:.5px;">${r.etapa}</span>`;
             return `<tr>
-                <td style="font-size:.8rem;">${h(maskNames ? dispName : r.name)}</td>
+                <td style="font-size:.8rem;">${h(maskNames && !esExcepcionMask(r.name) ? dispName : r.name)}</td>
                 <td style="font-size:.75rem;color:var(--gray);">${h(rol)}</td>
                 <td><strong>${r.score}</strong><span style="color:var(--gray)">/80</span></td>
                 <td>${badge}</td>
@@ -7522,7 +7543,7 @@ function buildInformeCompletoHTML(r) {
     });
 
     // Análisis por dimensión — 4 cards, cada una con sus 4 preguntas
-    const peerColH = peers.map(p=>'<th style="padding:6px 8px;background:#E8F5E9;color:#2E7D32;font-size:.68rem;font-weight:700;">'+(p.name?.split(' ')[0]||'Resp.')+'<br><span style="font-weight:400;font-size:.6rem;">'+(p.perfil?.rol||'')+'</span></th>').join('');
+    const peerColH = peers.map(p=>'<th style="padding:6px 8px;background:#E8F5E9;color:#2E7D32;font-size:.68rem;font-weight:700;">'+(maskName(p.name)?.split(' ')[0]||'Resp.')+'<br><span style="font-weight:400;font-size:.6rem;">'+(p.perfil?.rol||'')+'</span></th>').join('');
     const dimDetailHTML = DIMS.map((dim,di)=>{
         const dScore = dimScores[di].score;
         const dPct = (dScore/20*100).toFixed(0);
@@ -7639,7 +7660,7 @@ function buildInformeCompletoHTML(r) {
     // Perfil completo
     const ts = r.ts ? new Date(r.ts).toLocaleString('es-AR',{day:'2-digit',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'}) : '—';
     const perfilFields = [
-        ['Empresa canónica',empresa],['Contacto',r.contact],['Grupo',r.grupo||r.perfil?.grupo],
+        ['Empresa canónica',maskName(empresa)],['Contacto',maskContact(r)],['Grupo',r.grupo||r.perfil?.grupo],
         ['Rol',r.perfil?.rol||r.rol],['Sector',r.sector||r.perfil?.sector],
         ['Provincia',r.perfil?.provincia],['Región',r.perfil?.region],['País',r.perfil?.pais],
         ['Antigüedad',r.perfil?.antiguedad],['Empleados',r.perfil?.empleados],

@@ -12,7 +12,9 @@ export default async function handler(req, res) {
         return res.status(405).json({ error: { message: 'Método no permitido' } });
     }
 
-    const GROQ_KEY = process.env.GROQ_API_KEY;
+    /* Tolera espacios, comillas o un "Bearer " pegado junto con la clave */
+    const GROQ_KEY = String(process.env.GROQ_API_KEY || '')
+        .trim().replace(/^["']|["']$/g, '').replace(/^bearer\s+/i, '').trim();
     if (!GROQ_KEY) {
         return res.status(500).json({
             error: { message: 'Falta configurar GROQ_API_KEY en las variables de entorno de Vercel.' }
@@ -42,6 +44,11 @@ export default async function handler(req, res) {
         });
 
         const data = await r.json();
+        if (r.status === 401) {
+            return res.status(401).json({
+                error: { message: 'La clave de Groq configurada en Vercel (GROQ_API_KEY) no es válida. Volvé a copiarla completa desde console.groq.com.' }
+            });
+        }
         return res.status(r.ok ? 200 : r.status).json(data);
     } catch (e) {
         return res.status(500).json({ error: { message: 'No se pudo consultar al modelo: ' + e.message } });
